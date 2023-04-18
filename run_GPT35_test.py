@@ -14,10 +14,8 @@ from api_request.gpt35_completion import gpt35_completion
 from api_request.ada_completion import ada_completion
 from api_request.babbage_completion import babbage_completion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
-from utils.sql import sql_pred_parse, sv_dict_to_string
-from utils.our_parse import our_pred_parse
-from prompt.prompting import get_prompt, conversion, table_prompt
-from prompt.our_prompting import get_our_prompt, custom_prompt
+from utils.our_parse import our_pred_parse, sv_dict_to_string
+from prompt.our_prompting import get_our_prompt, conversion, custom_prompt
 from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
 from evaluate.evaluate_FGA import FGA
@@ -30,14 +28,15 @@ parser.add_argument('--output_file_name', type=str, default="debug", help="filen
 parser.add_argument('--output_dir', type=str, default="./expts/debug", help="dir to save running log and configs")
 parser.add_argument('--mwz_ver', type=str, default="2.1", choices=['2.1', '2.4'], help="version of MultiWOZ")  
 parser.add_argument('--test_fn', type=str, default='', help="file to evaluate on, empty means use the test set")
-parser.add_argument('--save_interval', type=int, default=10, help="interval to save running_log.json")
+parser.add_argument('--save_interval', type=int, default=5, help="interval to save running_log.json")
+parser.add_argument('--test_size', type=int, default=10, help="size of the test set")
 args = parser.parse_args()
 
 # current time
 cur_time = time.strftime('%y%m%d_%H%M-')
 
 # create the output folder
-args.output_dir = 'expts/' + cur_time + args.output_file_name
+args.output_dir = 'expts/' + cur_time + args.output_file_name + '_0to' + str(args.test_size)
 os.makedirs(args.output_dir, exist_ok=True)
 
 with open(os.path.join(args.output_dir, "exp_config.json"), 'w') as f:
@@ -106,7 +105,7 @@ def run(test_set, turn=-1, use_gold=False):
 
         completion = ""
         if use_gold:
-            prompt_text = get_prompt(
+            prompt_text = get_our_prompt(
                 data_item, examples=retriever.item_to_nearest_examples(data_item, k=NUM_EXAMPLE))
         else:
             predicted_context = prediction_recorder.state_retrieval(data_item)
@@ -120,6 +119,8 @@ def run(test_set, turn=-1, use_gold=False):
                 data_item, examples=examples, given_context=predicted_context)
 
         print(prompt_text.replace(conversion(custom_prompt), ""))
+        # time.stop(100)
+        # for prompt
 
         # record the prompt
         data_item['prompt'] = prompt_text
@@ -149,7 +150,7 @@ def run(test_set, turn=-1, use_gold=False):
                     temp_parse = our_pred_parse(completion)
                 except:
                     parse_error_count += 1
-                    if parse_error_count >= 5:
+                    if parse_error_count >= 3:
                         complete_flag = True
                 else:
                     complete_flag = True
@@ -251,7 +252,7 @@ def run(test_set, turn=-1, use_gold=False):
 if __name__ == "__main__":
 
     # api 사용량 위해 개수 제한
-    limited_set = test_set[:368]
+    limited_set = test_set[:args.test_size]
     all_results = run(limited_set)
 
     with open(os.path.join(args.output_dir, "running_log.json"), 'w') as f:
@@ -262,4 +263,5 @@ if __name__ == "__main__":
         fga_result = FGA(args.output_dir)
         f.write("\nFGA Result\n")
         f.write("\n".join(fga_result))
-        
+    
+    print(f"End time: {time.strftime('%y%m%d_%H%M')}")

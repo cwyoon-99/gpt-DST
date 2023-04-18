@@ -1,5 +1,3 @@
-from utils.sql import slot_values_to_seq_sql
-
 custom_prompt = """Your task is to find the changed domain-slots based on the context and the dialogue between user and system, and find the corresponding value.
 The following lists are domain-slots and their possible values.
 you don't have to find other changed domain-slots if they are not in the list.
@@ -70,7 +68,7 @@ def get_our_prompt(data_item, examples, given_context=None, n_examples=None):
             last_slot_values = {s: v.split(
                 '|')[0] for s, v in example['last_slot_values'].items()}
             
-            prompt_text += f"[context] {conversion(', '.join({f'{slot} = {value}' for slot, value in last_slot_values.items()}))}\n"
+            prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in last_slot_values.items()}))}\n"
 
             last_sys_utt = example['dialog']['sys'][-1]
             if last_sys_utt == 'none':
@@ -79,7 +77,7 @@ def get_our_prompt(data_item, examples, given_context=None, n_examples=None):
             prompt_text += f"[user] {example['dialog']['usr'][-1]}\n"
             prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
 
-            prompt_text += f"A: ({conversion(', '.join({f'{slot} = {value}' for slot, value in example['turn_slot_values'].items()}))})\n"
+            prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
             prompt_text += "\n\n"
 
     prompt_text += f"Example #{max_n_examples + 1}\n"
@@ -97,8 +95,8 @@ def get_our_prompt(data_item, examples, given_context=None, n_examples=None):
     prompt_text += f"[system] {last_sys_utt}\n"
     prompt_text += f"[user] {question_item['dialog']['usr'][-1]}\n"
     
-    prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n\n"
-    prompt_text += "A:"
+    prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
+    prompt_text += "A: "
 
     return prompt_text
 
