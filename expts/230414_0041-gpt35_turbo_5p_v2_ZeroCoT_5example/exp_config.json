@@ -1,0 +1,9 @@
+{
+    "train_fn": "data/mw21_5p_train_v2.json",
+    "retriever_dir": "retriever/expts/mw21_5p_v2",
+    "output_file_name": "gpt35_turbo_5p_v2_ZeroCoT_5example",
+    "output_dir": "expts/230414_0041-gpt35_turbo_5p_v2_ZeroCoT_5example",
+    "mwz_ver": "2.4",
+    "test_fn": "",
+    "save_interval": 2
+}

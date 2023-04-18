@@ -1,0 +1,14 @@
+correct 28/50  =  0.56
+Slot Acc 0.9846666666666667
+Joint F1 0.9408852813852815
+accuracy of turn 0 is 6/6 = 1.0
+accuracy of turn 1 is 6/6 = 1.0
+accuracy of turn 2 is 3/6 = 0.5
+accuracy of turn 3 is 3/6 = 0.5
+accuracy of turn 4 is 2/5 = 0.4
+accuracy of turn 5 is 2/5 = 0.4
+accuracy of turn 6 is 3/5 = 0.6
+accuracy of turn 7 is 1/3 = 0.3333333333333333
+accuracy of turn 8 is 1/3 = 0.3333333333333333
+accuracy of turn 9 is 1/3 = 0.3333333333333333
+accuracy of turn 10 is 0/2 = 0.0

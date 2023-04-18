@@ -1,0 +1,10 @@
+data/*
+!data/data
+!data/utils
+!data/create_data.py
+!data/preprocess.sh
+!data/sample.py
+./config.py
+__pycache__/
+retriever/expts/
+utils/__pycache__/
