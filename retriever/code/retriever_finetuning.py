@@ -51,7 +51,7 @@ pretrained_train_retriever = IndexRetriever(datasets=[train_set],
 )
 
 
-
+# load multiWoZ and calculate all similiarities of dialogue states between turns  
 class MWDataset:
 
     def __init__(self, mw_json_fn,  just_embed_all=False):
@@ -139,6 +139,7 @@ class MWContrastiveDataloader:
             similarities = self.f1_set.similarity_matrix[ind][nearest_args]
             sorted_args = similarities.argsort()
 
+            # sort한 것에서 상위 k개, 하위 k개 뽑음
             chosen_positive_args = list(sorted_args[-topk:])
             chosen_negative_args = list(sorted_args[:topk])
 
@@ -206,6 +207,7 @@ mw_train_loader = MWContrastiveDataloader(
 
 # store embedding function
 def store_embed(dataset, output_filename):
+    # dataset.turn_utts에는 history가 담김 (context + sys_utt + usr_utt)
     embeddings = model.encode(dataset.turn_utts, convert_to_numpy=True)
     output = {}
     for i in tqdm(range(len(embeddings))):

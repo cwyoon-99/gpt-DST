@@ -1,0 +1,10 @@
+{
+    "train_fn": "data/mw21_5p_train_v2.json",
+    "retriever_dir": "retriever/expts/mw21_5p_v2",
+    "output_file_name": "gpt35_turbo_5p_v2_slot_classify_prompt_0to368",
+    "output_dir": "expts/230419_0129-gpt35_turbo_5p_v2_slot_classify_prompt_0to368",
+    "mwz_ver": "2.4",
+    "test_fn": "",
+    "save_interval": 10,
+    "slot_classify": true
+}

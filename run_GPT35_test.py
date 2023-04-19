@@ -14,8 +14,8 @@ from api_request.gpt35_completion import gpt35_completion
 from api_request.ada_completion import ada_completion
 from api_request.babbage_completion import babbage_completion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
-from utils.our_parse import our_pred_parse_with_bracket, sv_dict_to_string
-from prompt.our_prompting import get_prompt_with_bracket, conversion, custom_prompt
+from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket
+from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket, get_slot_classify_prompt, slot_classify_prompt, slot_description_prompt
 from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
 from evaluate.evaluate_FGA import FGA
@@ -28,8 +28,10 @@ parser.add_argument('--output_file_name', type=str, default="debug", help="filen
 parser.add_argument('--output_dir', type=str, default="./expts/debug", help="dir to save running log and configs")
 parser.add_argument('--mwz_ver', type=str, default="2.1", choices=['2.1', '2.4'], help="version of MultiWOZ")  
 parser.add_argument('--test_fn', type=str, default='', help="file to evaluate on, empty means use the test set")
-parser.add_argument('--save_interval', type=int, default=5, help="interval to save running_log.json")
+parser.add_argument('--save_interval', type=int, default=10, help="interval to save running_log.json")
 parser.add_argument('--test_size', type=int, default=10, help="size of the test set")
+parser.add_argument('--bracket', action="store_true", help="whether brackets are used in each domain-slot")
+parser.add_argument('--slot_classify', action="store_true", help="whether slots are predicted through index number")
 args = parser.parse_args()
 
 # current time
@@ -100,6 +102,20 @@ def run(test_set, turn=-1, use_gold=False):
     total_acc = 0
     total_f1 = 0
 
+    # specify ontology_prompt, prompt_function
+    if args.bracket:
+        ontology_prompt = custom_prompt
+        get_prompt = get_prompt_with_bracket
+        our_parse = our_pred_parse_with_bracket
+    elif args.slot_classify:
+        ontology_prompt = slot_description_prompt # slot_classify_prompt
+        get_prompt = get_slot_classify_prompt
+        our_parse = slot_classify_parse
+    else:
+        ontology_prompt = custom_prompt
+        get_prompt = get_our_prompt
+        our_parse = our_pred_parse
+
     for data_idx, data_item in enumerate(tqdm(selected_set)):
         n_total += 1
 
@@ -115,12 +131,10 @@ def run(test_set, turn=-1, use_gold=False):
             examples = retriever.item_to_nearest_examples(
                 modified_item, k=NUM_EXAMPLE)
             
-            prompt_text = get_prompt_with_bracket(
+            prompt_text = get_prompt(
                 data_item, examples=examples, given_context=predicted_context)
 
         print(prompt_text.replace(conversion(custom_prompt), ""))
-        # time.stop(100)
-        # for prompt
 
         # record the prompt
         data_item['prompt'] = prompt_text
@@ -139,7 +153,7 @@ def run(test_set, turn=-1, use_gold=False):
                 if e.user_message.startswith("This model's maximum context length"):
                     print("prompt overlength")
                     examples = examples[1:]
-                    prompt_text = get_prompt_with_bracket(
+                    prompt_text = get_prompt(
                         data_item, examples=examples, given_context=predicted_context)
                 else:
                     # throughput too high
@@ -147,7 +161,7 @@ def run(test_set, turn=-1, use_gold=False):
             else:
                 try:
                     # check if CODEX is crazy 
-                    temp_parse = our_pred_parse_with_bracket(completion)
+                    temp_parse = our_parse(completion)
                 except:
                     parse_error_count += 1
                     if parse_error_count >= 3:
@@ -160,7 +174,7 @@ def run(test_set, turn=-1, use_gold=False):
         # aggregate the prediction and the history states
         predicted_slot_values = {}
         try:
-            predicted_slot_values = our_pred_parse_with_bracket(completion) # a dictionary
+            predicted_slot_values = our_parse(completion) # a dictionary
         except:
             print("the output is not a valid result")
             data_item['not_valid'] = 1
