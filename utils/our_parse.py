@@ -32,9 +32,9 @@ def our_pred_parse_with_bracket(pred):
     pred_slot_values = {}
 
     value_assigner = "="
-    slot_value = pred.split(', ')
+    slot_value = pred.split(',')
     for i in slot_value:
-        i = i.strip('()')
+        i = i.replace("(","").replace(")","")
         if value_assigner not in i:
            continue
         else:

@@ -15,7 +15,7 @@ from api_request.ada_completion import ada_completion
 from api_request.babbage_completion import babbage_completion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
 from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket
-from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket, get_slot_classify_prompt, slot_classify_prompt, slot_description_prompt
+from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_bracket_prompt, get_slot_classify_prompt, get_bracket_neg_ex_prompt, slot_classify_prompt, slot_description_prompt, custom_prompt_with_neg_ex
 from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
 from evaluate.evaluate_FGA import FGA
@@ -32,6 +32,7 @@ parser.add_argument('--save_interval', type=int, default=10, help="interval to s
 parser.add_argument('--test_size', type=int, default=10, help="size of the test set")
 parser.add_argument('--bracket', action="store_true", help="whether brackets are used in each domain-slot")
 parser.add_argument('--slot_classify', action="store_true", help="whether slots are predicted through index number")
+parser.add_argument('--neg_ex', action="store_true", help="bracket + negative examples")
 args = parser.parse_args()
 
 # current time
@@ -105,12 +106,16 @@ def run(test_set, turn=-1, use_gold=False):
     # specify ontology_prompt, prompt_function
     if args.bracket:
         ontology_prompt = custom_prompt
-        get_prompt = get_prompt_with_bracket
+        get_prompt = get_bracket_prompt
         our_parse = our_pred_parse_with_bracket
     elif args.slot_classify:
         ontology_prompt = slot_description_prompt # slot_classify_prompt
         get_prompt = get_slot_classify_prompt
         our_parse = slot_classify_parse
+    elif args.neg_ex:
+        ontology_prompt = custom_prompt_with_neg_ex
+        get_prompt = get_bracket_neg_ex_prompt
+        our_parse = our_pred_parse_with_bracket
     else:
         ontology_prompt = custom_prompt
         get_prompt = get_our_prompt
@@ -121,7 +126,7 @@ def run(test_set, turn=-1, use_gold=False):
 
         completion = ""
         if use_gold:
-            prompt_text = get_prompt_with_bracket(
+            prompt_text = get_prompt(
                 data_item, examples=retriever.item_to_nearest_examples(data_item, k=NUM_EXAMPLE))
         else:
             predicted_context = prediction_recorder.state_retrieval(data_item)
@@ -134,7 +139,7 @@ def run(test_set, turn=-1, use_gold=False):
             prompt_text = get_prompt(
                 data_item, examples=examples, given_context=predicted_context)
 
-        print(prompt_text.replace(conversion(custom_prompt), ""))
+        print(prompt_text.replace(conversion(ontology_prompt), ""))
 
         # record the prompt
         data_item['prompt'] = prompt_text
@@ -268,7 +273,6 @@ if __name__ == "__main__":
     # api 사용량 위해 개수 제한
     limited_set = test_set[:args.test_size]
     all_results = run(limited_set)
-    all_results.append(f"End time: {time.strftime('%y%m%d_%H%M')}")
 
     with open(os.path.join(args.output_dir, "running_log.json"), 'w') as f:
         json.dump(all_results, f, indent=4)
