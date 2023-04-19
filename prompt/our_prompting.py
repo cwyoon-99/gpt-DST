@@ -246,7 +246,7 @@ def get_slot_classify_prompt(data_item, examples, given_context=None, n_examples
             last_slot_values = {s: v.split(
                 '|')[0] for s, v in example['last_slot_values'].items()}
             
-            prompt_text += f"[context] {conversion(', '.join({f'{slot_to_idx(slot)} = {value}' for slot, value in last_slot_values.items()}))}\n"
+            prompt_text += f"[context] {conversion(', '.join({f'({slot_to_idx(slot)} = {value})' for slot, value in last_slot_values.items()}))}\n"
 
             last_sys_utt = example['dialog']['sys'][-1]
             if last_sys_utt == 'none':
@@ -255,7 +255,7 @@ def get_slot_classify_prompt(data_item, examples, given_context=None, n_examples
             prompt_text += f"[user] {example['dialog']['usr'][-1]}\n"
             prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
 
-            prompt_text += f"A: {conversion(', '.join({f'{slot_to_idx(slot)} = {value}' for slot, value in example['turn_slot_values'].items()}))}\n"
+            prompt_text += f"A: {conversion(', '.join({f'({slot_to_idx(slot)} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
             prompt_text += "\n\n"
 
     prompt_text += f"Example #{max_n_examples + 1}\n"
@@ -265,7 +265,7 @@ def get_slot_classify_prompt(data_item, examples, given_context=None, n_examples
             '|')[0] for s, v in question_item['last_slot_values'].items()}
     else:
         last_slot_values = given_context
-    prompt_text += f"[context] {conversion(', '.join({f'{slot_to_idx(slot)} = {value}' for slot, value in last_slot_values.items()}))}\n"
+    prompt_text += f"[context] {conversion(', '.join({f'({slot_to_idx(slot)} = {value})' for slot, value in last_slot_values.items()}))}\n"
 
     last_sys_utt = question_item['dialog']['sys'][-1]
     if last_sys_utt == 'none':

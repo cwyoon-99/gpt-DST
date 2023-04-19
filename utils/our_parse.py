@@ -34,7 +34,7 @@ def our_pred_parse_with_bracket(pred):
     value_assigner = "="
     slot_value = pred.split(', ')
     for i in slot_value:
-        i = i.strip('()')
+        i = i.replace("(","").replace(")","")
         if value_assigner not in i:
            continue
         else:
@@ -59,6 +59,7 @@ def slot_classify_parse(pred):
 
     value_assigner = "="
     for i in slot_value:
+      i = i.replace("(","").replace(")","")
       if value_assigner not in i:
         continue
       else:

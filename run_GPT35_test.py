@@ -14,7 +14,7 @@ from api_request.gpt35_completion import gpt35_completion
 from api_request.ada_completion import ada_completion
 from api_request.babbage_completion import babbage_completion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
-from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket
+from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket, slot_classify_parse
 from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket, get_slot_classify_prompt, slot_classify_prompt, slot_description_prompt
 from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
@@ -103,18 +103,23 @@ def run(test_set, turn=-1, use_gold=False):
     total_f1 = 0
 
     # specify ontology_prompt, prompt_function
+    mode = "default"
     if args.bracket:
         ontology_prompt = custom_prompt
         get_prompt = get_prompt_with_bracket
         our_parse = our_pred_parse_with_bracket
+        mode = "with_bracket"
     elif args.slot_classify:
         ontology_prompt = slot_description_prompt # slot_classify_prompt
         get_prompt = get_slot_classify_prompt
         our_parse = slot_classify_parse
+        mode = "slot_classify"
     else:
         ontology_prompt = custom_prompt
         get_prompt = get_our_prompt
         our_parse = our_pred_parse
+
+    print("********* "+ mode + " *********\n")
 
     for data_idx, data_item in enumerate(tqdm(selected_set)):
         n_total += 1
@@ -163,8 +168,11 @@ def run(test_set, turn=-1, use_gold=False):
                     # check if CODEX is crazy 
                     temp_parse = our_parse(completion)
                 except:
+                    print("parse error")
+                    print("generate completion again...")
                     parse_error_count += 1
                     if parse_error_count >= 3:
+                        print("exceed parse error limit... exit")
                         complete_flag = True
                 else:
                     complete_flag = True
