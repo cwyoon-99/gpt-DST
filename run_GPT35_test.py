@@ -15,9 +15,9 @@ from api_request.ada_completion import ada_completion
 from api_request.babbage_completion import babbage_completion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
 from utils.sql import sql_pred_parse, sv_dict_to_string
-from utils.our_parse import our_pred_parse
+from utils.our_parse import our_pred_parse, slot_classify_parse
 from prompt.prompting import get_prompt, conversion, table_prompt
-from prompt.our_prompting import get_our_prompt, custom_prompt
+from prompt.our_prompting import get_our_prompt, custom_prompt, slot_classify_prompt, get_slot_classify_prompt, slot_description_prompt
 from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
 from evaluate.evaluate_FGA import FGA
@@ -30,7 +30,8 @@ parser.add_argument('--output_file_name', type=str, default="debug", help="filen
 parser.add_argument('--output_dir', type=str, default="./expts/debug", help="dir to save running log and configs")
 parser.add_argument('--mwz_ver', type=str, default="2.1", choices=['2.1', '2.4'], help="version of MultiWOZ")  
 parser.add_argument('--test_fn', type=str, default='', help="file to evaluate on, empty means use the test set")
-parser.add_argument('--save_interval', type=int, default=10, help="interval to save running_log.json")
+parser.add_argument('--save_interval', type=int, default=5, help="interval to save running_log.json")
+parser.add_argument('--slot_classify', action="store_true", help="whether slots are predicted through index number")
 args = parser.parse_args()
 
 # current time
@@ -101,6 +102,16 @@ def run(test_set, turn=-1, use_gold=False):
     total_acc = 0
     total_f1 = 0
 
+    # specify ontology_prompt, prompt_function
+    if args.slot_classify:
+        ontology_prompt = slot_description_prompt # slot_classify_prompt
+        get_prompt = get_slot_classify_prompt
+        our_parse = slot_classify_parse
+    else:
+        ontology_prompt = custom_prompt
+        get_prompt = get_our_prompt
+        our_parse = our_pred_parse
+
     for data_idx, data_item in enumerate(tqdm(selected_set)):
         n_total += 1
 
@@ -115,11 +126,11 @@ def run(test_set, turn=-1, use_gold=False):
 
             examples = retriever.item_to_nearest_examples(
                 modified_item, k=NUM_EXAMPLE)
-            
-            prompt_text = get_our_prompt(
+
+            prompt_text = get_prompt(
                 data_item, examples=examples, given_context=predicted_context)
 
-        print(prompt_text.replace(conversion(custom_prompt), ""))
+        print(prompt_text.replace(conversion(ontology_prompt), ""))
 
         # record the prompt
         data_item['prompt'] = prompt_text
@@ -138,7 +149,7 @@ def run(test_set, turn=-1, use_gold=False):
                 if e.user_message.startswith("This model's maximum context length"):
                     print("prompt overlength")
                     examples = examples[1:]
-                    prompt_text = get_our_prompt(
+                    prompt_text = get_prompt(
                         data_item, examples=examples, given_context=predicted_context)
                 else:
                     # throughput too high
@@ -146,7 +157,7 @@ def run(test_set, turn=-1, use_gold=False):
             else:
                 try:
                     # check if CODEX is crazy 
-                    temp_parse = our_pred_parse(completion)
+                    temp_parse = our_parse(completion)
                 except:
                     parse_error_count += 1
                     if parse_error_count >= 5:
@@ -159,7 +170,7 @@ def run(test_set, turn=-1, use_gold=False):
         # aggregate the prediction and the history states
         predicted_slot_values = {}
         try:
-            predicted_slot_values = our_pred_parse(completion) # a dictionary
+            predicted_slot_values = our_parse(completion) # a dictionary
         except:
             print("the output is not a valid result")
             data_item['not_valid'] = 1

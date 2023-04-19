@@ -29,7 +29,7 @@ def typo_fix(slot_values, ontology, version="2.1"):
     fixed = {}
     for slot, value in slot_values.items():
         # lower
-        value = value.lower()
+        value = value.lower() if value != '[DELETE]' else value
 
         # fix 's
         value = value.replace(' s ', 's ')
