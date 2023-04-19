@@ -1,0 +1,10 @@
+{
+    "train_fn": "data/mw21_5p_train_v2.json",
+    "retriever_dir": "retriever/expts/mw21_5p_v2",
+    "output_file_name": "gpt35_turbo_5p_v2_custom_prompt",
+    "output_dir": "expts/230419_0138-gpt35_turbo_5p_v2_custom_prompt_0to10",
+    "mwz_ver": "2.4",
+    "test_fn": "",
+    "save_interval": 10,
+    "test_size": 10
+}
