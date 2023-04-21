@@ -370,10 +370,18 @@ def run_follow_up_cot(predicted_result_dir, turn=-1, use_gold=False):
 
         data_item["implicit_completion"] = implicit_completion
 
+        examples = retriever.item_to_nearest_examples(
+                modified_item, k=NUM_EXAMPLE)
+        
         # get final result from follow-up CoT
-        cot_prompt = get_follow_up_cot_prompt(data_item, given_context=predicted_context)
+        # with examples version 
+        cot_prompt = get_follow_up_cot_prompt(data_item=data_item, examples=examples, given_context=predicted_context)
+        # without examples version
+        # cot_prompt = get_follow_up_cot_prompt(data_item=data_item, given_context=predicted_context)
+
         data_item["follow_up_cot_prompt"] = cot_prompt
-        print(cot_prompt)
+
+        print(cot_prompt.replace(conversion(custom_prompt),""))
 
         # gpt35 completion
         complete_flag = False

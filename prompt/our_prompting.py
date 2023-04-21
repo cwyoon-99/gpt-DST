@@ -8,9 +8,9 @@ hotel-name: a and b guest house, ashley hotel, el shaddia guest house, etc.
 hotel-pricerange: dontcare, cheap, moderate, expensive
 hotel-type: hotel, guest house
 hotel-parking: dontcare, yes, no
-hotel-book_stay: 1, 2, 3, etc.
-hotel-book_day: monday, tuesday, etc.
-hotel-book_people: 1, 2, 3, etc.
+hotel-book stay: 1, 2, 3, etc.
+hotel-book day: monday, tuesday, etc.
+hotel-book people: 1, 2, 3, etc.
 hotel-area: dontcare, centre, east, north, south, west
 hotel-stars: dontcare, 0, 1, 2, 3, 4, 5
 hotel-internet: dontcare, yes, no
@@ -18,7 +18,7 @@ hotel-internet: dontcare, yes, no
 train-destination: london kings cross, cambridge, peterborough, etc.
 train-departure: cambridge, stansted airport, etc.
 train-day: monday, saturday, etc.
-train-book_people: 1, 2, 3, etc.
+train-book people: 1, 2, 3, etc.
 train-leaveat: 20:24, 12:06, etc.
 train-arriveby: 05:51, 20:52, etc.
 
@@ -30,9 +30,9 @@ restaurant-name: pizza hut city centre, the missing sock, golden wok, cambridge 
 restaurant-food: italian, international, chinese, dontcare, modern european, etc.
 restaurant-pricerange: dontcare, cheap, moderate, expensive
 restaurant-area: centre, east, north, south, west
-restaurant-book_time: 13:30, 17:11, etc.
-restaurant-book_day: wednesday, friday, etc.
-restaurant-book_people: 1, 2, 3, etc.
+restaurant-book time: 13:30, 17:11, etc.
+restaurant-book day: wednesday, friday, etc.
+restaurant-book people: 1, 2, 3, etc.
 
 taxi-destination: copper kettle, magdalene college, lovell lodge
 taxi-departure: royal spice, university arms hotel, da vinci pizzeria
@@ -315,43 +315,107 @@ def get_implicit_info_prompt(data_item, previous_prompt=None, intent_completion=
 
     return prompt_text
 
-def get_follow_up_cot_prompt(data_item,given_context=None):
+def get_follow_up_cot_prompt(data_item, examples=None, given_context=None, n_examples=None):
     
     question_item = data_item
 
     prompt_text = f"{conversion(custom_prompt)}\n"
 
-    prompt_text += f"Example\n"
+    # with examples
+    if examples is not None:
+        max_n_examples = len(examples)
+        if n_examples is not None:
+            max_n_examples = n_examples
 
-    if given_context is None:
-        # remove mulitple choice
-        last_slot_values = {s: v.split(
-            '|')[0] for s, v in question_item['last_slot_values'].items()}
+        if max_n_examples > 0:
+            for example_id, example in enumerate(examples[-max_n_examples:]):
+                prompt_text += f"Example #{example_id + 1}\n"
+
+                # remove multiple choice in last slot values
+                last_slot_values = {s: v.split(
+                    '|')[0] for s, v in example['last_slot_values'].items()}
+                
+                prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in last_slot_values.items()}))}\n"
+
+                last_sys_utt = example['dialog']['sys'][-1]
+                if last_sys_utt == 'none':
+                    last_sys_utt = ''
+                prompt_text += f"[system] {last_sys_utt}\n"
+                prompt_text += f"[user] {example['dialog']['usr'][-1]}\n"
+                prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
+
+                prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
+                prompt_text += "\n\n"
+
+        prompt_text += f"Example #{max_n_examples + 1}\n"
+
+        if given_context is None:
+            # remove mulitple choice
+            last_slot_values = {s: v.split(
+                '|')[0] for s, v in question_item['last_slot_values'].items()}
+        else:
+            last_slot_values = given_context
+        prompt_text += f"[context] {conversion(', '.join({f'({(slot)} = {value})' for slot, value in last_slot_values.items()}))}\n"
+
+        last_sys_utt = question_item['dialog']['sys'][-1]
+        if last_sys_utt == 'none':
+            last_sys_utt = ''
+        prompt_text += f"[system] {last_sys_utt}\n"
+        prompt_text += f"[user] {question_item['dialog']['usr'][-1]}\n"
+
+        prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
+
+        # prompt_text += f"(Just so you know, {data_item['intent_completion']} Also, {data_item['implicit_completion']})\n"
+
+        # prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
+        # prompt_text += f"A:"
+
+        # return prompt_text
+
+        if not data_item['predicted_slot_values']:
+            prompt_text += f" the changed domain-slots and values is (), ()."
+        elif len(data_item['predicted_slot_values']) == 1:
+            prompt_text += f" the changed domain-slots and values is {', '.join({f'({(slot)} = {value})' for slot, value in data_item['predicted_slot_values'].items()})}, ()."
+        else:
+            prompt_text += f"FYI: the changed domain-slots and values is {', '.join({f'({(slot)} = {value})' for slot, value in data_item['predicted_slot_values'].items()})}."
+        prompt_text += f" Just so you know, {data_item['intent_completion']} Also, {data_item['implicit_completion']}\n"
+        prompt_text += f"A:"
+
+        return prompt_text
+
     else:
-        last_slot_values = given_context
-    prompt_text += f"[context] {conversion(', '.join({f'({(slot)} = {value})' for slot, value in last_slot_values.items()}))}\n"
+        # without examples
+        prompt_text += f"Example\n"
 
-    last_sys_utt = question_item['dialog']['sys'][-1]
-    if last_sys_utt == 'none':
-        last_sys_utt = ''
-    prompt_text += f"[system] {last_sys_utt}\n"
-    prompt_text += f"[user] {question_item['dialog']['usr'][-1]}\n"
-    
-    prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
-    prompt_text += f"A:"
-    # prompt_text += f" considering the question simply,"
+        if given_context is None:
+            # remove mulitple choice
+            last_slot_values = {s: v.split(
+                '|')[0] for s, v in question_item['last_slot_values'].items()}
+        else:
+            last_slot_values = given_context
+        prompt_text += f"[context] {conversion(', '.join({f'({(slot)} = {value})' for slot, value in last_slot_values.items()}))}\n"
 
-    if not data_item['predicted_slot_values']:
-        prompt_text += f" the changed domain-slots and values is ()."
-    elif len(data_item['predicted_slot_values']) == 1:
-        prompt_text += f" the changed domain-slots and values is {', '.join({f'({(slot)} = {value})' for slot, value in data_item['predicted_slot_values'].items()})}, ()."
-    else:
-        prompt_text += f" the changed domain-slots and values is {', '.join({f'({(slot)} = {value})' for slot, value in data_item['predicted_slot_values'].items()})}."
+        last_sys_utt = question_item['dialog']['sys'][-1]
+        if last_sys_utt == 'none':
+            last_sys_utt = ''
+        prompt_text += f"[system] {last_sys_utt}\n"
+        prompt_text += f"[user] {question_item['dialog']['usr'][-1]}\n"
+        
+        prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
+        prompt_text += f"A:"
+        # prompt_text += f" considering the question simply,"
 
-    # prompt_text += f" Besides, {data_item['intent_completion']}"
-    prompt_text += f" Just so you know, {data_item['intent_completion']}"
-    prompt_text += f" Also, {data_item['implicit_completion']}"
-    prompt_text += f" Consequently, the changed domain-slots and values is"
-    prompt_text += f" Therefore, the changed domain-slots and values is"
+        if not data_item['predicted_slot_values']:
+            prompt_text += f" the changed domain-slots and values is ()."
+        elif len(data_item['predicted_slot_values']) == 1:
+            prompt_text += f" the changed domain-slots and values is {', '.join({f'({(slot)} = {value})' for slot, value in data_item['predicted_slot_values'].items()})}, ()."
+        else:
+            prompt_text += f" the changed domain-slots and values is {', '.join({f'({(slot)} = {value})' for slot, value in data_item['predicted_slot_values'].items()})}."
 
-    return prompt_text
+        # prompt_text += f" Besides, {data_item['intent_completion']}"
+        prompt_text += f" Just so you know, {data_item['intent_completion']}"
+        prompt_text += f" Also, {data_item['implicit_completion']}"
+        # prompt_text += f" Consequently, the changed domain-slots and values is"
+        prompt_text += f" Therefore, the changed domain-slots and values is"
+
+        return prompt_text
