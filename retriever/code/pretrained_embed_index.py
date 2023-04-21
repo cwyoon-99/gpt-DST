@@ -104,12 +104,15 @@ print("Finish reading data")
 def store_embed(input_dataset, output_filename, forward_fn):
     outputs = {}
     with torch.no_grad():
+        # k: f"{turn['ID']}_turn_{turn['turn_id']}"
+        # v: history = f"[system] {sys_utt} [user] {usr_utt}" (current user and system turn)
         for k, v in tqdm(input_dataset.items()):
             outputs[k] = forward_fn(v).detach().cpu().numpy()
     np.save(output_filename, outputs)
     return
 
 # store the embeddings
+# 각 데이터셋에 해당하는 turn들의 current user and system으로 embedding을 만들어 저장
 store_embed(mw_train, f"{save_path}/mw21_train_{SAVE_NAME}.npy",
             embed_single_sentence)
 store_embed(mw_dev, f"{save_path}/mw21_dev_{SAVE_NAME}.npy",

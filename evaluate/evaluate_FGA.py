@@ -65,8 +65,8 @@ def getFGA(gt_list, pr_list, turn_diff, L):
 
 # Run
 def FGA(dir_path):
-    dst_res_path = os.path.join(dir_path, 'running_log.json')
-    dst_res = loadJson(dst_res_path)
+    # dst_res_path = os.path.join(dir_path, 'running_log.json')
+    dst_res = loadJson(dir_path)
     
     fga = [0, 0, 0, 0]
     turn_acc = 0

@@ -1,3 +1,5 @@
+import re
+
 from collections import OrderedDict
 from utils.slot_idx import slot_to_idx, idx_to_slot
 
@@ -32,13 +34,36 @@ def our_pred_parse_with_bracket(pred):
     pred_slot_values = {}
 
     value_assigner = "="
-    slot_value = pred.split(', ')
+    slot_value = pred.split(',')
     for i in slot_value:
         i = i.replace("(","").replace(")","")
         if value_assigner not in i:
            continue
         else:
            pred_slot_values[i.split(value_assigner)[0].strip()] = i.split(value_assigner)[1].strip()
+
+    return pred_slot_values
+
+def pred_parse_with_bracket_matching(pred):
+
+    # find all values where they are in the brackets
+
+    # fix for no states
+    if pred == "":
+        return {}
+
+    pred_slot_values = {}
+
+    # slot_value = pred.split(",")
+    slot_value = re.findall(r'\((.*?)\)', pred)
+
+    value_assigner = "="
+    for i in slot_value:
+      i = i.replace("(","").replace(")","")
+      if value_assigner not in i:
+        continue
+      else:
+        pred_slot_values[i.split(value_assigner)[0].strip()] = i.split(value_assigner)[1].strip()
 
     return pred_slot_values
     

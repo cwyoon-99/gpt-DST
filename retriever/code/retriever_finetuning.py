@@ -127,7 +127,8 @@ class MWContrastiveDataloader:
 
         # do hard negative sampling
         for ind in tqdm(range(self.f1_set.n_turns)):
-
+            
+            # 해당 turn의 
             # find nearest neighbors given by pre-trained retriever
             this_label = self.f1_set.turn_labels[ind]
             nearest_labels = self.pretrained_retriever.label_to_nearest_labels(
