@@ -15,18 +15,25 @@ class Retriever:
         self.emb_keys = list(emb_dict.keys())
         emb_dim = emb_dict[self.emb_keys[0]].shape[-1]
     
+        # 2차원의 초기화된 emb_value
         self.emb_values = np.zeros((len(self.emb_keys), emb_dim))
+        # emb_value에 값 저장
         for i, k in enumerate(self.emb_keys):
             self.emb_values[i] = emb_dict[k]
         
         # normalize for cosine distance (kdtree only support euclidean when p=2)
+        # unit length로 normalize 했기 때문에 euclidian distance는 cosine distance와 같음
         self.emb_values = self.normalize(self.emb_values)
         self.kdtree = KDTree(self.emb_values)
         
     def topk_nearest_dialogs(self, query_emb, k=5):
         query_emb = self.normalize(query_emb)
+        # The query method returns two arrays - 
+        # first: the distances between the query and the nearest neighbors
+        # second: the indices of the nearest neighbors in the KD-Tree.
         if k == 1:
             return [self.emb_keys[i] for i in self.kdtree.query(query_emb, k=k, p=2)[1]]
+        # query_emb 과 가까운 emb들의 key를 리턴
         return [self.emb_keys[i] for i in self.kdtree.query(query_emb, k=k,p=2)[1][0]]
     
     def topk_nearest_distinct_dialogs(self, query_emb, k=5):
@@ -53,6 +60,7 @@ class IndexRetriever:
         selected_dial_ids = random.sample(dial_ids, n_selected)
         return {k:v for k,v in embs.items() if k.split('_')[0] in selected_dial_ids}
 
+    # embs에서 selection pool에 속하는 examples들에 대한 임베딩만 들고옴
     def pre_assigned_sample_selection(self, embs, examples):
         selected_dial_ids = set([dial['ID'] for dial in examples])
         return {k:v for k,v in embs.items() if k.split('_')[0] in selected_dial_ids}
@@ -117,6 +125,7 @@ class IndexRetriever:
 
     def label_to_nearest_labels(self, label, k=5):
         data_item = self.label_to_data_item(label)
+        # label(turn)에 해당하는 embedding을 입력으로 받아 가장 가까운 turn이 뭔지를 return
         return [l for l in self.retriever.topk_nearest_distinct_dialogs(
                     self.data_item_to_embedding(data_item), k=k)
                 ][::-1]

@@ -278,94 +278,80 @@ def get_slot_classify_prompt(data_item, examples, given_context=None, n_examples
 
     return prompt_text
 
-# For each example, we request API to generate Chain-of-thought prompt
-def get_each_cot_prompt(example):
-    prompt_text = f"{conversion(custom_prompt)}\n"
-
-    prompt_text += f"Example \n"
-
+def get_intent_prompt(data_item, given_context=None):
     
-    # remove multiple choice in last slot values
-    last_slot_values = {s: v.split(
-        '|')[0] for s, v in example['last_slot_values'].items()}
-        
-    prompt_text += f"[context] {conversion(', '.join({f'{slot} = {value}' for slot, value in last_slot_values.items()}))}\n"
-
-    last_sys_utt = example['dialog']['sys'][-1]
-    if last_sys_utt == 'none':
-        last_sys_utt = ''
-    prompt_text += f"[system] {last_sys_utt}\n"
-    prompt_text += f"[user] {example['dialog']['usr'][-1]}\n"
-
-    prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), which slots are changed and what values do the slots have?\n"
-    prompt_text += f"A: the answer (slot_name = value) is ({conversion(', '.join({f'{slot} = {value}' for slot, value in example['turn_slot_values'].items()}))}). "
-    prompt_text += f"Let's think why the answer is correct in step by step within 150 tokens."
-
-    return prompt_text
-
-def get_cot_augmented_prompt(data_item, examples, given_context=None, n_examples=None):
-
     question_item = data_item
 
-    prompt_text = f"{conversion(custom_prompt)}\n"
+    prompt_text = ""
 
-    max_n_examples = len(examples)
-    if n_examples is not None:
-        max_n_examples = n_examples
-
-    # in case for zero-shot learning
-    if max_n_examples > 0:
-        for example_id, example in enumerate(examples[-max_n_examples:]):
-            prompt_text += f"Example #{example_id + 1}\n"
-
-            # remove multiple choice in last slot values
-            last_slot_values = {s: v.split(
-                '|')[0] for s, v in example['last_slot_values'].items()}
-            
-            prompt_text += f"[context] {conversion(', '.join({f'{slot} = {value}' for slot, value in last_slot_values.items()}))}\n"
-
-            last_sys_utt = example['dialog']['sys'][-1]
-            if last_sys_utt == 'none':
-                last_sys_utt = ''
-            prompt_text += f"[system] {last_sys_utt}\n"
-            prompt_text += f"[user] {example['dialog']['usr'][-1]}\n"
-
-            prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), which slots are changed and what values do the slots have?\n"
-            
-            # base CoT
-            # prompt_text += f"A: {example['cot_completion']} "
-
-            # slot provided version
-            prompt_text += f"A: the changed slot is ({conversion(', '.join({f'{slot}' for slot, value in example['turn_slot_values'].items()}))}). "
-            prompt_text += f"{example['cot_completion']} "
-
-            prompt_text += f"Therefore, the changed slot and value (slot_name = value) is "
-            prompt_text += f"({conversion(', '.join({f'{slot} = {value}' for slot, value in example['turn_slot_values'].items()}))})\n"
-            prompt_text += "\n\n"
-
-    prompt_text += f"Example #{max_n_examples + 1}\n"
+    prompt_text += f"Example\n"
     if given_context is None:
         # remove mulitple choice
         last_slot_values = {s: v.split(
             '|')[0] for s, v in question_item['last_slot_values'].items()}
     else:
         last_slot_values = given_context
-    prompt_text += f"[context] {conversion(', '.join({f'{slot} = {value}' for slot, value in last_slot_values.items()}))}\n"
+    prompt_text += f"[context] {conversion(', '.join({f'{(slot)} = {value}' for slot, value in last_slot_values.items()}))}\n"
 
     last_sys_utt = question_item['dialog']['sys'][-1]
     if last_sys_utt == 'none':
         last_sys_utt = ''
     prompt_text += f"[system] {last_sys_utt}\n"
     prompt_text += f"[user] {question_item['dialog']['usr'][-1]}\n"
-
-    prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), which slots are changed and what values do the slots have?\n"
     
-    # base CoT
-    # prompt_text += "A:"
+    prompt_text += f"\nIn the example above, [context] is dialogue states that represent previous state of dialogue turns.\n[system] and [user] are a current system utterance and user utterance respectively.\nQ: what is the intent of user?\n"
+    prompt_text += f"A:"
 
-    # slot provided version
-    prompt_text += "A: "
-    prompt_text += f"the changed slot is ({conversion(', '.join({f'{slot}' for slot, value in question_item['turn_slot_values'].items()}))})."
+    return prompt_text
 
+def get_implicit_info_prompt(data_item, previous_prompt=None, intent_completion=None):
+    prompt_text = previous_prompt
+
+    prompt_text += f" {intent_completion}\n"
+
+    prompt_text += f"Q: then, Is there any implicit information between [user] and [system] that we need to consider when answering the question?\n"
+
+    prompt_text += f"A:"
+
+    return prompt_text
+
+def get_follow_up_cot_prompt(data_item,given_context=None):
+    
+    question_item = data_item
+
+    prompt_text = f"{conversion(custom_prompt)}\n"
+
+    prompt_text += f"Example\n"
+
+    if given_context is None:
+        # remove mulitple choice
+        last_slot_values = {s: v.split(
+            '|')[0] for s, v in question_item['last_slot_values'].items()}
+    else:
+        last_slot_values = given_context
+    prompt_text += f"[context] {conversion(', '.join({f'({(slot)} = {value})' for slot, value in last_slot_values.items()}))}\n"
+
+    last_sys_utt = question_item['dialog']['sys'][-1]
+    if last_sys_utt == 'none':
+        last_sys_utt = ''
+    prompt_text += f"[system] {last_sys_utt}\n"
+    prompt_text += f"[user] {question_item['dialog']['usr'][-1]}\n"
+    
+    prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
+    prompt_text += f"A:"
+    # prompt_text += f" considering the question simply,"
+
+    if not data_item['predicted_slot_values']:
+        prompt_text += f" the changed domain-slots and values is ()."
+    elif len(data_item['predicted_slot_values']) == 1:
+        prompt_text += f" the changed domain-slots and values is {', '.join({f'({(slot)} = {value})' for slot, value in data_item['predicted_slot_values'].items()})}, ()."
+    else:
+        prompt_text += f" the changed domain-slots and values is {', '.join({f'({(slot)} = {value})' for slot, value in data_item['predicted_slot_values'].items()})}."
+
+    # prompt_text += f" Besides, {data_item['intent_completion']}"
+    prompt_text += f" Just so you know, {data_item['intent_completion']}"
+    prompt_text += f" Also, {data_item['implicit_completion']}"
+    prompt_text += f" Consequently, the changed domain-slots and values is"
+    prompt_text += f" Therefore, the changed domain-slots and values is"
 
     return prompt_text

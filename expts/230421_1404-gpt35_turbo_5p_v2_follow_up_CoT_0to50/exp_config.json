@@ -1,0 +1,13 @@
+{
+    "train_fn": "data/mw21_5p_train_v2.json",
+    "retriever_dir": "retriever/expts/mw21_5p_v2",
+    "output_file_name": "gpt35_turbo_5p_v2_follow_up_CoT",
+    "output_dir": "expts/230421_1404-gpt35_turbo_5p_v2_follow_up_CoT_0to50",
+    "mwz_ver": "2.4",
+    "test_fn": "",
+    "save_interval": 5,
+    "test_size": 50,
+    "bracket": true,
+    "slot_classify": false,
+    "load_result_dir": "expts/230419_0327-gpt35_turbo_5p_v2_custom_prompt_0to368"
+}
