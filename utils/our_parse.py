@@ -36,11 +36,13 @@ def our_pred_parse_with_bracket(pred):
     value_assigner = "="
     slot_value = pred.split(',')
     for i in slot_value:
-        i = i.replace("(","").replace(")","")
-        if value_assigner not in i:
-           continue
-        else:
-           pred_slot_values[i.split(value_assigner)[0].strip()] = i.split(value_assigner)[1].strip()
+        bracket_flag = re.search('\(', i)
+        if bracket_flag is not None:
+            i = i.replace("(","").replace(")","")
+            if value_assigner not in i:
+               continue
+            else:
+               pred_slot_values[i.split(value_assigner)[0].strip()] = i.split(value_assigner)[1].strip()
 
     return pred_slot_values
 
