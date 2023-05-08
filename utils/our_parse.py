@@ -62,6 +62,10 @@ def pred_parse_with_bracket_matching(pred):
       i = i.replace("(","").replace(")","")
       if value_assigner not in i:
         continue
+      # for multiple slots in one bracket
+      if i.count(value_assigner) > 1:
+        for j in i.split(","):
+          pred_slot_values[j.split(value_assigner)[0].strip()] = j.split(value_assigner)[1].strip()  
       else:
         pred_slot_values[i.split(value_assigner)[0].strip()] = i.split(value_assigner)[1].strip()
 

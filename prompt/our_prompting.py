@@ -203,7 +203,10 @@ def get_prompt_with_bracket(data_item, examples, given_context=None, n_examples=
             prompt_text += f"[system] {last_sys_utt}\n"
             prompt_text += f"[user] {example['dialog']['usr'][-1]}\n"
             prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
-
+            
+            # if not example['turn_slot_values']:
+            #     prompt_text += f"A: ()\n"
+            # else:
             prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
             prompt_text += "\n\n"
 
@@ -223,7 +226,7 @@ def get_prompt_with_bracket(data_item, examples, given_context=None, n_examples=
     prompt_text += f"[user] {question_item['dialog']['usr'][-1]}\n"
     
     prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
-    prompt_text += "A: "
+    prompt_text += "A:"
 
     return prompt_text
 
@@ -274,7 +277,7 @@ def get_slot_classify_prompt(data_item, examples, given_context=None, n_examples
     prompt_text += f"[user] {question_item['dialog']['usr'][-1]}\n"
     
     prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
-    prompt_text += "A:"
+    prompt_text += "A: "
 
     return prompt_text
 
