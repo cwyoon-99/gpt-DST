@@ -1,0 +1,85 @@
+[
+    {
+        "ID": "SNG0073.json",
+        "turn_id": 0,
+        "domains": [
+            "taxi"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "i would like a taxi from saint john s college to pizza hut fen ditton ."
+            ]
+        },
+        "slot_values": {
+            "taxi-destination": "pizza hut fenditton",
+            "taxi-departure": "saint johns college"
+        },
+        "turn_slot_values": {
+            "taxi-destination": "pizza hut fenditton",
+            "taxi-departure": "saint johns college"
+        },
+        "last_slot_values": {},
+        "prompt": "Your task is to find the changed domain-slots based on the context and the dialogue between user and system, and find the corresponding value.\nThe following lists are domain-slots and their possible values.\nyou don't have to find other changed domain-slots if they are not in the list.\n\nhotel-name: a and b guest house, ashley hotel, el shaddia guest house, etc.\nhotel-pricerange: dontcare, cheap, moderate, expensive\nhotel-type: hotel, guest house\nhotel-parking: dontcare, yes, no\nhotel-book stay: 1, 2, 3, etc.\nhotel-book day: monday, tuesday, etc.\nhotel-book people: 1, 2, 3, etc.\nhotel-area: dontcare, centre, east, north, south, west\nhotel-stars: dontcare, 0, 1, 2, 3, 4, 5\nhotel-internet: dontcare, yes, no\n\ntrain-destination: london kings cross, cambridge, peterborough, etc.\ntrain-departure: cambridge, stansted airport, etc.\ntrain-day: monday, saturday, etc.\ntrain-book people: 1, 2, 3, etc.\ntrain-depart_time: 20:24, 12:06, etc.\ntrain-arrive_by_time: 05:51, 20:52, etc.\n\nattraction-name: abbey pool and astroturf pitch, adc theatre, all saints church, castle galleries, etc.\nattraction-area: dontcare, centre, east, north, south, west\nattraction-type: architecture, boat, church, cinema, college, concert hall, entertainment, hotspot, multiple sports, museum, nightclub, park, special, swimming pool, theatre\n\nrestaurant-name: pizza hut city centre, the missing sock, golden wok, cambridge chop house, darrys cookhouse and wine shop, etc.\nrestaurant-food_type: italian, international, chinese, dontcare, modern european, etc.\nrestaurant-pricerange: dontcare, cheap, moderate, expensive\nrestaurant-area: centre, east, north, south, west\nrestaurant-book time: 13:30, 17:11, etc.\nrestaurant-book day: wednesday, friday, etc.\nrestaurant-book people: 1, 2, 3, etc.\n\ntaxi-destination: copper kettle, magdalene college, lovell lodge\ntaxi-departure: royal spice, university arms hotel, da vinci pizzeria\ntaxi-depart_time: 14:45, 11:15, etc.\ntaxi-arrive_by_time: 15:30, 12:45, etc.\n\nExample #1\n[context] (hotel-internet = yes), (attraction-type = park), (hotel-parking = yes), (hotel-type = guest house)\n[system] sure ! milton country park is at cb46az . it s free admission .\n[user] free is perfect . that will leave me extra to book a taxi from my hotel .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-departure = acorn guest house)\n\n\nExample #2\n[context] (taxi-destination = pembroke college)\n[system] where will you be departing from ?\n[user] i need to leave from primavera\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-departure = primavera)\n\n\nExample #3\n[context] \n[system] \n[user] i want to get a taxi to pick me up from the cambridge train station please .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-departure = cambridge train station)\n\n\nExample #4\n[context] (restaurant-area = west), (restaurant-book day = tuesday), (restaurant-pricerange = moderate), (restaurant-book people = 2), (restaurant-food_type = italian), (restaurant-name = prezzo), (attraction-area = west), (attraction-type = museum), (restaurant-book time = 13:45)\n[system] okay . your booking was successful . the reference number is 8z0bbwce . your table will be reserved for 15 minutes .\n[user] i need to book a taxi from the museum to the restaurant .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-departure = cafe jello gallery), (taxi-arrive_by_time = 13:45), (taxi-destination = prezzo)\n\n\nExample #5\n[context] (attraction-name = cafe jello gallery), (restaurant-area = west), (restaurant-name = tandoori palace), (restaurant-book day = wednesday), (restaurant-food_type = indian), (attraction-area = west), (restaurant-book time = 12:30), (restaurant-pricerange = expensive), (restaurant-book people = 6)\n[system] your reference number is src2i813 , your table will be held for 15 mins . is there anything else i can assist you with ?\n[user] yes . i need a taxi to take me from the museum to the restaurant .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-destination = tandoori palace), (taxi-departure = cafe jello gallery)\n\n\nExample #6\n[context] (restaurant-book time = 12:00), (attraction-area = east), (attraction-name = abbey pool and astroturf pitch), (restaurant-name = j restaurant), (attraction-type = swimming pool), (restaurant-book day = sunday), (restaurant-book people = 3)\n[system] sure ! the postcode is cb68nt and the entrance fee is not known .\n[user] i would also like to book a taxi from the pool to the restaurant\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-destination = j restaurant), (taxi-departure = abbey pool and astroturf pitch)\n\n\nExample #7\n[context] \n[system] \n[user] i need a taxi departing from tang chinese .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-departure = tang chinese)\n\n\nExample #8\n[context] \n[system] \n[user] hello . can you book a taxi for me ? i need to travel from the grafton hotel restaurant to home from home .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-destination = home from home), (taxi-departure = grafton hotel restaurant)\n\n\nExample #9\n[context] \n[system] \n[user] i want to book a taxi . the taxi should go to da vinci pizzeria and should depart from the missing sock .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-departure = the missing sock), (taxi-destination = da vinci pizzeria)\n\n\nExample #10\n[context] \n[system] \n[user] hi , i would like to book a taxi from hakka to sidney sussex college .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-departure = hakka), (taxi-destination = sidney sussex college)\n\n\nExample #11\n[context] \n[system] \n[user] i would like a taxi from saint john s college to pizza hut fen ditton .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA:",
+        "pred": {
+            "taxi-departure": "saint johns college",
+            "taxi-destination": "pizza hut fenditton"
+        },
+        "ontology_path": "./data/mwz2.4/ontology.json",
+        "completion": "(taxi-departure = saint john s college), (taxi-destination = pizza hut fen ditton)",
+        "predicted_slot_values": {
+            "taxi-departure": "saint johns college",
+            "taxi-destination": "pizza hut fenditton"
+        },
+        "JGA": 1.0,
+        "SA": 1.0,
+        "Joint_F1": 1.0,
+        "pred_status": "correct"
+    },
+    {
+        "ID": "SNG0073.json",
+        "turn_id": 1,
+        "domains": [
+            "taxi"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "what time do you want to leave and what time do you want to arrive by ?"
+            ],
+            "usr": [
+                "i would like a taxi from saint john s college to pizza hut fen ditton .",
+                "i want to leave after 17:15 ."
+            ]
+        },
+        "slot_values": {
+            "taxi-leaveat": "17:15",
+            "taxi-destination": "pizza hut fenditton",
+            "taxi-departure": "saint johns college"
+        },
+        "turn_slot_values": {
+            "taxi-leaveat": "17:15"
+        },
+        "last_slot_values": {
+            "taxi-destination": "pizza hut fenditton",
+            "taxi-departure": "saint johns college"
+        },
+        "prompt": "Your task is to find the changed domain-slots based on the context and the dialogue between user and system, and find the corresponding value.\nThe following lists are domain-slots and their possible values.\nyou don't have to find other changed domain-slots if they are not in the list.\n\nhotel-name: a and b guest house, ashley hotel, el shaddia guest house, etc.\nhotel-pricerange: dontcare, cheap, moderate, expensive\nhotel-type: hotel, guest house\nhotel-parking: dontcare, yes, no\nhotel-book stay: 1, 2, 3, etc.\nhotel-book day: monday, tuesday, etc.\nhotel-book people: 1, 2, 3, etc.\nhotel-area: dontcare, centre, east, north, south, west\nhotel-stars: dontcare, 0, 1, 2, 3, 4, 5\nhotel-internet: dontcare, yes, no\n\ntrain-destination: london kings cross, cambridge, peterborough, etc.\ntrain-departure: cambridge, stansted airport, etc.\ntrain-day: monday, saturday, etc.\ntrain-book people: 1, 2, 3, etc.\ntrain-depart_time: 20:24, 12:06, etc.\ntrain-arrive_by_time: 05:51, 20:52, etc.\n\nattraction-name: abbey pool and astroturf pitch, adc theatre, all saints church, castle galleries, etc.\nattraction-area: dontcare, centre, east, north, south, west\nattraction-type: architecture, boat, church, cinema, college, concert hall, entertainment, hotspot, multiple sports, museum, nightclub, park, special, swimming pool, theatre\n\nrestaurant-name: pizza hut city centre, the missing sock, golden wok, cambridge chop house, darrys cookhouse and wine shop, etc.\nrestaurant-food_type: italian, international, chinese, dontcare, modern european, etc.\nrestaurant-pricerange: dontcare, cheap, moderate, expensive\nrestaurant-area: centre, east, north, south, west\nrestaurant-book time: 13:30, 17:11, etc.\nrestaurant-book day: wednesday, friday, etc.\nrestaurant-book people: 1, 2, 3, etc.\n\ntaxi-destination: copper kettle, magdalene college, lovell lodge\ntaxi-departure: royal spice, university arms hotel, da vinci pizzeria\ntaxi-depart_time: 14:45, 11:15, etc.\ntaxi-arrive_by_time: 15:30, 12:45, etc.\n\nExample #1\n[context] (hotel-type = guest house), (attraction-type = park), (hotel-internet = yes), (taxi-departure = acorn guest house), (hotel-parking = yes)\n[system] i can book your taxi for you if you would like , would you care to go ahead and book 1 ?\n[user] i need the taxi to commute and i have to leave the hotel by 14:00 , can i get their contact number and car type please .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-depart_time = 14:00)\n\n\nExample #2\n[context] \n[system] \n[user] i need to book a taxi to take me to williams art and antiques . i need to leave after 24:30 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-depart_time = 24:30), (taxi-destination = williams art and antiques)\n\n\nExample #3\n[context] (hotel-type = guest house), (hotel-area = south), (taxi-destination = bridge guest house), (hotel-book day = tuesday), (hotel-internet = yes), (attraction-name = byard art), (attraction-area = south), (attraction-type = museum), (hotel-book stay = 2), (hotel-book people = 1), (hotel-pricerange = moderate), (taxi-departure = byard art)\n[system] sure ! what time would you like to leave the museum ?\n[user] i want to leave the museum by 7:30 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-depart_time = 07:30)\n\n\nExample #4\n[context] \n[system] \n[user] i want a taxi to pick me up after 21:00 to take me to little saint mary s church .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-destination = little saint marys church), (taxi-depart_time = 21:00)\n\n\nExample #5\n[context] (taxi-destination = cambridge belfry), (restaurant-food_type = french), (hotel-name = cambridge belfry), (restaurant-pricerange = expensive), (taxi-departure = restaurant 2 two)\n[system] sure , what time would you like the car for ?\n[user] i would like to leave the restaurant at 21:00 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-depart_time = 21:00)\n\n\nExample #6\n[context] (taxi-destination = home from home), (taxi-departure = grafton hotel restaurant)\n[system] no problem at all . what time do you want to leave and arrive by , respectively ?\n[user] leave after 22:30 and dont care when i arrive\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-depart_time = 22:45)\n\n\nExample #7\n[context] (taxi-departure = tang chinese), (taxi-destination = downing college)\n[system] great . now i will just need a time .\n[user] i need to arrive by 19:30\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-depart_time = 19:30)\n\n\nExample #8\n[context] (taxi-destination = pembroke college), (taxi-departure = primavera)\n[system] great , do you have a leave by , or an arrival time in mind ?\n[user] i want to leave by 9:15 . i also need to know the car type and contact number .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-depart_time = 09:15)\n\n\nExample #9\n[context] (taxi-departure = kings lynn train station), (taxi-destination = fitzbillies restaurant)\n[system] ok , and what time will you need to arrive and leave ?\n[user] i need to leave after 20:00 please .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-depart_time = 20:00)\n\n\nExample #10\n[context] (taxi-departure = cambridge train station)\n[system] what time would you like to depart at ?\n[user] i would like to leave after 09:15 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (taxi-depart_time = 09:15)\n\n\nExample #11\n[context] taxi-departure = saint johns college, taxi-destination = pizza hut fenditton\n[system] what time do you want to leave and what time do you want to arrive by ?\n[user] i want to leave after 17:15 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA:",
+        "pred": {
+            "taxi-departure": "saint johns college",
+            "taxi-destination": "pizza hut fenditton",
+            "taxi-leaveat": "17:15"
+        },
+        "ontology_path": "./data/mwz2.4/ontology.json",
+        "completion": "(taxi-leaveat = 17:15)",
+        "predicted_slot_values": {
+            "taxi-leaveat": "17:15"
+        },
+        "JGA": 1.0,
+        "SA": 1.0,
+        "Joint_F1": 1.0,
+        "pred_status": "correct"
+    }
+]

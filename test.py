@@ -10,9 +10,6 @@ from utils.helper import SpeedLimitTimer, PreviousStateRecorder
 from utils.typo_fix import typo_fix
 from config import CONFIG
 
-from api_request.gpt35_completion import gpt35_completion
-from api_request.ada_completion import ada_completion
-from api_request.babbage_completion import babbage_completion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
 from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket, slot_classify_parse, pred_parse_with_bracket_matching
 from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket,\
@@ -21,60 +18,50 @@ from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
 from evaluate.evaluate_FGA import FGA
 
-# input arguments
-parser = argparse.ArgumentParser()
-parser.add_argument('--train_fn', type=str, help="training data file (few-shot or full shot)", required=True)  # e.g. "./data/mw21_10p_train_v3.json"
-parser.add_argument('--retriever_dir', type=str, required=True, help="sentence transformer saved path")  # "./retriever/expts/mw21_10p_v3_0304_400_20"
-parser.add_argument('--output_file_name', type=str, default="debug", help="filename to save running log and configs")
-parser.add_argument('--output_dir', type=str, default="./expts/debug", help="dir to save running log and configs")
-parser.add_argument('--mwz_ver', type=str, default="2.1", choices=['2.1', '2.4'], help="version of MultiWOZ")  
-parser.add_argument('--test_fn', type=str, default='', help="file to evaluate on, empty means use the test set")
-parser.add_argument('--save_interval', type=int, default=5, help="interval to save running_log.json")
-parser.add_argument('--test_size', type=int, default=10, help="size of the test set")
-parser.add_argument('--bracket', action="store_true", help="whether brackets are used in each domain-slot")
-parser.add_argument('--slot_classify', action="store_true", help="whether slots are predicted through index number")
-args = parser.parse_args()
+train_fn = 'data/mw21_5p_train_v2.json'
+retriever_dir = 'retriever/expts/mw21_5p_v2'
+output_file_name = 'gpt35_turbo_5p_v2_baseline'
+mwz_ver = 2.4
+test_fn = ''
+test_size = 2
 
 # current time
 cur_time = time.strftime('%y%m%d_%H%M-')
 
 # create the output folder
-args.output_dir = 'expts/' + cur_time + args.output_file_name + '_0to' + str(args.test_size)
-os.makedirs(args.output_dir, exist_ok=True)
-
-with open(os.path.join(args.output_dir, "exp_config.json"), 'w') as f:
-    json.dump(vars(args), f, indent=4)
+output_dir = 'expts/' + cur_time + output_file_name + '_0to' + str(2)
 
 NUM_EXAMPLE=10
 
 # read the selection pool
-with open(args.train_fn) as f:
+with open(train_fn) as f:
     train_set = json.load(f)
 
 # read the ontology and the test set
-if args.mwz_ver == '2.1':
+if mwz_ver == '2.1':
     ontology_path = CONFIG["ontology_21"]
-    if args.test_fn == "":
+    if test_fn == "":
         test_set_path = "./data/mw21_100p_test.json"
 else:
     ontology_path = CONFIG["ontology_24"]
-    if args.test_fn == "":
+    if test_fn == "":
         test_set_path = "./data/mw24_100p_test.json"
 
 # evaluate on some other file
-if args.test_fn:
-    test_set_path = args.test_fn
+if test_fn:
+    test_set_path = test_fn
 
 with open(ontology_path) as f:
     ontology = json.load(f)
 with open(test_set_path) as f:
     test_set = json.load(f)
 
-# load the retriever
 retriever = EmbeddingRetriever(datasets=[train_set],
-                               model_path=args.retriever_dir,
-                               search_index_filename=os.path.join(args.retriever_dir, "train_index.npy"), 
+                               model_path=retriever_dir,
+                               search_index_filename=os.path.join(retriever_dir, "train_index.npy"), 
                                sampling_method="pre_assigned")
+
+
 
 def run(test_set, turn=-1, use_gold=False):
     # turn and use_gold are for analysis purpose
@@ -104,21 +91,10 @@ def run(test_set, turn=-1, use_gold=False):
     total_f1 = 0
 
     # specify ontology_prompt, prompt_function
-    mode = "default"
-    if args.bracket:
-        ontology_prompt = custom_prompt
-        get_prompt = get_prompt_with_bracket
-        our_parse = pred_parse_with_bracket_matching
-        mode = "with_bracket"
-    elif args.slot_classify:
-        ontology_prompt = slot_description_prompt # slot_classify_prompt
-        get_prompt = get_slot_classify_prompt
-        our_parse = slot_classify_parse
-        mode = "slot_classify"
-    else:
-        ontology_prompt = custom_prompt
-        get_prompt = get_our_prompt
-        our_parse = our_pred_parse
+    ontology_prompt = custom_prompt
+    get_prompt = get_prompt_with_bracket
+    our_parse = pred_parse_with_bracket_matching
+    mode = "with_bracket"
 
     print("********* "+ mode + " *********\n")
 
@@ -276,19 +252,17 @@ def run(test_set, turn=-1, use_gold=False):
     return all_result
 
 
+
+
+
+
 if __name__ == "__main__":
 
     # api 사용량 위해 개수 제한
-    limited_set = test_set[:args.test_size]
+    limited_set = test_set[:test_size]
     all_results = run(limited_set)
 
-    with open(os.path.join(args.output_dir, "running_log.json"), 'w') as f:
+    with open(os.path.join(output_dir, "running_log.json"), 'w') as f:
         json.dump(all_results, f, indent=4)
-    
-    # save FGA in score.txt
-    with open(os.path.join(args.output_dir, "score.txt"), 'a') as f:
-        fga_result = FGA(os.path.join(args.output_dir, "running_log.json"))
-        f.write("\nFGA Result\n")
-        f.write("\n".join(fga_result))
     
     print(f"End time: {time.strftime('%y%m%d_%H%M')}")

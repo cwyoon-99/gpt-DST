@@ -1,0 +1,11 @@
+correct 2/2  =  1.0
+Slot Acc 1.0
+Joint F1 1.0
+accuracy of turn 0 is 1/1 = 1.0
+accuracy of turn 1 is 1/1 = 1.0
+
+FGA Result
+FGA with L=0.25 : 100.0
+FGA with L=0.5 : 100.0
+FGA with L=0.75 : 100.0
+FGA with L=1.0 : 100.0

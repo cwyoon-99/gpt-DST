@@ -146,7 +146,9 @@ def run(test_set, turn=-1, use_gold=False):
 
         print(prompt_text.replace(conversion(ontology_prompt), ""))
 
-        continue
+        # prompt 확인용
+        # print(prompt_text)
+        # continue
 
         # record the prompt
         data_item['prompt'] = prompt_text
@@ -382,6 +384,10 @@ def run_follow_up_cot(predicted_result_dir, turn=-1, use_gold=False):
         data_item["follow_up_cot_prompt"] = cot_prompt
 
         print(cot_prompt.replace(conversion(custom_prompt),""))
+
+        # prompt 확인용
+        # print(cot_prompt)
+        # continue
 
         # gpt35 completion
         complete_flag = False
