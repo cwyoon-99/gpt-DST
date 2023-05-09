@@ -45,7 +45,7 @@ os.makedirs(args.output_dir, exist_ok=True)
 with open(os.path.join(args.output_dir, "exp_config.json"), 'w') as f:
     json.dump(vars(args), f, indent=4)
 
-NUM_EXAMPLE=10
+NUM_EXAMPLE=0
 
 # read the selection pool
 with open(args.train_fn) as f:
@@ -134,11 +134,11 @@ def run(test_set, turn=-1, use_gold=False):
             modified_item = copy.deepcopy(data_item)
             modified_item['last_slot_values'] = predicted_context
 
-            examples = retriever.item_to_nearest_examples(
-                modified_item, k=NUM_EXAMPLE)
+            # examples = retriever.item_to_nearest_examples(
+            #     modified_item, k=NUM_EXAMPLE)
             
             prompt_text = get_prompt(
-                data_item, examples=examples, given_context=predicted_context)
+                data_item, examples='', given_context=predicted_context, n_examples=0)
 
         print(prompt_text.replace(conversion(ontology_prompt), ""))
 
