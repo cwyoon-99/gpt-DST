@@ -31,7 +31,7 @@ cur_time = time.strftime('%y%m%d_%H%M-')
 # create the output folder
 output_dir = 'expts/' + cur_time + output_file_name + '_0to' + str(2)
 
-NUM_EXAMPLE=10
+NUM_EXAMPLE=0
 
 # read the selection pool
 with open(train_fn) as f:
@@ -110,11 +110,11 @@ def run(test_set, turn=-1, use_gold=False):
             modified_item = copy.deepcopy(data_item)
             modified_item['last_slot_values'] = predicted_context
 
-            examples = retriever.item_to_nearest_examples(
-                modified_item, k=NUM_EXAMPLE)
+            # examples = retriever.item_to_nearest_examples(
+            #     modified_item, k=NUM_EXAMPLE)
             
             prompt_text = get_prompt(
-                data_item, examples=examples, given_context=predicted_context)
+                data_item, examples='', given_context=predicted_context, n_examples=0)
 
         print(prompt_text.replace(conversion(ontology_prompt), ""))
 
@@ -122,8 +122,8 @@ def run(test_set, turn=-1, use_gold=False):
         data_item['prompt'] = prompt_text
 
         # prompt 확인용
-        # print(prompt_text)
-        # continue
+        print(prompt_text)
+        continue
 
         # gpt35 completion
         complete_flag = False
