@@ -152,8 +152,8 @@ def run(test_set, turn=-1, use_gold=False):
         data_item['prompt'] = prompt_text
 
         # prompt 확인용
-        print(prompt_text)
-        continue
+        # print(prompt_text)
+        # continue
 
         # gpt35 completion
         complete_flag = False
