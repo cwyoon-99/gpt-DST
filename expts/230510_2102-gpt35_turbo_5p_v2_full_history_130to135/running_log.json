@@ -1,0 +1,324 @@
+[
+    {
+        "ID": "MUL1491.json",
+        "turn_id": 0,
+        "domains": [
+            "restaurant",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "i need to take a train from cambridge , i need to arrive at my destination by 17:00 and"
+            ]
+        },
+        "slot_values": {
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "last_slot_values": {},
+        "prompt": "Your task is to find the changed domain-slots based on the context and the dialogue between user and system, and find the corresponding value.\nThe following lists are domain-slots and their possible values.\nyou don't have to find other changed domain-slots if they are not in the list.\n\nhotel-name: a and b guest house, ashley hotel, el shaddia guest house, etc.\nhotel-pricerange: dontcare, cheap, moderate, expensive\nhotel-type: hotel, guest house\nhotel-parking: dontcare, yes, no\nhotel-book stay: 1, 2, 3, etc.\nhotel-book day: monday, tuesday, etc.\nhotel-book people: 1, 2, 3, etc.\nhotel-area: dontcare, centre, east, north, south, west\nhotel-stars: dontcare, 0, 1, 2, 3, 4, 5\nhotel-internet: dontcare, yes, no\n\ntrain-destination: london kings cross, cambridge, peterborough, etc.\ntrain-departure: cambridge, stansted airport, etc.\ntrain-day: monday, saturday, etc.\ntrain-book people: 1, 2, 3, etc.\ntrain-depart_time: 20:24, 12:06, etc.\ntrain-arrive_by_time: 05:51, 20:52, etc.\n\nattraction-name: abbey pool and astroturf pitch, adc theatre, all saints church, castle galleries, etc.\nattraction-area: dontcare, centre, east, north, south, west\nattraction-type: architecture, boat, church, cinema, college, concert hall, entertainment, hotspot, multiple sports, museum, nightclub, park, special, swimming pool, theatre\n\nrestaurant-name: pizza hut city centre, the missing sock, golden wok, cambridge chop house, darrys cookhouse and wine shop, etc.\nrestaurant-food_type: italian, international, chinese, dontcare, modern european, etc.\nrestaurant-pricerange: dontcare, cheap, moderate, expensive\nrestaurant-area: centre, east, north, south, west\nrestaurant-book time: 13:30, 17:11, etc.\nrestaurant-book day: wednesday, friday, etc.\nrestaurant-book people: 1, 2, 3, etc.\n\ntaxi-destination: copper kettle, magdalene college, lovell lodge\ntaxi-departure: royal spice, university arms hotel, da vinci pizzeria\ntaxi-depart_time: 14:45, 11:15, etc.\ntaxi-arrive_by_time: 15:30, 12:45, etc.\n\nExample #1\n[context] (train-destination = cambridge), (train-day = thursday), (attraction-name = broughton house gallery), (attraction-type = museum)\n[system] the tr2775 leaves london kings cross thursday at 5:17 and arrives in cambridge 51 minutes later . does that work ?\n[user] yes as long as it arrives by 16:30 and i will be departing from stevenage\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-arrive_by_time = 16:30), (train-departure = stevenage)\n\n\nExample #2\n[context] (train-destination = kings lynn), (train-depart_time = 17:30)\n[system] okay , there are many options for you to leave after 17:30 to kings lynn . where are you departing from ?\n[user] from cambridge .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-departure = cambridge)\n\n\nExample #3\n[context] (train-destination = cambridge), (attraction-name = broughton house gallery)\n[system] okay , what day would you like to travel and where will you be leaving from ?\n[user] i'll be leaving leicester and i want to be in cambridge by 11:30 , please .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-departure = leicester), (train-arrive_by_time = 11:30)\n\n\nExample #4\n[context] (train-day = thursday), (restaurant-pricerange = expensive), (restaurant-food_type = british), (restaurant-area = west), (train-destination = cambridge)\n[system] there are 5 trains traveling on thursday . the first 1 leaves at 05:17 and the last leaves at 13:17 . what time do you want to leave ?\n[user] i need to arrive from stevenage by 14:30 , if possible .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-arrive_by_time = 14:30), (train-departure = stevenage)\n\n\nExample #5\n[context] (train-destination = cambridge), (train-day = saturday)\n[system] i am getting the train schedule on my computer as we speak , where will you be coming from and what time ?\n[user] i am leaving ely and want to be in cambridge by 12:15 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-departure = ely), (train-arrive_by_time = 12:15)\n\n\nExample #6\n[context] (train-day = sunday), (train-destination = cambridge)\n[system] ok , and where are you departing from ?\n[user] i would be leaving from peterborough . i need to arrive in cambridge by 19:30 though .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-arrive_by_time = 19:30), (train-departure = peterborough)\n\n\nExample #7\n[context] (hotel-pricerange = moderate), (hotel-type = guest house), (hotel-stars = 4), (hotel-area = north)\n[system] you are welcome . have a good day .\n[user] hold on , is there any trains leaving cambridge that arrives by 11:30 ?\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-departure = cambridge), (train-arrive_by_time = 11:30)\n\n\nExample #8\n[context] (restaurant-food_type = chinese), (restaurant-pricerange = cheap), (train-destination = birmingham new street), (restaurant-name = golden house), (restaurant-book people = 1), (restaurant-book day = sunday), (restaurant-book time = 16:30), (restaurant-area = centre), (train-day = monday)\n[system] we have 5 trains going that way . what time would you like to leave ?\n[user] i would like to leave cambridge and arrive by 12:45\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-arrive_by_time = 12:45), (train-departure = cambridge)\n\n\nExample #9\n[context] \n[system] \n[user] i would like to take a train from leicester that arrives by 16:15 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-arrive_by_time = 16:15), (train-departure = leicester)\n\n\nExample #10\n[context] \n[system] \n[user] i need a train from cambridge that can arrive by 16:15 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-arrive_by_time = 16:15), (train-departure = cambridge)\n\n\nExample #11\n[dialogue context]\n[context] \n[system] \n[user] i need to take a train from cambridge , i need to arrive at my destination by 17:00 and\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA:",
+        "pred": {
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "ontology_path": "./data/mwz2.4/ontology.json",
+        "completion": "(train-arriveby = 17:00), (train-departure = cambridge)",
+        "predicted_slot_values": {
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "JGA": 1.0,
+        "SA": 1.0,
+        "Joint_F1": 1.0,
+        "pred_status": "correct"
+    },
+    {
+        "ID": "MUL1491.json",
+        "turn_id": 1,
+        "domains": [
+            "restaurant",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "okay , what day did you have in mind ?"
+            ],
+            "usr": [
+                "i need to take a train from cambridge , i need to arrive at my destination by 17:00 and",
+                "i would like to leave on saturday ."
+            ]
+        },
+        "slot_values": {
+            "train-day": "saturday",
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {
+            "train-day": "saturday"
+        },
+        "last_slot_values": {
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "prompt": "Your task is to find the changed domain-slots based on the context and the dialogue between user and system, and find the corresponding value.\nThe following lists are domain-slots and their possible values.\nyou don't have to find other changed domain-slots if they are not in the list.\n\nhotel-name: a and b guest house, ashley hotel, el shaddia guest house, etc.\nhotel-pricerange: dontcare, cheap, moderate, expensive\nhotel-type: hotel, guest house\nhotel-parking: dontcare, yes, no\nhotel-book stay: 1, 2, 3, etc.\nhotel-book day: monday, tuesday, etc.\nhotel-book people: 1, 2, 3, etc.\nhotel-area: dontcare, centre, east, north, south, west\nhotel-stars: dontcare, 0, 1, 2, 3, 4, 5\nhotel-internet: dontcare, yes, no\n\ntrain-destination: london kings cross, cambridge, peterborough, etc.\ntrain-departure: cambridge, stansted airport, etc.\ntrain-day: monday, saturday, etc.\ntrain-book people: 1, 2, 3, etc.\ntrain-depart_time: 20:24, 12:06, etc.\ntrain-arrive_by_time: 05:51, 20:52, etc.\n\nattraction-name: abbey pool and astroturf pitch, adc theatre, all saints church, castle galleries, etc.\nattraction-area: dontcare, centre, east, north, south, west\nattraction-type: architecture, boat, church, cinema, college, concert hall, entertainment, hotspot, multiple sports, museum, nightclub, park, special, swimming pool, theatre\n\nrestaurant-name: pizza hut city centre, the missing sock, golden wok, cambridge chop house, darrys cookhouse and wine shop, etc.\nrestaurant-food_type: italian, international, chinese, dontcare, modern european, etc.\nrestaurant-pricerange: dontcare, cheap, moderate, expensive\nrestaurant-area: centre, east, north, south, west\nrestaurant-book time: 13:30, 17:11, etc.\nrestaurant-book day: wednesday, friday, etc.\nrestaurant-book people: 1, 2, 3, etc.\n\ntaxi-destination: copper kettle, magdalene college, lovell lodge\ntaxi-departure: royal spice, university arms hotel, da vinci pizzeria\ntaxi-depart_time: 14:45, 11:15, etc.\ntaxi-arrive_by_time: 15:30, 12:45, etc.\n\nExample #1\n[context] \n[system] do you need a train ? or would you like information on restaurant -s , attractions , or hotel -s ?\n[user] i need a train for friday ?\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-day = friday)\n\n\nExample #2\n[context] (train-destination = birmingham new street), (train-depart_time = 17:15)\n[system] there s a train on that route every day departing at 18:01 that ought to work for you . do you know what day you will be travelling ?\n[user] i will be traveling on friday .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-day = friday)\n\n\nExample #3\n[context] (train-destination = stevenage)\n[system] what day will you be traveling on ?\n[user] i would like to travel on monday evening .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-day = monday)\n\n\nExample #4\n[context] (attraction-type = nightclub), (attraction-area = centre), (attraction-name = ballare)\n[system] address is heidelberg gardens , lion yard . entrance fee is 5 pounds\n[user] thanks for the info . can you also tell me if there are any trains on saturday that leave after 11:15 ?\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-depart_time = 11:15), (train-day = saturday)\n\n\nExample #5\n[context] (train-departure = stansted airport)\n[system] what day will you be traveling ?\n[user] i plan to go on tuesday .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-day = tuesday)\n\n\nExample #6\n[context] (attraction-name = kings college), (train-destination = bishops stortford), (train-departure = cambridge), (attraction-type = college), (attraction-area = centre)\n[system] what day and departure time do you prefer ?\n[user] i want to leave on saturday at any time after 21:15 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-depart_time = 21:15), (train-day = saturday)\n\n\nExample #7\n[context] (train-destination = kings lynn), (train-depart_time = 17:30), (train-departure = cambridge)\n[system] what day will you travel ?\n[user] i'll be leaving on tuesday\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-day = tuesday)\n\n\nExample #8\n[context] (restaurant-food_type = dontcare), (restaurant-pricerange = cheap), (train-depart_time = 16:30), (train-departure = cambridge), (restaurant-area = centre), (train-destination = stevenage)\n[system] what day do you need to leave ?\n[user] i would like to leave on tuesday , please .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-day = tuesday)\n\n\nExample #9\n[context] (train-depart_time = 12:15), (train-departure = cambridge), (train-destination = stansted airport)\n[system] okay we have a lot of trains that meet your requests , is there a specific time you want to get to the airport by ?\n[user] no , i just need to leave cambridge after 12:15 on tuesday .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-day = tuesday)\n\n\nExample #10\n[context] \n[system] \n[user] hi i need a train for saturday please .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-day = saturday)\n\n\nExample #11\n[dialogue context]\nsystem: \nuser: i need to take a train from cambridge , i need to arrive at my destination by 17:00 and\n[context] train-departure = cambridge, train-arrive_by_time = 17:00\n[system] okay , what day did you have in mind ?\n[user] i would like to leave on saturday .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA:",
+        "pred": {
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge",
+            "train-day": "saturday"
+        },
+        "ontology_path": "./data/mwz2.4/ontology.json",
+        "completion": "(train-day = saturday)",
+        "predicted_slot_values": {
+            "train-day": "saturday"
+        },
+        "JGA": 1.0,
+        "SA": 1.0,
+        "Joint_F1": 1.0,
+        "pred_status": "correct"
+    },
+    {
+        "ID": "MUL1491.json",
+        "turn_id": 2,
+        "domains": [
+            "restaurant",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "okay , what day did you have in mind ?",
+                "what station would you like to arrive at ?"
+            ],
+            "usr": [
+                "i need to take a train from cambridge , i need to arrive at my destination by 17:00 and",
+                "i would like to leave on saturday .",
+                "i need to get to norwich please ."
+            ]
+        },
+        "slot_values": {
+            "train-destination": "norwich",
+            "train-day": "saturday",
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {
+            "train-destination": "norwich"
+        },
+        "last_slot_values": {
+            "train-day": "saturday",
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "prompt": "Your task is to find the changed domain-slots based on the context and the dialogue between user and system, and find the corresponding value.\nThe following lists are domain-slots and their possible values.\nyou don't have to find other changed domain-slots if they are not in the list.\n\nhotel-name: a and b guest house, ashley hotel, el shaddia guest house, etc.\nhotel-pricerange: dontcare, cheap, moderate, expensive\nhotel-type: hotel, guest house\nhotel-parking: dontcare, yes, no\nhotel-book stay: 1, 2, 3, etc.\nhotel-book day: monday, tuesday, etc.\nhotel-book people: 1, 2, 3, etc.\nhotel-area: dontcare, centre, east, north, south, west\nhotel-stars: dontcare, 0, 1, 2, 3, 4, 5\nhotel-internet: dontcare, yes, no\n\ntrain-destination: london kings cross, cambridge, peterborough, etc.\ntrain-departure: cambridge, stansted airport, etc.\ntrain-day: monday, saturday, etc.\ntrain-book people: 1, 2, 3, etc.\ntrain-depart_time: 20:24, 12:06, etc.\ntrain-arrive_by_time: 05:51, 20:52, etc.\n\nattraction-name: abbey pool and astroturf pitch, adc theatre, all saints church, castle galleries, etc.\nattraction-area: dontcare, centre, east, north, south, west\nattraction-type: architecture, boat, church, cinema, college, concert hall, entertainment, hotspot, multiple sports, museum, nightclub, park, special, swimming pool, theatre\n\nrestaurant-name: pizza hut city centre, the missing sock, golden wok, cambridge chop house, darrys cookhouse and wine shop, etc.\nrestaurant-food_type: italian, international, chinese, dontcare, modern european, etc.\nrestaurant-pricerange: dontcare, cheap, moderate, expensive\nrestaurant-area: centre, east, north, south, west\nrestaurant-book time: 13:30, 17:11, etc.\nrestaurant-book day: wednesday, friday, etc.\nrestaurant-book people: 1, 2, 3, etc.\n\ntaxi-destination: copper kettle, magdalene college, lovell lodge\ntaxi-departure: royal spice, university arms hotel, da vinci pizzeria\ntaxi-depart_time: 14:45, 11:15, etc.\ntaxi-arrive_by_time: 15:30, 12:45, etc.\n\nExample #1\n[context] (attraction-name = broughton house gallery)\n[system] yes , that s the postcode . is there anything else i can assist you with ?\n[user] yes , i need a train going to cambridge .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-destination = cambridge)\n\n\nExample #2\n[context] (restaurant-food_type = indian), (restaurant-pricerange = expensive), (restaurant-area = south), (restaurant-book people = 1), (restaurant-book day = sunday), (restaurant-book time = 16:30)\n[system] okay you are all booked for a party of 1 at 16:30 on sunday at taj tandoori . is there anything else i can help you with ?\n[user] yes , please . i need a train to broxbourne .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-destination = broxbourne)\n\n\nExample #3\n[context] (train-day = tuesday), (train-departure = stansted airport)\n[system] what is your destination ?\n[user] my destination is cambridge .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-destination = cambridge)\n\n\nExample #4\n[context] (hotel-name = acorn guest house), (hotel-stars = 4), (hotel-type = guest house), (hotel-parking = yes)\n[system] the acorn guest house is located at 154 chesterton road , cb41da . is there any other way i can be of assistance ?\n[user] yes , i need a train that goes to cambridge and arrives by 19:45 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-arrive_by_time = 19:45), (train-destination = cambridge)\n\n\nExample #5\n[context] (hotel-type = hotel), (train-day = friday), (train-departure = leicester), (hotel-parking = yes), (hotel-book stay = 5), (hotel-pricerange = moderate), (hotel-internet = yes), (train-depart_time = 17:00), (hotel-book day = friday), (hotel-book people = 7)\n[system] what is your destination ?\n[user] i'll be going to cambridge and need to arrive by 09:00 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-arrive_by_time = 09:00), (train-destination = cambridge), (train-depart_time = [DELETE])\n\n\nExample #6\n[context] (train-departure = leicester), (train-day = friday)\n[system] what is your destination ?\n[user] i am going to cambridge .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-destination = cambridge)\n\n\nExample #7\n[context] (train-depart_time = 12:15), (train-departure = cambridge), (train-day = saturday)\n[system] we have over 100 results . where is your destination ?\n[user] my destination is leicester .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-destination = leicester)\n\n\nExample #8\n[context] \n[system] \n[user] i need a train to norwich . i need to get there right before 20:45 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-destination = norwich), (train-arrive_by_time = 20:45)\n\n\nExample #9\n[context] (hotel-book stay = 2), (hotel-name = leverton house), (train-day = thursday), (hotel-book people = 5), (train-departure = cambridge), (hotel-book day = tuesday)\n[system] what is your destination ?\n[user] i want to travel to norwich .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-destination = norwich)\n\n\nExample #10\n[context] (train-departure = cambridge), (train-day = thursday)\n[system] there are 202 trains leaving from cambridge that day . where would you like to travel to ?\n[user] i would like to go to norwich .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-destination = norwich)\n\n\nExample #11\n[dialogue context]\nsystem: \nuser: i need to take a train from cambridge , i need to arrive at my destination by 17:00 and\nsystem: okay , what day did you have in mind ?\nuser: i would like to leave on saturday .\n[context] train-departure = cambridge, train-arrive_by_time = 17:00, train-day = saturday\n[system] what station would you like to arrive at ?\n[user] i need to get to norwich please .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA:",
+        "pred": {
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge",
+            "train-day": "saturday",
+            "train-destination": "norwich"
+        },
+        "ontology_path": "./data/mwz2.4/ontology.json",
+        "completion": "(train-destination = norwich)",
+        "predicted_slot_values": {
+            "train-destination": "norwich"
+        },
+        "JGA": 1.0,
+        "SA": 1.0,
+        "Joint_F1": 1.0,
+        "pred_status": "correct"
+    },
+    {
+        "ID": "MUL1491.json",
+        "turn_id": 3,
+        "domains": [
+            "restaurant",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "okay , what day did you have in mind ?",
+                "what station would you like to arrive at ?",
+                "tr3823 will arrive at 16:55 , would that work for you ?"
+            ],
+            "usr": [
+                "i need to take a train from cambridge , i need to arrive at my destination by 17:00 and",
+                "i would like to leave on saturday .",
+                "i need to get to norwich please .",
+                "that cuts it a little close but it will do . i do not need it booked , though . can you also find me a place to get some food ?"
+            ]
+        },
+        "slot_values": {
+            "train-destination": "norwich",
+            "train-day": "saturday",
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "train-destination": "norwich",
+            "train-day": "saturday",
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "prompt": "Your task is to find the changed domain-slots based on the context and the dialogue between user and system, and find the corresponding value.\nThe following lists are domain-slots and their possible values.\nyou don't have to find other changed domain-slots if they are not in the list.\n\nhotel-name: a and b guest house, ashley hotel, el shaddia guest house, etc.\nhotel-pricerange: dontcare, cheap, moderate, expensive\nhotel-type: hotel, guest house\nhotel-parking: dontcare, yes, no\nhotel-book stay: 1, 2, 3, etc.\nhotel-book day: monday, tuesday, etc.\nhotel-book people: 1, 2, 3, etc.\nhotel-area: dontcare, centre, east, north, south, west\nhotel-stars: dontcare, 0, 1, 2, 3, 4, 5\nhotel-internet: dontcare, yes, no\n\ntrain-destination: london kings cross, cambridge, peterborough, etc.\ntrain-departure: cambridge, stansted airport, etc.\ntrain-day: monday, saturday, etc.\ntrain-book people: 1, 2, 3, etc.\ntrain-depart_time: 20:24, 12:06, etc.\ntrain-arrive_by_time: 05:51, 20:52, etc.\n\nattraction-name: abbey pool and astroturf pitch, adc theatre, all saints church, castle galleries, etc.\nattraction-area: dontcare, centre, east, north, south, west\nattraction-type: architecture, boat, church, cinema, college, concert hall, entertainment, hotspot, multiple sports, museum, nightclub, park, special, swimming pool, theatre\n\nrestaurant-name: pizza hut city centre, the missing sock, golden wok, cambridge chop house, darrys cookhouse and wine shop, etc.\nrestaurant-food_type: italian, international, chinese, dontcare, modern european, etc.\nrestaurant-pricerange: dontcare, cheap, moderate, expensive\nrestaurant-area: centre, east, north, south, west\nrestaurant-book time: 13:30, 17:11, etc.\nrestaurant-book day: wednesday, friday, etc.\nrestaurant-book people: 1, 2, 3, etc.\n\ntaxi-destination: copper kettle, magdalene college, lovell lodge\ntaxi-departure: royal spice, university arms hotel, da vinci pizzeria\ntaxi-depart_time: 14:45, 11:15, etc.\ntaxi-arrive_by_time: 15:30, 12:45, etc.\n\nExample #1\n[context] (train-destination = kings lynn), (train-depart_time = 17:30), (train-day = tuesday), (train-departure = cambridge)\n[system] great . there are several trains available . what time would you like to leave by ?\n[user] i would like to leave after 17:30 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: \n\n\nExample #2\n[context] (restaurant-name = midsummer house restaurant), (train-arrive_by_time = 15:00), (restaurant-pricerange = expensive), (restaurant-food_type = dontcare), (train-destination = bishops stortford), (restaurant-book people = 1), (train-day = sunday), (train-book people = 1), (train-departure = cambridge), (restaurant-area = centre), (restaurant-book time = 18:45), (restaurant-book day = saturday)\n[system] yes . there is a train that leaves at 13:29 and arrives at 14:07 , would you like to book this train ?\n[user] yes , that would be great . it will be only 1 person .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: \n\n\nExample #3\n[context] (hotel-pricerange = cheap), (hotel-name = finches bed and breakfast), (hotel-area = west)\n[system] yes , it does offer parking . would you like me to book that for you ?\n[user] that sounds great . yes please !\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: \n\n\nExample #4\n[context] (restaurant-pricerange = expensive), (restaurant-food_type = chinese), (train-day = saturday), (restaurant-name = ugly duckling), (train-departure = peterborough), (train-depart_time = 08:30), (restaurant-area = centre), (train-destination = cambridge)\n[system] ok . that train is tr1616 which leaves at 08:48 . would you like for me to book your seats ?\n[user] no , but if you could give me the price of a ticket ?\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: \n\n\nExample #5\n[context] (hotel-type = guest house), (hotel-name = acorn guest house), (hotel-pricerange = moderate), (attraction-area = west), (attraction-type = museum)\n[system] cambridge and county folk museum is available , would you like that ?\n[user] sure . that sounds good . can i get their address and postcode please ?\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: \n\n\nExample #6\n[context] (train-day = tuesday), (train-depart_time = 13:30), (train-destination = cambridge), (train-departure = kings lynn)\n[system] train tr4840 leaves at 14:11 . would you like me to book it for you ?\n[user] first , i would like to know the arrival time for it .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: \n\n\nExample #7\n[context] (train-depart_time = 08:15), (train-day = wednesday), (train-destination = cambridge), (train-departure = bishops stortford)\n[system] okay i have the 9:29 that arrives at 10:07 . would you like to book that ?\n[user] yes , that works , i need the travel time , and the train id please .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: \n\n\nExample #8\n[context] (train-day = wednesday), (attraction-name = museum of classical archaeology), (train-departure = cambridge), (train-depart_time = 11:30), (train-destination = stevenage)\n[system] there is a train that leaves cambridge at 15:21 and arrives in stevenage at 16:10 . would that work for you ?\n[user] yes that s all the info that i have , thank you .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: \n\n\nExample #9\n[context] (train-day = tuesday), (train-arrive_by_time = 10:00), (train-destination = cambridge), (train-departure = stansted airport)\n[system] there are trains departing every hour . tr5077 would get in in at 8:52 , does that work for you ?\n[user] that sounds perfect . can i get the reference number from the booking ?\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: \n\n\nExample #10\n[context] (train-destination = leicester), (train-arrive_by_time = 21:30), (train-day = thursday), (train-departure = cambridge)\n[system] train tr3255 is arriving at 21:06 , is that okay for you ?\n[user] that could work for me .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: \n\n\nExample #11\n[dialogue context]\nsystem: \nuser: i need to take a train from cambridge , i need to arrive at my destination by 17:00 and\nsystem: okay , what day did you have in mind ?\nuser: i would like to leave on saturday .\nsystem: what station would you like to arrive at ?\nuser: i need to get to norwich please .\n[context] train-departure = cambridge, train-arrive_by_time = 17:00, train-destination = norwich, train-day = saturday\n[system] tr3823 will arrive at 16:55 , would that work for you ?\n[user] that cuts it a little close but it will do . i do not need it booked , though . can you also find me a place to get some food ?\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA:",
+        "pred": {
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge",
+            "train-day": "saturday",
+            "train-destination": "norwich"
+        },
+        "ontology_path": "./data/mwz2.4/ontology.json",
+        "completion": "restaurant-name: unknown, restaurant-area: unknown, restaurant-pricerange: unknown, restaurant-food: unknown, restaurant-book time: unknown, restaurant-book day: unknown, restaurant-book people: unknown",
+        "predicted_slot_values": {},
+        "JGA": 1.0,
+        "SA": 1.0,
+        "Joint_F1": 1.0,
+        "pred_status": "correct"
+    },
+    {
+        "ID": "MUL1491.json",
+        "turn_id": 4,
+        "domains": [
+            "restaurant",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "okay , what day did you have in mind ?",
+                "what station would you like to arrive at ?",
+                "tr3823 will arrive at 16:55 , would that work for you ?",
+                "i sure can ! do you have a specific area and type of food you are looking for ?"
+            ],
+            "usr": [
+                "i need to take a train from cambridge , i need to arrive at my destination by 17:00 and",
+                "i would like to leave on saturday .",
+                "i need to get to norwich please .",
+                "that cuts it a little close but it will do . i do not need it booked , though . can you also find me a place to get some food ?",
+                "i would like an indian restaurant in the centre , please ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "indian",
+            "restaurant-area": "centre",
+            "train-destination": "norwich",
+            "train-day": "saturday",
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {
+            "restaurant-food": "indian",
+            "restaurant-area": "centre"
+        },
+        "last_slot_values": {
+            "train-destination": "norwich",
+            "train-day": "saturday",
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "prompt": "Your task is to find the changed domain-slots based on the context and the dialogue between user and system, and find the corresponding value.\nThe following lists are domain-slots and their possible values.\nyou don't have to find other changed domain-slots if they are not in the list.\n\nhotel-name: a and b guest house, ashley hotel, el shaddia guest house, etc.\nhotel-pricerange: dontcare, cheap, moderate, expensive\nhotel-type: hotel, guest house\nhotel-parking: dontcare, yes, no\nhotel-book stay: 1, 2, 3, etc.\nhotel-book day: monday, tuesday, etc.\nhotel-book people: 1, 2, 3, etc.\nhotel-area: dontcare, centre, east, north, south, west\nhotel-stars: dontcare, 0, 1, 2, 3, 4, 5\nhotel-internet: dontcare, yes, no\n\ntrain-destination: london kings cross, cambridge, peterborough, etc.\ntrain-departure: cambridge, stansted airport, etc.\ntrain-day: monday, saturday, etc.\ntrain-book people: 1, 2, 3, etc.\ntrain-depart_time: 20:24, 12:06, etc.\ntrain-arrive_by_time: 05:51, 20:52, etc.\n\nattraction-name: abbey pool and astroturf pitch, adc theatre, all saints church, castle galleries, etc.\nattraction-area: dontcare, centre, east, north, south, west\nattraction-type: architecture, boat, church, cinema, college, concert hall, entertainment, hotspot, multiple sports, museum, nightclub, park, special, swimming pool, theatre\n\nrestaurant-name: pizza hut city centre, the missing sock, golden wok, cambridge chop house, darrys cookhouse and wine shop, etc.\nrestaurant-food_type: italian, international, chinese, dontcare, modern european, etc.\nrestaurant-pricerange: dontcare, cheap, moderate, expensive\nrestaurant-area: centre, east, north, south, west\nrestaurant-book time: 13:30, 17:11, etc.\nrestaurant-book day: wednesday, friday, etc.\nrestaurant-book people: 1, 2, 3, etc.\n\ntaxi-destination: copper kettle, magdalene college, lovell lodge\ntaxi-departure: royal spice, university arms hotel, da vinci pizzeria\ntaxi-depart_time: 14:45, 11:15, etc.\ntaxi-arrive_by_time: 15:30, 12:45, etc.\n\nExample #1\n[context] \n[system] \n[user] hi ! do you have any indian food on the east side ?\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-area = east), (restaurant-food_type = indian)\n\n\nExample #2\n[context] \n[system] \n[user] find me a restaurant that serves belgian food in the centre\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-food_type = belgian), (restaurant-area = centre)\n\n\nExample #3\n[context] \n[system] \n[user] i am looking for a restaurant in the centre that serves world food .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-food_type = world), (restaurant-area = centre)\n\n\nExample #4\n[context] \n[system] \n[user] can you help me find a place to eat located in the centre that serves british food ?\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-area = centre), (restaurant-food_type = british)\n\n\nExample #5\n[context] (attraction-name = abbey pool and astroturf pitch)\n[system] sure thing ! the address is: pool way , whitehill road , off newmarket road . the phone number and postcode are 01223902088 and cb58nt .\n[user] are there any italian restaurant -s located in the centre ?\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-area = centre), (restaurant-food_type = italian)\n\n\nExample #6\n[context] (attraction-name = churchills college)\n[system] the postcode on that attraction is cb30ds . do you need further help with anything today ?\n[user] i would like to find and italian restaurant in the centre of town .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-area = centre), (restaurant-food_type = italian)\n\n\nExample #7\n[context] \n[system] \n[user] i want to dine at a chinese food place in the centre area .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-area = centre), (restaurant-food_type = chinese)\n\n\nExample #8\n[context] \n[system] \n[user] i am looking for a restaurant that serves indian food in the west .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-food_type = indian), (restaurant-area = west)\n\n\nExample #9\n[context] (attraction-name = queens college)\n[system] it is a college and the address is silver street . anything else i can help you with ?\n[user] i am looking for restaurant in the centre area that serves european food please .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-food_type = european), (restaurant-area = centre)\n\n\nExample #10\n[context] \n[system] \n[user] i need a place to dine on indian food . centre of the town please .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-area = centre), (restaurant-food_type = indian)\n\n\nExample #11\n[dialogue context]\nsystem: \nuser: i need to take a train from cambridge , i need to arrive at my destination by 17:00 and\nsystem: okay , what day did you have in mind ?\nuser: i would like to leave on saturday .\nsystem: what station would you like to arrive at ?\nuser: i need to get to norwich please .\nsystem: tr3823 will arrive at 16:55 , would that work for you ?\nuser: that cuts it a little close but it will do . i do not need it booked , though . can you also find me a place to get some food ?\n[context] train-departure = cambridge, train-arrive_by_time = 17:00, train-destination = norwich, train-day = saturday\n[system] i sure can ! do you have a specific area and type of food you are looking for ?\n[user] i would like an indian restaurant in the centre , please .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA:",
+        "pred": {
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge",
+            "train-day": "saturday",
+            "train-destination": "norwich",
+            "restaurant-area": "centre",
+            "restaurant-food": "indian"
+        },
+        "ontology_path": "./data/mwz2.4/ontology.json",
+        "completion": "(train-departure = cambridge), (train-arriveby = 17:00), (train-destination = norwich), (train-day = saturday), (restaurant-area = centre), (restaurant-food = indian)",
+        "predicted_slot_values": {
+            "train-departure": "cambridge",
+            "train-arriveby": "17:00",
+            "train-destination": "norwich",
+            "train-day": "saturday",
+            "restaurant-area": "centre",
+            "restaurant-food": "indian"
+        },
+        "JGA": 1.0,
+        "SA": 1.0,
+        "Joint_F1": 1.0,
+        "pred_status": "correct"
+    },
+    {
+        "ID": "MUL1491.json",
+        "turn_id": 5,
+        "domains": [
+            "restaurant",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "okay , what day did you have in mind ?",
+                "what station would you like to arrive at ?",
+                "tr3823 will arrive at 16:55 , would that work for you ?",
+                "i sure can ! do you have a specific area and type of food you are looking for ?",
+                "i have many . is there a price range that you prefer ?"
+            ],
+            "usr": [
+                "i need to take a train from cambridge , i need to arrive at my destination by 17:00 and",
+                "i would like to leave on saturday .",
+                "i need to get to norwich please .",
+                "that cuts it a little close but it will do . i do not need it booked , though . can you also find me a place to get some food ?",
+                "i would like an indian restaurant in the centre , please .",
+                "whichever ever 1 has 11:00 for 2 people on the same day available , that 1 would be fine ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "saturday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "11:00",
+            "restaurant-food": "indian",
+            "restaurant-area": "centre",
+            "train-destination": "norwich",
+            "train-day": "saturday",
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {
+            "restaurant-book day": "saturday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "11:00"
+        },
+        "last_slot_values": {
+            "restaurant-food": "indian",
+            "restaurant-area": "centre",
+            "train-destination": "norwich",
+            "train-day": "saturday",
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge"
+        },
+        "prompt": "Your task is to find the changed domain-slots based on the context and the dialogue between user and system, and find the corresponding value.\nThe following lists are domain-slots and their possible values.\nyou don't have to find other changed domain-slots if they are not in the list.\n\nhotel-name: a and b guest house, ashley hotel, el shaddia guest house, etc.\nhotel-pricerange: dontcare, cheap, moderate, expensive\nhotel-type: hotel, guest house\nhotel-parking: dontcare, yes, no\nhotel-book stay: 1, 2, 3, etc.\nhotel-book day: monday, tuesday, etc.\nhotel-book people: 1, 2, 3, etc.\nhotel-area: dontcare, centre, east, north, south, west\nhotel-stars: dontcare, 0, 1, 2, 3, 4, 5\nhotel-internet: dontcare, yes, no\n\ntrain-destination: london kings cross, cambridge, peterborough, etc.\ntrain-departure: cambridge, stansted airport, etc.\ntrain-day: monday, saturday, etc.\ntrain-book people: 1, 2, 3, etc.\ntrain-depart_time: 20:24, 12:06, etc.\ntrain-arrive_by_time: 05:51, 20:52, etc.\n\nattraction-name: abbey pool and astroturf pitch, adc theatre, all saints church, castle galleries, etc.\nattraction-area: dontcare, centre, east, north, south, west\nattraction-type: architecture, boat, church, cinema, college, concert hall, entertainment, hotspot, multiple sports, museum, nightclub, park, special, swimming pool, theatre\n\nrestaurant-name: pizza hut city centre, the missing sock, golden wok, cambridge chop house, darrys cookhouse and wine shop, etc.\nrestaurant-food_type: italian, international, chinese, dontcare, modern european, etc.\nrestaurant-pricerange: dontcare, cheap, moderate, expensive\nrestaurant-area: centre, east, north, south, west\nrestaurant-book time: 13:30, 17:11, etc.\nrestaurant-book day: wednesday, friday, etc.\nrestaurant-book people: 1, 2, 3, etc.\n\ntaxi-destination: copper kettle, magdalene college, lovell lodge\ntaxi-departure: royal spice, university arms hotel, da vinci pizzeria\ntaxi-depart_time: 14:45, 11:15, etc.\ntaxi-arrive_by_time: 15:30, 12:45, etc.\n\nExample #1\n[context] (restaurant-pricerange = expensive), (restaurant-food_type = chinese)\n[system] there are several options for chinese . what area of town will you be in ?\n[user] any part of town is good . i need a booking for 2 people on saturday at 16:45 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-book people = 2), (restaurant-book time = 16:45), (restaurant-book day = saturday)\n\n\nExample #2\n[context] (train-departure = stansted airport), (train-depart_time = 13:45), (train-destination = cambridge), (train-day = saturday)\n[system] how about the tr4230 train ? it leaves at 14:24 and arrives at 14:52 .\n[user] yes , that will be fine . i would like to book the train for 2 people please .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-book people = 2)\n\n\nExample #3\n[context] (restaurant-area = north), (restaurant-pricerange = expensive), (attraction-area = north), (attraction-name = kings hedges learner pool), (attraction-type = swimming pool)\n[system] the only restaurant in the area is kymmoy . should i book it for you ?\n[user] please book for 2 people at 14:00 on saturday . may i confirm the reference number ?\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-book people = 2), (restaurant-book time = 14:00), (restaurant-food_type = asian oriental), (restaurant-book day = saturday)\n\n\nExample #4\n[context] (restaurant-area = east), (restaurant-food_type = indian)\n[system] i have 4 indian place -s , do you have a price range in mind ?\n[user] no , i do not , any place will do . i would like to find a table for 3 at 12:45 on monday .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-book people = 3), (restaurant-book day = monday), (restaurant-book time = 12:45)\n\n\nExample #5\n[context] (attraction-type = college), (train-arrive_by_time = 13:00), (train-departure = leicester), (attraction-name = magdalene college), (train-destination = cambridge), (attraction-area = west), (train-day = monday)\n[system] i found 7 trains that match your criteria . how early do you want to leave ? we have trains running every hour from 05:09 to 11:09\n[user] can you book 2 tickets for a train that arrives closest to 13:00 please ?\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-book people = 2)\n\n\nExample #6\n[context] (restaurant-food_type = dontcare), (restaurant-pricerange = cheap), (train-depart_time = 16:30), (train-day = tuesday), (train-departure = cambridge), (restaurant-area = centre), (train-destination = stevenage)\n[system] there are trains leaving cambridge every 2 hour -s starting at 17:21 and arriving in stevanage 1 hour later . which time do you prefer ?\n[user] 17:21 sounds fine . please make a booking for 1 person and let me know the reference number .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-book people = 1)\n\n\nExample #7\n[context] (train-day = thursday), (train-destination = cambridge), (train-arrive_by_time = 16:45), (train-departure = ely), (train-depart_time = dontcare)\n[system] there are 6 trains leaving that will get you there by 16:45 , the closest tr3240 arriving at 15:52 . would you like to make a reservation ?\n[user] yes , please make me a reservation for 2 people on tr3240 arriving at 15:52 .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-book people = 2)\n\n\nExample #8\n[context] (restaurant-pricerange = cheap), (restaurant-food_type = italian)\n[system] i show 5 that fit your criteria . may i ask the location you are in ? this would help refine our search .\n[user] it does not matter what area . can you book a table for 2 people at 11:00 on wednesday .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-book people = 2), (restaurant-area = dontcare), (restaurant-book time = 11:00), (restaurant-book day = wednesday)\n\n\nExample #9\n[context] (train-departure = broxbourne), (train-day = friday), (train-destination = cambridge), (train-depart_time = 18:45)\n[system] there is a train leaving at 19:12 .\n[user] great , can i get 2 tickets on that train ?\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (train-book people = 2)\n\n\nExample #10\n[context] (restaurant-book day = monday), (restaurant-food_type = indian), (restaurant-book people = 3), (restaurant-area = east), (restaurant-book time = 12:45)\n[system] unfortunately there are no tables available matching that , do you have another time ?\n[user] ok , how about 11:45 , also i would like to know the name of the restaurant .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA: (restaurant-book time = 11:45)\n\n\nExample #11\n[dialogue context]\nsystem: \nuser: i need to take a train from cambridge , i need to arrive at my destination by 17:00 and\nsystem: okay , what day did you have in mind ?\nuser: i would like to leave on saturday .\nsystem: what station would you like to arrive at ?\nuser: i need to get to norwich please .\nsystem: tr3823 will arrive at 16:55 , would that work for you ?\nuser: that cuts it a little close but it will do . i do not need it booked , though . can you also find me a place to get some food ?\nsystem: i sure can ! do you have a specific area and type of food you are looking for ?\nuser: i would like an indian restaurant in the centre , please .\n[context] train-arrive_by_time = 17:00, train-destination = norwich, restaurant-area = centre, train-departure = cambridge, train-day = saturday, restaurant-food_type = indian\n[system] i have many . is there a price range that you prefer ?\n[user] whichever ever 1 has 11:00 for 2 people on the same day available , that 1 would be fine .\nQ: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\nA:",
+        "pred": {
+            "train-arriveby": "17:00",
+            "train-departure": "cambridge",
+            "train-day": "saturday",
+            "train-destination": "norwich",
+            "restaurant-area": "centre",
+            "restaurant-food": "indian",
+            "restaurant-book time": "11:00",
+            "restaurant-book people": "2",
+            "restaurant-pricerange": "dontcare"
+        },
+        "ontology_path": "./data/mwz2.4/ontology.json",
+        "completion": "(restaurant-book time = 11:00), (restaurant-book people = 2), (restaurant-pricerange = dontcare)",
+        "predicted_slot_values": {
+            "restaurant-book time": "11:00",
+            "restaurant-book people": "2",
+            "restaurant-pricerange": "dontcare"
+        },
+        "JGA": 0.8333333333333334,
+        "SA": 0.9888888888888889,
+        "Joint_F1": 0.9814814814814815,
+        "pred_status": "wrong"
+    }
+]

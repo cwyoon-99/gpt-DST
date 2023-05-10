@@ -1,0 +1,15 @@
+correct 5/6  =  0.8333333333333334
+Slot Acc 0.9888888888888889
+Joint F1 0.9814814814814815
+accuracy of turn 0 is 1/1 = 1.0
+accuracy of turn 1 is 1/1 = 1.0
+accuracy of turn 2 is 1/1 = 1.0
+accuracy of turn 3 is 1/1 = 1.0
+accuracy of turn 4 is 1/1 = 1.0
+accuracy of turn 5 is 0/1 = 0.0
+
+FGA Result
+FGA with L=0.25 : 83.33
+FGA with L=0.5 : 83.33
+FGA with L=0.75 : 83.33
+FGA with L=1.0 : 83.33

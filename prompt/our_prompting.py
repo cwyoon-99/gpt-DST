@@ -273,7 +273,10 @@ def get_full_history_prompt(data_item, examples, given_context=None, n_examples=
         last_slot_values = given_context
 
     # 마지막 example (test instance)에만 full history 추가
-    prompt_text += f"[dialogue] \n"
+    prompt_text += f"[dialogue context]\n"
+    for i in range(len(question_item['dialog']['usr'])-1):
+        prompt_text += f"system: {question_item['dialog']['sys'][i]}\n"
+        prompt_text += f"user: {question_item['dialog']['usr'][i]}\n"
 
     prompt_text += f"[context] {conversion(', '.join({f'{slot} = {value}' for slot, value in last_slot_values.items()}))}\n"
 

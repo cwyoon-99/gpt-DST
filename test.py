@@ -23,15 +23,16 @@ retriever_dir = 'retriever/expts/mw21_5p_v2'
 output_file_name = 'gpt35_turbo_5p_v2_baseline'
 mwz_ver = 2.4
 test_fn = ''
-test_size = 2
+test_size = 3
 
 # current time
 cur_time = time.strftime('%y%m%d_%H%M-')
 
 # create the output folder
-output_dir = 'expts/' + cur_time + output_file_name + '_0to' + str(2)
+output_dir = 'expts/' + cur_time + output_file_name + '_0to' + str(test_size)
+os.makedirs(output_dir, exist_ok=True)
 
-NUM_EXAMPLE=0
+NUM_EXAMPLE=1
 
 # read the selection pool
 with open(train_fn) as f:
@@ -110,20 +111,20 @@ def run(test_set, turn=-1, use_gold=False):
             modified_item = copy.deepcopy(data_item)
             modified_item['last_slot_values'] = predicted_context
 
-            # examples = retriever.item_to_nearest_examples(
-            #     modified_item, k=NUM_EXAMPLE)
+            examples = retriever.item_to_nearest_examples(
+                modified_item, k=NUM_EXAMPLE)
             
             prompt_text = get_prompt(
-                data_item, examples='', given_context=predicted_context, n_examples=0)
+                data_item, examples=examples, given_context=predicted_context)
 
-        print(prompt_text.replace(conversion(ontology_prompt), ""))
+        # print(prompt_text.replace(conversion(ontology_prompt), ""))
 
         # record the prompt
         data_item['prompt'] = prompt_text
 
         # prompt 확인용
         print(prompt_text)
-        continue
+        # continue
 
         # gpt35 completion
         complete_flag = False
@@ -168,7 +169,7 @@ def run(test_set, turn=-1, use_gold=False):
             print("the output is not a valid result")
             data_item['not_valid'] = 1
 
-        predicted_slot_values = typo_fix(predicted_slot_values, ontology=ontology, version=args.mwz_ver)
+        predicted_slot_values = typo_fix(predicted_slot_values, ontology=ontology, version=mwz_ver)
 
         context_slot_values = data_item['last_slot_values']  # a dictionary
 
@@ -225,8 +226,8 @@ def run(test_set, turn=-1, use_gold=False):
         all_result.append(data_item)
 
         # Log Checkpoint
-        if data_idx % args.save_interval == 0:
-            with open(os.path.join(args.output_dir,f'running_log.json'),'w') as f:
+        if data_idx % 5 == 0:
+            with open(os.path.join(output_dir,f'running_log.json'),'w') as f:
                 json.dump(all_result, f, indent=4)
 
         print("\n\n\n####################################################################################################################\n\n\n")
@@ -241,7 +242,7 @@ def run(test_set, turn=-1, use_gold=False):
         print(f"accuracy of turn {k} is {sum(v)}/{len(v)} = {sum(v) / len(v)}")
 
     # save score in score.txt
-    with open(os.path.join(args.output_dir, "score.txt"), 'w') as f:
+    with open(os.path.join(output_dir, "score.txt"), 'w') as f:
         f.write(f"correct {n_correct}/{n_total}  =  {n_correct / n_total}\n")
         f.write(f"Slot Acc {total_acc/n_total}\n")
         f.write(f"Joint F1 {total_f1/n_total}\n")
