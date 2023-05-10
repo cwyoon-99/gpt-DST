@@ -6,14 +6,16 @@ with open(log_path) as f:
 
 previous_id = ''
 turn_num = 0
-for turn in data[:50]:
+for turn in data[:33]:
     current_id = turn['ID']
     if current_id != previous_id:
         print()
         print(turn_num)
         print('Dialogue ID: ' + current_id)
-    print('system: ' + turn['dialog']['sys'][-1])
-    print('user: ' + turn['dialog']['usr'][-1])
+    print('[system] ' + turn['dialog']['sys'][-1])
+    print('[user] ' + turn['dialog']['usr'][-1])
+    print('')
+    # print('prompt: ' + turn['prompt'])
     previous_id = current_id
     turn_num += 1
 print()

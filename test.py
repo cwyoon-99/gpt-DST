@@ -12,7 +12,7 @@ from config import CONFIG
 
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
 from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket, slot_classify_parse, pred_parse_with_bracket_matching
-from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket,\
+from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket, get_full_history_prompt,\
  get_slot_classify_prompt, slot_classify_prompt, slot_description_prompt
 from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
@@ -92,7 +92,7 @@ def run(test_set, turn=-1, use_gold=False):
 
     # specify ontology_prompt, prompt_function
     ontology_prompt = custom_prompt
-    get_prompt = get_prompt_with_bracket
+    get_prompt = get_full_history_prompt
     our_parse = pred_parse_with_bracket_matching
     mode = "with_bracket"
 

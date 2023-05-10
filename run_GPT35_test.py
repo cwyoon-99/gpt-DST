@@ -15,7 +15,7 @@ from api_request.ada_completion import ada_completion
 from api_request.babbage_completion import babbage_completion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
 from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket, slot_classify_parse, pred_parse_with_bracket_matching
-from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket,\
+from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket, get_full_history_prompt, \
  get_slot_classify_prompt, slot_classify_prompt, slot_description_prompt
 from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
@@ -32,6 +32,7 @@ parser.add_argument('--test_fn', type=str, default='', help="file to evaluate on
 parser.add_argument('--save_interval', type=int, default=5, help="interval to save running_log.json")
 parser.add_argument('--test_size', type=int, default=10, help="size of the test set")
 parser.add_argument('--bracket', action="store_true", help="whether brackets are used in each domain-slot")
+parser.add_argument('--full_history', action="store_true", help="whether brackets are used in each domain-slot")
 parser.add_argument('--slot_classify', action="store_true", help="whether slots are predicted through index number")
 args = parser.parse_args()
 
@@ -110,6 +111,11 @@ def run(test_set, turn=-1, use_gold=False):
         get_prompt = get_prompt_with_bracket
         our_parse = pred_parse_with_bracket_matching
         mode = "with_bracket"
+    elif args.full_history:
+        ontology_prompt = custom_prompt
+        get_prompt = get_full_history_prompt
+        our_parse = pred_parse_with_bracket_matching
+        mode = "full_history"
     elif args.slot_classify:
         ontology_prompt = slot_description_prompt # slot_classify_prompt
         get_prompt = get_slot_classify_prompt
@@ -140,14 +146,14 @@ def run(test_set, turn=-1, use_gold=False):
             prompt_text = get_prompt(
                 data_item, examples=examples, given_context=predicted_context)
 
-        print(prompt_text.replace(conversion(ontology_prompt), ""))
+        # print(prompt_text.replace(conversion(ontology_prompt), ""))
 
         # record the prompt
         data_item['prompt'] = prompt_text
 
         # prompt 확인용
-        # print(prompt_text)
-        # continue
+        print(prompt_text)
+        continue
 
         # gpt35 completion
         complete_flag = False
