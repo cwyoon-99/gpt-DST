@@ -1,7 +1,7 @@
 python run_GPT35_test.py \
       --train_fn data/mw21_5p_train_v2.json \
       --retriever_dir retriever/expts/mw21_5p_v2 \
-      --output_file_name gpt35_turbo_5p_v2_baseline_no_blank_blanket  \
+      --output_file_name gpt35_turbo_5p_v2_baseline  \
       --mwz_ver 2.4 \
       --bracket \
 
