@@ -1,0 +1,24 @@
+correct 386/737  =  0.5237449118046132
+Slot Acc 0.9756218905472606
+Joint F1 0.9207067094931872
+accuracy of turn 0 is 88/100 = 0.88
+accuracy of turn 1 is 77/100 = 0.77
+accuracy of turn 2 is 62/98 = 0.6326530612244898
+accuracy of turn 3 is 49/91 = 0.5384615384615384
+accuracy of turn 4 is 34/87 = 0.39080459770114945
+accuracy of turn 5 is 30/81 = 0.37037037037037035
+accuracy of turn 6 is 23/69 = 0.3333333333333333
+accuracy of turn 7 is 11/44 = 0.25
+accuracy of turn 8 is 6/30 = 0.2
+accuracy of turn 9 is 4/15 = 0.26666666666666666
+accuracy of turn 10 is 2/10 = 0.2
+accuracy of turn 11 is 0/5 = 0.0
+accuracy of turn 12 is 0/3 = 0.0
+accuracy of turn 13 is 0/2 = 0.0
+accuracy of turn 14 is 0/2 = 0.0
+
+FGA Result
+FGA with L=0.25 : 66.08
+FGA with L=0.5 : 72.59
+FGA with L=0.75 : 76.3
+FGA with L=1.0 : 78.63
