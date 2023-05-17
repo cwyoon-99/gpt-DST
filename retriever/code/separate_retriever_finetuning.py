@@ -42,13 +42,13 @@ PRETRAINED_MODEL_SAVE_PATH = f"../expts/{PRETRAINED_MODEL}"
 with open(TRAIN_FN) as f:
     train_set = json.load(f)
 
-# # prepare pretrained retreiver for fine-tuning
-# pretrained_train_retriever = IndexRetriever(datasets=[train_set],
-#                                             embedding_filenames=[
-#     f"{PRETRAINED_MODEL_SAVE_PATH}/mw21_train_{PRETRAINED_MODEL}.npy"],
-#     search_index_filename=f"{PRETRAINED_MODEL_SAVE_PATH}/mw21_train_{PRETRAINED_MODEL}.npy",
-#     sampling_method="pre_assigned",
-# )
+# prepare pretrained retreiver for fine-tuning
+pretrained_train_retriever = IndexRetriever(datasets=[train_set],
+                                            embedding_filenames=[
+    f"{PRETRAINED_MODEL_SAVE_PATH}/mw21_train_{PRETRAINED_MODEL}.npy"],
+    search_index_filename=f"{PRETRAINED_MODEL_SAVE_PATH}/mw21_train_{PRETRAINED_MODEL}.npy",
+    sampling_method="pre_assigned",
+)
 
 # pretrained retreiver for sys
 pretrained_train_sys_retriever = IndexRetriever(datasets=[train_set],
@@ -117,6 +117,8 @@ class MWDataset:
             self.turn_utts.append(history)
             self.turn_states.append(current_state)
 
+            self.turn_sys_hist.append(sys_hist)
+            self.turn_usr_hist.append(usr_hist)
 
         self.n_turns = len(self.turn_labels)
         print(f"there are {self.n_turns} turns in this dataset")
@@ -139,29 +141,50 @@ class MWDataset:
 
 class MWContrastiveDataloader:
 
-    def __init__(self, f1_set, pretrained_retriever):
+    def __init__(self, f1_set, pretrained_retriever, pretrained_sys_retriever, pretrained_usr_retriever):
         self.f1_set = f1_set
         self.pretrained_retriever = pretrained_retriever
+        self.pretrained_sys_retriever = pretrained_sys_retriever
+        self.pretrained_usr_retriever = pretrained_usr_retriever
 
     def hard_negative_sampling(self, topk=10, top_range=100):
         sentences1 = []
         sentences2 = []
         scores = []
 
-        # do hard negative sampling
-        for ind in tqdm(range(self.f1_set.n_turns)):
-            
+        def find_nearest_neighbors(this_label, pretrained_retriever):
             # find nearest neighbors given by pre-trained retriever
-            this_label = self.f1_set.turn_labels[ind]
             nearest_labels = self.pretrained_retriever.label_to_nearest_labels(
                 this_label, k=top_range+1)[:-1]  # to exclude itself
             nearest_args = [self.f1_set.turn_labels.index(
                 l) for l in nearest_labels]
+            
+            return nearest_args
 
+        def sort_by_similarity(nearest_args):
             # topk and bottomk nearest f1 score examples, as hard examples
             similarities = self.f1_set.similarity_matrix[ind][nearest_args]
             sorted_args = similarities.argsort()
+            return sorted_args
+        
+        # do hard negative sampling
+        for ind in tqdm(range(self.f1_set.n_turns)):
 
+            this_label = self.f1_set.turn_labels[ind]
+            nearest_args = find_nearest_neighbors(this_label, pretrained_retriever)
+            sorted_args = sort_by_similarity(nearest_args)
+
+            # system 
+            if self.f1_set.turn_sys_hist[ind]:
+                nearest_sys_args = find_nearest_neighbors(this_label, pretrained_sys_retriever)
+                sorted_sys_args = sort_by_similarity(nearest_sys_args)
+            else: # system utterance is empty
+                sorted_sys_args = []
+
+            # user
+            nearest_usr_args = find_nearest_neighbors(this_label, pretrained_usr_retriever)
+            sorted_usr_args = sort_by_similarity(nearest_usr_args)
+            
             # sort한 것에서 상위 k개, 하위 k개 뽑음
             chosen_positive_args = list(sorted_args[-topk:])
             chosen_negative_args = list(sorted_args[:topk])
@@ -225,7 +248,7 @@ f1_train_set = MWDataset(TRAIN_FN)
 
 # Dataloader
 mw_train_loader = MWContrastiveDataloader(
-    f1_train_set, pretrained_train_retriever)
+    f1_train_set, pretrained_train_retriever, pretrained_train_sys_retriever, pretrained_train_usr_retriever)
 
 
 # store embedding function

@@ -136,7 +136,8 @@ def run(test_set, turn=-1, use_gold=False):
 
             examples = retriever.item_to_nearest_examples(
                 modified_item, k=NUM_EXAMPLE)
-            
+            # data_item['examples'] = examples
+
             prompt_text = get_prompt(
                 data_item, examples=examples, given_context=predicted_context)
 
