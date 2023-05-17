@@ -134,12 +134,64 @@ def run(test_set, turn=-1, use_gold=False):
             modified_item = copy.deepcopy(data_item)
             modified_item['last_slot_values'] = predicted_context
 
+            # paraphrase
+            context = modified_item['last_slot_values']
+            sys_utt = modified_item['dialog']['sys'][-1]
+            usr_utt = modified_item['dialog']['usr'][-1]
+            
+            # history = "[CONTEXT] "
+            # for k, v in context.items():
+            #     history += f"{' '.join(k.split('-'))}: {v.split('|')[0]}, "
+            # if sys_utt == 'none':
+            #     sys_utt = ''
+            # if usr_utt == 'none':
+            #     usr_utt = ''
+            # history += f" [SYS] {sys_utt} [USER] {usr_utt}"
+
+            def paraphrase_utterance(utt):
+                if utt == 'none' or utt == '':
+                    para_completion = ""
+                else:
+                    para_prompt = f"{utt}\n"
+                    para_prompt += f"paraphrase this utterance."
+
+                    # paraphrase completion
+                    complete_flag = False
+                    parse_error_count = 0
+                    while not complete_flag:
+                        try:
+                            para_completion = gpt35_turbo_completion(para_prompt)
+                        except Exception as e:
+                            # throughput too high
+                            timer.sleep(10)
+                        else:
+                            complete_flag = True
+
+                        # limit query speed
+                        timer.step()
+
+                return para_completion
+
+            # paraphrase each [system] and [user]
+            para_sys_utt = paraphrase_utterance(sys_utt)
+            para_usr_utt = paraphrase_utterance(usr_utt)
+            print(para_sys_utt)
+            print(para_usr_utt)
+            data_item["para_sys_utt"] = para_sys_utt
+            data_item["para_usr_utt"] = para_usr_utt
+    
+            modified_item["dialog"]['sys'][-1] = para_sys_utt
+            modified_item["dialog"]['usr'][-1] = para_usr_utt   
+
             examples = retriever.item_to_nearest_examples(
                 modified_item, k=NUM_EXAMPLE)
-            # data_item['examples'] = examples
+
+            # # change utterance of test instance into paraphrased ones.
+            # data_item["dialog"]['sys'][-1] = para_sys_utt
+            # data_item["dialog"]['usr'][-1] = para_usr_utt
 
             prompt_text = get_prompt(
-                data_item, examples=examples, given_context=predicted_context)
+                data_item, examples=examples, given_context=predicted_context)        
 
         print(prompt_text.replace(conversion(ontology_prompt), ""))
 
@@ -282,10 +334,10 @@ if __name__ == "__main__":
     with open(os.path.join(args.output_dir, "running_log.json"), 'w') as f:
         json.dump(all_results, f, indent=4)
     
-    # save FGA in score.txt
-    with open(os.path.join(args.output_dir, "score.txt"), 'a') as f:
-        fga_result = FGA(os.path.join(args.output_dir, "running_log.json"))
-        f.write("\nFGA Result\n")
-        f.write("\n".join(fga_result))
+    # # save FGA in score.txt
+    # with open(os.path.join(args.output_dir, "score.txt"), 'a') as f:
+    #     fga_result = FGA(os.path.join(args.output_dir, "running_log.json"))
+    #     f.write("\nFGA Result\n")
+    #     f.write("\n".join(fga_result))
     
     print(f"End time: {time.strftime('%y%m%d_%H%M')}")

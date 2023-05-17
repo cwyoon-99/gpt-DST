@@ -217,7 +217,7 @@ def get_prompt_with_bracket(data_item, examples, given_context=None, n_examples=
             '|')[0] for s, v in question_item['last_slot_values'].items()}
     else:
         last_slot_values = given_context
-    prompt_text += f"[context] {conversion(', '.join({f'{slot} = {value}' for slot, value in last_slot_values.items()}))}\n"
+    prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in last_slot_values.items()}))}\n"
 
     last_sys_utt = question_item['dialog']['sys'][-1]
     if last_sys_utt == 'none':
