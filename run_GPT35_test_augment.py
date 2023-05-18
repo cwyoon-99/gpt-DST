@@ -33,9 +33,6 @@ parser.add_argument('--save_interval', type=int, default=5, help="interval to sa
 parser.add_argument('--test_size', type=int, default=10, help="size of the test set")
 parser.add_argument('--bracket', action="store_true", help="whether brackets are used in each domain-slot")
 parser.add_argument('--slot_classify', action="store_true", help="whether slots are predicted through index number")
-
-# optional
-parser.add_argument('--aug_fn', type=str, help="directory of augmented dialogue")
 args = parser.parse_args()
 
 # current time
@@ -73,18 +70,8 @@ with open(ontology_path) as f:
 with open(test_set_path) as f:
     test_set = json.load(f)
 
-# read the augmented dialogue
-with open(args.aug_fn) as f:
-    aug_set = json.load(f)
-
-# # load the retriever
-# retriever = EmbeddingRetriever(datasets=[train_set],
-#                                model_path=args.retriever_dir,
-#                                search_index_filename=os.path.join(args.retriever_dir, "train_index.npy"), 
-#                                sampling_method="pre_assigned")
-
 # load the retriever
-retriever = EmbeddingRetriever(datasets=[train_set + aug_set],
+retriever = EmbeddingRetriever(datasets=[train_set],
                                model_path=args.retriever_dir,
                                search_index_filename=os.path.join(args.retriever_dir, "train_index.npy"), 
                                sampling_method="pre_assigned")

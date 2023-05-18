@@ -16,6 +16,7 @@ parser.add_argument('--train_fn', type=str, default= "data/mw21_5p_train_v2.json
 parser.add_argument('--output_file_name', type=str, default="debug", help="filename to save running log and configs")
 parser.add_argument('--output_dir', type=str, default="./augments/", help="dir to save running log and configs")
 parser.add_argument('--mwz_ver', type=str, default="2.4", choices=['2.1', '2.4'], help="version of MultiWOZ")
+parser.add_argument('--specific_name', type=str, default="base")
 args = parser.parse_args()
 
 cur_time = time.strftime('%y%m%d_%H%M-')
@@ -27,9 +28,10 @@ with open(os.path.join(args.output_dir, "augment_config.json"), 'w') as f:
     json.dump(vars(args), f, indent=4)
 
 class AugmentDialogue:
-    def __init__(self, train_fn, output_dir,  mwz_ver='2.4'):
+    def __init__(self, train_fn, output_dir, specific_name, mwz_ver='2.4'):
         self.data_path = train_fn
         self.output_path = output_dir
+        self.specific_name = specific_name
         self.mwz_ver = mwz_ver
 
         self.ontology_path = "./data/mwz2.1/ontology.json" if self.mwz_ver == '2.1' else "./data/mwz2.4/ontology.json"
@@ -122,6 +124,8 @@ class AugmentDialogue:
                     print(prompt_text)
 
                     save_data_item = copy.deepcopy(data_item)
+                    # To distinguish from original, change ID.
+                    save_data_item['ID'] = f"{data_item['ID'].split('.')[0]}-{args.specific_name}.json"
                     save_data_item['ag_slot'] = ag_slot
 
                     completion = ""
@@ -164,6 +168,6 @@ class AugmentDialogue:
 
 if __name__ == "__main__":
 
-    augmenter = AugmentDialogue(args.train_fn, args.output_dir)
+    augmenter = AugmentDialogue(args.train_fn, args.output_dir, args.specific_name)
 
     augmenter.augment_dialogue()
