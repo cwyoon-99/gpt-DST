@@ -142,7 +142,7 @@ def run(test_set, turn=-1, use_gold=False):
             prompt_text = get_prompt(
                 data_item, examples=retriever.item_to_nearest_examples(data_item, k=NUM_EXAMPLE))
         else:
-            # turn_slot_values가 빈 턴
+            # 이전 턴에서 예측한 predicted_slot_values가 빈 turn_id 찾아서 해당 턴을 dialogue history에서 제외
             if data_item['turn_id'] != 0:
                 with open(os.path.join(args.output_dir, 'running_log.json'),'r') as f:
                     prev_content = json.load(f)
@@ -152,8 +152,6 @@ def run(test_set, turn=-1, use_gold=False):
                 for turn in prev_content[-1 * data_item['turn_id']:]:
                     if not turn['predicted_slot_values']:
                         ex_hist_turn.append(turn['turn_id'])
-
-                print(f"exclude history turn idx: {ex_hist_turn}")
 
                 data_item['ex_hist_turn_id'] = ex_hist_turn
 
@@ -173,7 +171,7 @@ def run(test_set, turn=-1, use_gold=False):
         data_item['prompt'] = prompt_text
 
         # prompt 확인용
-        print(prompt_text)
+        # print(prompt_text)
         # continue
 
         # gpt35 completion
