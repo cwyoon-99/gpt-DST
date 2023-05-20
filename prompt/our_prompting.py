@@ -217,7 +217,133 @@ def get_prompt_with_bracket(data_item, examples, given_context=None, n_examples=
             '|')[0] for s, v in question_item['last_slot_values'].items()}
     else:
         last_slot_values = given_context
-    prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in last_slot_values.items()}))}\n"
+    prompt_text += f"[context] {conversion(', '.join({f'{slot} = {value}' for slot, value in last_slot_values.items()}))}\n"
+
+    last_sys_utt = question_item['dialog']['sys'][-1]
+    if last_sys_utt == 'none':
+        last_sys_utt = ''
+    prompt_text += f"[system] {last_sys_utt}\n"
+    prompt_text += f"[user] {question_item['dialog']['usr'][-1]}\n"
+    
+    prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
+    prompt_text += "A:"
+
+    return prompt_text
+
+def get_full_history_prompt(data_item, examples, given_context=None, n_examples=None):
+    
+    question_item = data_item
+
+    prompt_text = f"{conversion(custom_prompt)}\n"
+
+    max_n_examples = len(examples)
+    if n_examples is not None:
+        max_n_examples = n_examples
+
+    # in case for zero-shot learning
+    if max_n_examples > 0:
+        for example_id, example in enumerate(examples[-max_n_examples:]):
+            prompt_text += f"Example #{example_id + 1}\n"
+
+            # remove multiple choice in last slot values
+            last_slot_values = {s: v.split(
+                '|')[0] for s, v in example['last_slot_values'].items()}
+            
+            prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in last_slot_values.items()}))}\n"
+
+            last_sys_utt = example['dialog']['sys'][-1]
+            if last_sys_utt == 'none':
+                last_sys_utt = ''
+            prompt_text += f"[system] {last_sys_utt}\n"
+            prompt_text += f"[user] {example['dialog']['usr'][-1]}\n"
+            prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
+            
+            # if not example['turn_slot_values']:
+            #     prompt_text += f"A: ()\n"
+            # else:
+            prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
+            prompt_text += "\n\n"
+
+    prompt_text += f"Example #{max_n_examples + 1}\n"
+    if given_context is None:
+        # remove mulitple choice
+        last_slot_values = {s: v.split(
+            '|')[0] for s, v in question_item['last_slot_values'].items()}
+    else:
+        last_slot_values = given_context
+
+    # 마지막 example (test instance)에만 full history 추가
+    prompt_text += f"[dialogue context]\n"
+    for i in range(len(question_item['dialog']['usr'])-1):
+        prompt_text += f"system: {question_item['dialog']['sys'][i]}\n"
+        prompt_text += f"user: {question_item['dialog']['usr'][i]}\n"
+
+    prompt_text += f"[context] {conversion(', '.join({f'{slot} = {value}' for slot, value in last_slot_values.items()}))}\n"
+
+    last_sys_utt = question_item['dialog']['sys'][-1]
+    if last_sys_utt == 'none':
+        last_sys_utt = ''
+    prompt_text += f"[system] {last_sys_utt}\n"
+    prompt_text += f"[user] {question_item['dialog']['usr'][-1]}\n"
+    
+    prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
+    prompt_text += "A:"
+
+    return prompt_text
+
+def get_ex_full_history_prompt(data_item, examples, given_context=None, n_examples=None):
+    
+    question_item = data_item
+
+    prompt_text = f"{conversion(custom_prompt)}\n"
+
+    max_n_examples = len(examples)
+    if n_examples is not None:
+        max_n_examples = n_examples
+
+    # in case for zero-shot learning
+    if max_n_examples > 0:
+        for example_id, example in enumerate(examples[-max_n_examples:]):
+            prompt_text += f"Example #{example_id + 1}\n"
+
+            # remove multiple choice in last slot values
+            last_slot_values = {s: v.split(
+                '|')[0] for s, v in example['last_slot_values'].items()}
+            
+            prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in last_slot_values.items()}))}\n"
+
+            last_sys_utt = example['dialog']['sys'][-1]
+            if last_sys_utt == 'none':
+                last_sys_utt = ''
+            prompt_text += f"[system] {last_sys_utt}\n"
+            prompt_text += f"[user] {example['dialog']['usr'][-1]}\n"
+            prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
+            
+            # if not example['turn_slot_values']:
+            #     prompt_text += f"A: ()\n"
+            # else:
+            prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
+            prompt_text += "\n\n"
+
+    prompt_text += f"Example #{max_n_examples + 1}\n"
+    if given_context is None:
+        # remove mulitple choice
+        last_slot_values = {s: v.split(
+            '|')[0] for s, v in question_item['last_slot_values'].items()}
+    else:
+        last_slot_values = given_context
+
+    # turn_slot_values가 빈 턴인 ex_hist
+    ex_hist = question_item["ex_hist_turn_id"] if "ex_hist_turn_id" in question_item else []
+
+    # 마지막 example (test instance)에만 full history 추가
+    prompt_text += f"[dialogue context]\n"
+    for i in range(len(question_item['dialog']['usr'])-1):
+        if i not in ex_hist:
+            prompt_text += f"system: {question_item['dialog']['sys'][i]}\n"
+            prompt_text += f"user: {question_item['dialog']['usr'][i]}\n"
+
+    prompt_text += f"[context] {conversion(', '.join({f'{slot} = {value}' for slot, value in last_slot_values.items()}))}\n"
 
     last_sys_utt = question_item['dialog']['sys'][-1]
     if last_sys_utt == 'none':

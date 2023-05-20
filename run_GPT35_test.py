@@ -15,8 +15,8 @@ from api_request.ada_completion import ada_completion
 from api_request.babbage_completion import babbage_completion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
 from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket, slot_classify_parse, pred_parse_with_bracket_matching
-from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket,\
- get_slot_classify_prompt, slot_classify_prompt, slot_description_prompt
+from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket, get_full_history_prompt, get_ex_full_history_prompt, \
+    get_slot_classify_prompt, slot_classify_prompt, slot_description_prompt
 from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
 from evaluate.evaluate_FGA import FGA
@@ -29,9 +29,11 @@ parser.add_argument('--output_file_name', type=str, default="debug", help="filen
 parser.add_argument('--output_dir', type=str, default="./expts/debug", help="dir to save running log and configs")
 parser.add_argument('--mwz_ver', type=str, default="2.1", choices=['2.1', '2.4'], help="version of MultiWOZ")  
 parser.add_argument('--test_fn', type=str, default='', help="file to evaluate on, empty means use the test set")
-parser.add_argument('--save_interval', type=int, default=5, help="interval to save running_log.json")
+parser.add_argument('--save_interval', type=int, default=1, help="interval to save running_log.json")
 parser.add_argument('--test_size', type=int, default=10, help="size of the test set")
 parser.add_argument('--bracket', action="store_true", help="whether brackets are used in each domain-slot")
+parser.add_argument('--full_history', action="store_true", help="full dialogue history is used in test instance")
+parser.add_argument('--ex_full_history', action="store_true", help="excluded dialogue history is used in test instance")
 parser.add_argument('--slot_classify', action="store_true", help="whether slots are predicted through index number")
 args = parser.parse_args()
 
@@ -110,6 +112,16 @@ def run(test_set, turn=-1, use_gold=False):
         get_prompt = get_prompt_with_bracket
         our_parse = pred_parse_with_bracket_matching
         mode = "with_bracket"
+    elif args.full_history:
+        ontology_prompt = custom_prompt
+        get_prompt = get_full_history_prompt
+        our_parse = pred_parse_with_bracket_matching
+        mode = "full_history"
+    elif args.ex_full_history:
+        ontology_prompt = custom_prompt
+        get_prompt = get_ex_full_history_prompt
+        our_parse = pred_parse_with_bracket_matching
+        mode = "ex_full_history"
     elif args.slot_classify:
         ontology_prompt = slot_description_prompt # slot_classify_prompt
         get_prompt = get_slot_classify_prompt
@@ -130,6 +142,19 @@ def run(test_set, turn=-1, use_gold=False):
             prompt_text = get_prompt(
                 data_item, examples=retriever.item_to_nearest_examples(data_item, k=NUM_EXAMPLE))
         else:
+            # 이전 턴에서 예측한 predicted_slot_values가 빈 turn_id 찾아서 해당 턴을 dialogue history에서 제외
+            if data_item['turn_id'] != 0:
+                with open(os.path.join(args.output_dir, 'running_log.json'),'r') as f:
+                    prev_content = json.load(f)
+
+                ex_hist_turn = []
+
+                for turn in prev_content[-1 * data_item['turn_id']:]:
+                    if not turn['predicted_slot_values']:
+                        ex_hist_turn.append(turn['turn_id'])
+
+                data_item['ex_hist_turn_id'] = ex_hist_turn
+            
             predicted_context = prediction_recorder.state_retrieval(data_item)
             modified_item = copy.deepcopy(data_item)
             modified_item['last_slot_values'] = predicted_context
@@ -145,6 +170,10 @@ def run(test_set, turn=-1, use_gold=False):
 
         # record the prompt
         data_item['prompt'] = prompt_text
+
+        # prompt 확인용
+        # print(prompt_text)
+        # continue
 
         # gpt35 completion
         complete_flag = False
