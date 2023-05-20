@@ -1,0 +1,9 @@
+{
+    "train_fn": "data/mw21_5p_train_v2.json",
+    "output_file_name": "base",
+    "output_dir": "ett_replace/230520_1949-1.0-base",
+    "span_info_dir": "data/mwz21/origin_data.json",
+    "mwz_ver": "2.4",
+    "specific_name": "ett",
+    "sample_rate": 1.0
+}

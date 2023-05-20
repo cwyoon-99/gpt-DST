@@ -54,7 +54,7 @@ with open(TRAIN_FN) as f:
 # )
 
 
-# load multiWoZ and calculate all similiarities of dialogue states between turns  
+# load multiWoZ and calculate all similiarities of dialogue states between turns
 class MWDataset:
 
     def __init__(self, mw_json,  just_embed_all=False):

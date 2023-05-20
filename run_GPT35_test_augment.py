@@ -33,6 +33,10 @@ parser.add_argument('--save_interval', type=int, default=5, help="interval to sa
 parser.add_argument('--test_size', type=int, default=10, help="size of the test set")
 parser.add_argument('--bracket', action="store_true", help="whether brackets are used in each domain-slot")
 parser.add_argument('--slot_classify', action="store_true", help="whether slots are predicted through index number")
+
+# For augment
+parser.add_argument('--ag_fn', type=str, help="directory of augmented dialogue", required=True)
+parser.add_argument('--ag_search_index', type=str, help="directory of embedding including augmented dialogue", required=True)
 args = parser.parse_args()
 
 # current time
@@ -70,10 +74,20 @@ with open(ontology_path) as f:
 with open(test_set_path) as f:
     test_set = json.load(f)
 
-# load the retriever
-retriever = EmbeddingRetriever(datasets=[train_set],
+# read the augmented dialogue
+with open(args.ag_fn) as f:
+    ag_set = json.load(f)
+
+# # load the retriever
+# retriever = EmbeddingRetriever(datasets=[train_set],
+#                                model_path=args.retriever_dir,
+#                                search_index_filename=os.path.join(args.retriever_dir, "train_index.npy"),
+#                                sampling_method="pre_assigned")
+
+# change parameter for retrive examples including augmented dialogues
+retriever = EmbeddingRetriever(datasets=[train_set + ag_set],
                                model_path=args.retriever_dir,
-                               search_index_filename=os.path.join(args.retriever_dir, "train_index.npy"), 
+                               search_index_filename=os.path.join(args.ag_search_index, "train_index.npy"), 
                                sampling_method="pre_assigned")
 
 def run(test_set, turn=-1, use_gold=False):
@@ -122,6 +136,7 @@ def run(test_set, turn=-1, use_gold=False):
 
     print("********* "+ mode + " *********\n")
 
+    retrieve_ag_count = 0
     for data_idx, data_item in enumerate(tqdm(selected_set)):
         n_total += 1
 
@@ -137,6 +152,18 @@ def run(test_set, turn=-1, use_gold=False):
             examples = retriever.item_to_nearest_examples(
                 modified_item, k=NUM_EXAMPLE)
             # data_item['examples'] = examples
+
+            # save information of used ag dialogue
+            ag_used = False
+            ag_used_list = []
+            for example in examples:
+                if "ag_slot" in example:
+                    retrieve_ag_count += 1
+                    ag_used = True
+                    ag_used_list.append(example)
+            
+            data_item['ag_used'] = True if ag_used else False
+            data_item['ag_used_list'] = ag_used_list
 
             prompt_text = get_prompt(
                 data_item, examples=examples, given_context=predicted_context)
@@ -269,6 +296,8 @@ def run(test_set, turn=-1, use_gold=False):
          # calculate the accuracy of each turn
         for k, v in result_dict.items():
             f.write(f"accuracy of turn {k} is {sum(v)}/{len(v)} = {sum(v) / len(v)}\n")
+
+    print(f"augmented dialogue used in ex: {retrieve_ag_count}")
 
     return all_result
 

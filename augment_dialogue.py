@@ -5,7 +5,7 @@ import random
 import copy
 import time
 import argparse
-import tqdm
+from tqdm import tqdm
 
 from prompt.our_prompting import conversion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
@@ -98,7 +98,7 @@ class AugmentDialogue:
 
                 # augmenting every pairs of slot require excessive amount of api request. so we randomly sample database[slot] to reduce its size by half.
                 sampled_database = random.sample(database[slot], len(database[slot]) // 2)
-                for data_item in sampled_database:
+                for data_item in tqdm(sampled_database):
                     print(count)
                     prompt_text = ""
 
@@ -116,7 +116,7 @@ class AugmentDialogue:
 
                     # random sampling of value from ontology
                     sample_value = random.choice(self.ontology[ag_slot])
-                    while '|' in sample_value: 
+                    while '|' in sample_value:
                         sample_value = random.choice(self.ontology[ag_slot])
 
                     prompt_text += f"({conversion(ag_slot)} = {sample_value}) in answer.\n"
@@ -125,7 +125,7 @@ class AugmentDialogue:
 
                     save_data_item = copy.deepcopy(data_item)
                     # To distinguish from original, change ID.
-                    save_data_item['ID'] = f"{data_item['ID'].split('.')[0]}-{args.specific_name}.json"
+                    save_data_item['ID'] = f"{data_item['ID'].split('.')[0]}-{args.specific_name}-{ag_slot}.json"
                     save_data_item['ag_slot'] = ag_slot
 
                     completion = ""
@@ -147,13 +147,14 @@ class AugmentDialogue:
                     completion = normalize(completion, clean_value=False)
                     os.chdir(cur_dir)
 
-                    save_data_item["ag_usr_utt"] = conversion(completion, reverse=True)
-                    save_data_item['ag_turn_slot_values'] = copy.deepcopy(data_item['turn_slot_values'])
-                    save_data_item['ag_turn_slot_values'][ag_slot] = sample_value
+                    # override augmented
+                    save_data_item['dialog']['usr'][-1] = completion
+                    save_data_item['turn_slot_values'][ag_slot] = sample_value
+                    save_data_item["slot_values"][ag_slot] = sample_value
 
                     print()
-                    print(f"{save_data_item['ag_usr_utt']}")
-                    print(f"augmented turn slot values: {save_data_item['ag_turn_slot_values']}")
+                    print(f"{save_data_item['dialog']['usr'][-1]}")
+                    print(f"augmented turn slot values: {save_data_item['turn_slot_values']}")
                     print("\n\n")
 
                     augmented_result.append(save_data_item)
@@ -164,10 +165,133 @@ class AugmentDialogue:
 
         print(count)
 
+
+    def augment_dialogue_MD(self):
+        slot_list = []
+        for data_item in self.dataset:
+            slot_list.append(list(data_item['turn_slot_values'].keys()))
+
+
+        keys_list = list(self.ontology.keys())
+        augment_list = []
+
+        # 요소 2개
+        sets_list = list(itertools.combinations(keys_list, 2))
+        sets_2 = [set(combination) for combination in sets_list]
+
+        count = 0
+        for s in sets_2:
+            check = False
+            for l in slot_list:
+                if s == set(l):
+                    check = True
+            if not check: # train dataset에 속하지 않는 dialogue states 조합
+                domain_name = None
+                check_same_domain = True
+                for element in s:
+                    if domain_name is None:
+                        domain_name = element.split('-')[0]
+                    elif domain_name != element.split('-')[0]:
+                        check_same_domain = False
+                if check_same_domain: # 같은 도메인에 속하느 경우
+                    augment_list.append(list(s))
+
+        # # 조합에 해당하는 데이터 저장
+        # database = {}
+        # for slots_combo in augment_list:
+        #     for slot in slots_combo:
+        #         if slot not in database:
+        #             item_list = []
+        #             for data_item in self.dataset:
+        #                 if set(data_item['turn_slot_values'].keys()) == set([slot]):
+        #                     item_list.append(data_item)
+
+        #             database[slot] = item_list
+
+        # timer = SpeedLimitTimer(second_per_step=4)
+
+        # # augment
+        # count = 0
+        # augmented_result = []
+        # for slots_combo in augment_list:
+        #     for slot in slots_combo:
+        #         ag_slot = next(x for x in slots_combo if x != slot)
+
+        #         # augmenting every pairs of slot require excessive amount of api request. so we randomly sample database[slot] to reduce its size by half.
+        #         sampled_database = random.sample(database[slot], len(database[slot]) // 2)
+        #         for data_item in tqdm(sampled_database):
+        #             print(count)
+        #             prompt_text = ""
+
+        #             last_slot_values = {s: v.split(
+        #                 '|')[0] for s, v in data_item['last_slot_values'].items()}
+        #             # prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in last_slot_values.items()}))}\n"
+                    
+        #             last_sys_utt = data_item['dialog']['sys'][-1]
+        #             if last_sys_utt == 'none':
+        #                 last_sys_utt = ''
+        #             prompt_text += f"[system] {last_sys_utt}\n"
+        #             prompt_text += f"[user] {data_item['dialog']['usr'][-1]}\n"
+        #             prompt_text += f"Answer: {conversion(', '.join({f'({slot} = {value})' for slot, value in data_item['turn_slot_values'].items()}))}\n"
+        #             prompt_text += f"Augment the user utterance to additionally have "
+
+        #             # random sampling of value from ontology
+        #             sample_value = random.choice(self.ontology[ag_slot])
+        #             while '|' in sample_value:
+        #                 sample_value = random.choice(self.ontology[ag_slot])
+
+        #             prompt_text += f"({conversion(ag_slot)} = {sample_value}) in answer.\n"
+        #             prompt_text += f"augmented user utterance:"
+        #             print(prompt_text)
+
+        #             save_data_item = copy.deepcopy(data_item)
+        #             # To distinguish from original, change ID.
+        #             save_data_item['ID'] = f"{data_item['ID'].split('.')[0]}-{args.specific_name}-{ag_slot}.json"
+        #             save_data_item['ag_slot'] = ag_slot
+
+        #             completion = ""
+        #             complete_flag = False
+        #             while not complete_flag:
+        #                 try:
+        #                     completion = gpt35_turbo_completion(prompt_text)
+        #                 except Exception as e:
+        #                     print(e)
+        #                     timer.sleep(10)
+        #                 else:
+        #                     complete_flag = True
+        #                     timer.step()    
+
+        #             # change directory temporarily
+        #             cur_dir = os.getcwd()
+        #             os.chdir('data')
+        #             from data.create_data import normalize
+        #             completion = normalize(completion, clean_value=False)
+        #             os.chdir(cur_dir)
+
+        #             # override augmented
+        #             save_data_item['dialog']['usr'][-1] = completion
+        #             save_data_item['turn_slot_values'][ag_slot] = sample_value
+        #             save_data_item["slot_values"][ag_slot] = sample_value
+
+        #             print()
+        #             print(f"{save_data_item['dialog']['usr'][-1]}")
+        #             print(f"augmented turn slot values: {save_data_item['turn_slot_values']}")
+        #             print("\n\n")
+
+        #             augmented_result.append(save_data_item)
+        #             count += 1
+                    
+        #         with open(os.path.join(args.output_dir,f'augment_log.json'),'w') as f:
+        #             json.dump(augmented_result, f, indent=4)
+
+        # print(count)
+
    
 
 if __name__ == "__main__":
 
     augmenter = AugmentDialogue(args.train_fn, args.output_dir, args.specific_name)
 
-    augmenter.augment_dialogue()
+    # augmenter.augment_dialogue()
+
+    augmenter.augment_dialogue_MD()
