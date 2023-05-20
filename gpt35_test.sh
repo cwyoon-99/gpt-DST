@@ -1,10 +1,10 @@
 python run_GPT35_test.py \
       --train_fn data/mw21_5p_train_v2.json \
       --retriever_dir retriever/expts/mw21_5p_v2 \
-      --output_file_name gpt35_turbo_5p_v2_dialogue_context \
+      --output_file_name gpt35_turbo_5p_v2_excluded_history \
       --mwz_ver 2.4 \
-      --test_size 74 \
-      --full_history \
+      --test_size 10 \
+      --ex_full_history \
 
 # python run_GPT35_follow_up_CoT.py \
 #       --train_fn data/mw21_5p_train_v2.json \
