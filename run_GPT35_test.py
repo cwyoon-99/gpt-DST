@@ -15,7 +15,7 @@ from api_request.ada_completion import ada_completion
 from api_request.babbage_completion import babbage_completion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
 from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket, slot_classify_parse, pred_parse_with_bracket_matching
-from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket, get_full_history_prompt, get_ex_full_history_prompt, \
+from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket, get_full_history_prompt, get_excluded_history_prompt, \
     get_slot_classify_prompt, slot_classify_prompt, slot_description_prompt
 from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
@@ -33,7 +33,7 @@ parser.add_argument('--save_interval', type=int, default=1, help="interval to sa
 parser.add_argument('--test_size', type=int, default=10, help="size of the test set")
 parser.add_argument('--bracket', action="store_true", help="whether brackets are used in each domain-slot")
 parser.add_argument('--full_history', action="store_true", help="full dialogue history is used in test instance")
-parser.add_argument('--ex_full_history', action="store_true", help="excluded dialogue history is used in test instance")
+parser.add_argument('--excluded_history', action="store_true", help="excluded dialogue history is used in test instance")
 parser.add_argument('--slot_classify', action="store_true", help="whether slots are predicted through index number")
 args = parser.parse_args()
 
@@ -41,7 +41,7 @@ args = parser.parse_args()
 cur_time = time.strftime('%y%m%d_%H%M-')
 
 # create the output folder
-args.output_dir = 'expts/' + cur_time + args.output_file_name + '_0to' + str(args.test_size)
+args.output_dir = 'expts/' + cur_time + args.output_file_name
 os.makedirs(args.output_dir, exist_ok=True)
 
 with open(os.path.join(args.output_dir, "exp_config.json"), 'w') as f:
@@ -117,11 +117,11 @@ def run(test_set, turn=-1, use_gold=False):
         get_prompt = get_full_history_prompt
         our_parse = pred_parse_with_bracket_matching
         mode = "full_history"
-    elif args.ex_full_history:
+    elif args.excluded_history:
         ontology_prompt = custom_prompt
-        get_prompt = get_ex_full_history_prompt
+        get_prompt = get_excluded_history_prompt
         our_parse = pred_parse_with_bracket_matching
-        mode = "ex_full_history"
+        mode = "excluded_history"
     elif args.slot_classify:
         ontology_prompt = slot_description_prompt # slot_classify_prompt
         get_prompt = get_slot_classify_prompt

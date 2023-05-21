@@ -12,7 +12,7 @@ from config import CONFIG
 
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
 from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket, slot_classify_parse, pred_parse_with_bracket_matching
-from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket, get_full_history_prompt,\
+from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket, get_full_history_prompt, get_excluded_history_prompt,\
  get_slot_classify_prompt, slot_classify_prompt, slot_description_prompt
 from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
@@ -20,16 +20,16 @@ from evaluate.evaluate_FGA import FGA
 
 train_fn = 'data/mw21_5p_train_v2.json'
 retriever_dir = 'retriever/expts/mw21_5p_v2'
-output_file_name = 'gpt35_turbo_5p_v2_baseline'
+output_file_name = 'gpt35_mw24_5p_v2_aaaaaaaaaa'
 mwz_ver = 2.4
 test_fn = ''
-test_size = 3
+test_size = 10
 
 # current time
 cur_time = time.strftime('%y%m%d_%H%M-')
 
 # create the output folder
-output_dir = 'expts/' + cur_time + output_file_name + '_0to' + str(test_size)
+output_dir = 'expts/' + cur_time + output_file_name
 os.makedirs(output_dir, exist_ok=True)
 
 NUM_EXAMPLE=1
@@ -93,7 +93,7 @@ def run(test_set, turn=-1, use_gold=False):
 
     # specify ontology_prompt, prompt_function
     ontology_prompt = custom_prompt
-    get_prompt = get_full_history_prompt
+    get_prompt = get_excluded_history_prompt
     our_parse = pred_parse_with_bracket_matching
     mode = "with_bracket"
 

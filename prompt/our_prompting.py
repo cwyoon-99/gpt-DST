@@ -291,7 +291,7 @@ def get_full_history_prompt(data_item, examples, given_context=None, n_examples=
 
     return prompt_text
 
-def get_ex_full_history_prompt(data_item, examples, given_context=None, n_examples=None):
+def get_excluded_history_prompt(data_item, examples, given_context=None, n_examples=None):
     
     question_item = data_item
 
