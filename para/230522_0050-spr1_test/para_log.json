@@ -1,0 +1,256 @@
+[
+    {
+        "ID": "MUL1401-para.json",
+        "turn_id": 2,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "absolutely ! they are a great thai restaurant in the west of town . they are located at 35 newnham road , newnham . did you need help reserving a table or any other info ?",
+                "i am sorry , there is nothing available at that time . could you perhaps do a different time ?"
+            ],
+            "usr": [
+                "can you help me find a place to eat called sala thong ?",
+                "please make a booking for people at 19:00 on monday . i also need a reference number once booked .",
+                "sure , can you suggest a time that would work ? maybe 20:00 ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "20:00",
+            "restaurant-name": "sala thong"
+        },
+        "turn_slot_values": {
+            "restaurant-book time": "20:00"
+        },
+        "last_slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "19:00",
+            "restaurant-name": "sala thong"
+        },
+        "original_sys": "i am sorry , there s nothing available at that time . could you perhaps do a different time ?",
+        "original_usr": "sure , try a time that would work . maybe 20:00 ?",
+        "changed_sys": "i am sorry , there is nothing available at that time . could you perhaps do a different time ?",
+        "changed_usr": "sure , can you suggest a time that would work ? maybe 20:00 ?"
+    },
+    {
+        "ID": "MUL1401-para.json",
+        "turn_id": 6,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "absolutely ! they are a great thai restaurant in the west of town . they are located at 35 newnham road , newnham . did you need help reserving a table or any other info ?",
+                "i am sorry , there s nothing available at that time . could you perhaps do a different time ?",
+                "that was unsuccessful as well , do you have another time ?",
+                "i have a train that arrives at 11:54 . would you like me to book that for you ?",
+                "the train is tr0032 , it departs at 10:09 and travel time is 105 minutes . how many tickets do you need ?",
+                ": your booking has been confirmed and the total cost is 37.79 gbp . you can pay this amount at the station . your reference number is 3kp0atis . is there anything else i can assist you with ?"
+            ],
+            "usr": [
+                "can you help me find a place to eat called sala thong ?",
+                "please make a booking for people at 19:00 on monday . i also need a reference number once booked .",
+                "sure , try a time that would work . maybe 20:00 ?",
+                "well , i am also looking for train on monday departing from leicester to cambridge arriving by 12:45 .",
+                "yes i also need the train id , departure time and travel time .",
+                "as for now , just 1 please .",
+                ": no , that s all . thank you !"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "20:00",
+            "restaurant-name": "sala thong",
+            "train-book people": "1",
+            "train-destination": "cambridge",
+            "train-day": "monday",
+            "train-arriveby": "12:45",
+            "train-departure": "leicester"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "20:00",
+            "restaurant-name": "sala thong",
+            "train-book people": "1",
+            "train-destination": "cambridge",
+            "train-day": "monday",
+            "train-arriveby": "12:45",
+            "train-departure": "leicester"
+        },
+        "original_sys": "booking was successful , the total fee is 37.79 gbp payable at the station . reference number is : 3kp0atis . anything else i can help you with ?",
+        "original_usr": "that s everything . thanks !",
+        "changed_sys": ": your booking has been confirmed and the total cost is 37.79 gbp . you can pay this amount at the station . your reference number is 3kp0atis . is there anything else i can assist you with ?",
+        "changed_usr": ": no , that s all . thank you !"
+    },
+    {
+        "ID": "MUL1401-para.json",
+        "turn_id": 1,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "yes , they are an excellent thai restaurant located on 35 newnham road , newnham in the west of town . would you like me to make a reservation for you for 2 people at 7:00 pm on monday ? also , would you like me to provide you with a reference number once the booking is confirmed ?"
+            ],
+            "usr": [
+                "can you help me find a place to eat called sala thong ?",
+                "yes , please make a reservation for 2 people at 7:00 pm on monday and provide me with a reference number once the booking is confirmed ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "19:00",
+            "restaurant-name": "sala thong"
+        },
+        "turn_slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "19:00"
+        },
+        "last_slot_values": {
+            "restaurant-name": "sala thong"
+        },
+        "original_sys": "absolutely ! they are a great thai restaurant in the west of town . they are located at 35 newnham road , newnham . did you need help reserving a table or any other info ?",
+        "original_usr": "please make a booking for people at 19:00 on monday . i also need a reference number once booked .",
+        "changed_sys": "yes , they are an excellent thai restaurant located on 35 newnham road , newnham in the west of town . would you like me to make a reservation for you for 2 people at 7:00 pm on monday ? also , would you like me to provide you with a reference number once the booking is confirmed ?",
+        "changed_usr": "yes , please make a reservation for 2 people at 7:00 pm on monday and provide me with a reference number once the booking is confirmed ."
+    },
+    {
+        "ID": "MUL1401-para.json",
+        "turn_id": 3,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "absolutely ! they are a great thai restaurant in the west of town . they are located at 35 newnham road , newnham . did you need help reserving a table or any other info ?",
+                "i am sorry , there s nothing available at that time . could you perhaps do a different time ?",
+                "i am sorry , the previous request was unsuccessful . do you have another time or destination in mind ?"
+            ],
+            "usr": [
+                "can you help me find a place to eat called sala thong ?",
+                "please make a booking for people at 19:00 on monday . i also need a reference number once booked .",
+                "sure , try a time that would work . maybe 20:00 ?",
+                "yes , i am looking for a train on monday that departs from leicester and arrives in cambridge by 12:45 ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "20:00",
+            "restaurant-name": "sala thong",
+            "train-destination": "cambridge",
+            "train-day": "monday",
+            "train-arriveby": "12:45",
+            "train-departure": "leicester"
+        },
+        "turn_slot_values": {
+            "train-destination": "cambridge",
+            "train-day": "monday",
+            "train-arriveby": "12:45",
+            "train-departure": "leicester"
+        },
+        "last_slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "20:00",
+            "restaurant-name": "sala thong"
+        },
+        "original_sys": "that was unsuccessful as well , do you have another time ?",
+        "original_usr": "well , i am also looking for train on monday departing from leicester to cambridge arriving by 12:45 .",
+        "changed_sys": "i am sorry , the previous request was unsuccessful . do you have another time or destination in mind ?",
+        "changed_usr": "yes , i am looking for a train on monday that departs from leicester and arrives in cambridge by 12:45 ."
+    },
+    {
+        "ID": "MUL1401-para.json",
+        "turn_id": 0,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "i am looking for a restaurant called sala thong , can you help me find it ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-name": "sala thong"
+        },
+        "turn_slot_values": {
+            "restaurant-name": "sala thong"
+        },
+        "last_slot_values": {},
+        "original_sys": "",
+        "original_usr": "can you help me find a place to eat called sala thong ?",
+        "changed_sys": "",
+        "changed_usr": "i am looking for a restaurant called sala thong , can you help me find it ?"
+    },
+    {
+        "ID": "MUL1401-para.json",
+        "turn_id": 4,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "absolutely ! they are a great thai restaurant in the west of town . they are located at 35 newnham road , newnham . did you need help reserving a table or any other info ?",
+                "i am sorry , there s nothing available at that time . could you perhaps do a different time ?",
+                "that was unsuccessful as well , do you have another time ?",
+                "i have a train scheduled to arrive at 11:54 . would you like me to make a booking for you ?"
+            ],
+            "usr": [
+                "can you help me find a place to eat called sala thong ?",
+                "please make a booking for people at 19:00 on monday . i also need a reference number once booked .",
+                "sure , try a time that would work . maybe 20:00 ?",
+                "well , i am also looking for train on monday departing from leicester to cambridge arriving by 12:45 .",
+                "yes , please . additionally , could you provide me with the train id , departure time , and duration of travel ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "20:00",
+            "restaurant-name": "sala thong",
+            "train-destination": "cambridge",
+            "train-day": "monday",
+            "train-arriveby": "12:45",
+            "train-departure": "leicester"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "20:00",
+            "restaurant-name": "sala thong",
+            "train-destination": "cambridge",
+            "train-day": "monday",
+            "train-arriveby": "12:45",
+            "train-departure": "leicester"
+        },
+        "original_sys": "i have a train that arrives at 11:54 . would you like me to book that for you ?",
+        "original_usr": "yes i also need the train id , departure time and travel time .",
+        "changed_sys": "i have a train scheduled to arrive at 11:54 . would you like me to make a booking for you ?",
+        "changed_usr": "yes , please . additionally , could you provide me with the train id , departure time , and duration of travel ?"
+    }
+]

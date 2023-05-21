@@ -21,7 +21,7 @@ args = parser.parse_args()
 
 cur_time = time.strftime('%y%m%d_%H%M-')
 
-args.output_dir = 'para/' + cur_time + str(args.sample_rate) + "-" + args.output_file_name
+args.output_dir = 'para/' + cur_time + "spr" + str(args.sample_rate) + "_" + args.output_file_name
 os.makedirs(args.output_dir, exist_ok=True)
 
 with open(os.path.join(args.output_dir, "para_config.json"), 'w') as f:
@@ -53,7 +53,7 @@ class ParaDialogue:
         sampled_dataset = random.sample(self.dataset, int(len(self.dataset) * args.sample_rate))
         for data_idx, data_item in enumerate(tqdm(sampled_dataset)):
         # for data_idx, data_item in enumerate(tqdm(self.dataset)):
-            prompt_text = "# dialogue\n"
+            prompt_text = ""
 
             last_slot_values = {s: v.split(
                 '|')[0] for s, v in data_item['last_slot_values'].items()}
@@ -76,13 +76,13 @@ class ParaDialogue:
                 prompt_text += f" [system] and"
             prompt_text += f" [user] prefix." 
             
-            if sys_exist:    
-                prompt_text += f"(You should generate the [system] first, then [user]. Also, [system] and [user] should be one, respectively.)"
-            else:
-                prompt_text += f"([user] should be one.)"
+            # if sys_exist:    
+            #     prompt_text += f"(You should generate the [system] first, then [user]. Also, [system] and [user] should be one, respectively.)"
+            # else:
+            #     prompt_text += f"([user] should be one.)"
 
-            # rearrange the order of information presented
-            prompt_text += f" In addition, if possible, try to rearrange the order of information in each [system] and [user]. Don't generate the continuing dialogues."
+            # # rearrange the order of information presented
+            # prompt_text += f" In addition, if possible, try to rearrange the order of information in each [system] and [user]. Don't generate the continuing dialogues."
 
             completion = ""
             complete_flag = False
