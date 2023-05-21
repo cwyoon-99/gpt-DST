@@ -153,8 +153,7 @@ def get_our_prompt(data_item, examples, given_context=None, n_examples=None):
             prompt_text += f"[user] {example['dialog']['usr'][-1]}\n"
             prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
 
-            prompt_text += f"A: ({conversion(', '.join({f'{slot} = {value}' for slot, value in example['turn_slot_values'].items()}))})\n"
-            prompt_text += "\n\n"
+            prompt_text += f"A: ({conversion(', '.join({f'{slot} = {value}' for slot, value in example['turn_slot_values'].items()}))})\n\n"
 
     prompt_text += f"Example #{max_n_examples + 1}\n"
     if given_context is None:
@@ -207,8 +206,7 @@ def get_prompt_with_bracket(data_item, examples, given_context=None, n_examples=
             # if not example['turn_slot_values']:
             #     prompt_text += f"A: ()\n"
             # else:
-            prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
-            prompt_text += "\n\n"
+            prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n\n"
 
     prompt_text += f"Example #{max_n_examples + 1}\n"
     if given_context is None:
@@ -261,8 +259,7 @@ def get_full_history_prompt(data_item, examples, given_context=None, n_examples=
             # if not example['turn_slot_values']:
             #     prompt_text += f"A: ()\n"
             # else:
-            prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
-            prompt_text += "\n\n"
+            prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n\n"
 
     prompt_text += f"Example #{max_n_examples + 1}\n"
     if given_context is None:
@@ -322,8 +319,7 @@ def get_excluded_history_prompt(data_item, examples, given_context=None, n_examp
             # if not example['turn_slot_values']:
             #     prompt_text += f"A: ()\n"
             # else:
-            prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
-            prompt_text += "\n\n"
+            prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n\n"
 
     prompt_text += f"Example #{max_n_examples + 1}\n"
     if given_context is None:
@@ -384,8 +380,7 @@ def get_slot_classify_prompt(data_item, examples, given_context=None, n_examples
             prompt_text += f"[user] {example['dialog']['usr'][-1]}\n"
             prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
 
-            prompt_text += f"A: {conversion(', '.join({f'({slot_to_idx(slot)} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
-            prompt_text += "\n\n"
+            prompt_text += f"A: {conversion(', '.join({f'({slot_to_idx(slot)} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n\n"
 
     prompt_text += f"Example #{max_n_examples + 1}\n"
     if given_context is None:
@@ -473,8 +468,7 @@ def get_follow_up_cot_prompt(data_item, examples=None, given_context=None, n_exa
                 prompt_text += f"[user] {example['dialog']['usr'][-1]}\n"
                 prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
 
-                prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
-                prompt_text += "\n\n"
+                prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n\n"
 
         prompt_text += f"Example #{max_n_examples + 1}\n"
 
