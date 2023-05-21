@@ -14,7 +14,7 @@ train_fn = "data/mw21_5p_train_v2.json"
 output_file_name = "test"
 output_dir = "./para/"
 mwz_ver = "2.4"
-specific_name = "2.4"
+specific_name = "para"
 sample_rate = 0.03
 
 cur_time = time.strftime('%y%m%d_%H%M-')
@@ -60,8 +60,8 @@ class ParaDialogue:
             prompt_text += f"[system] {last_sys_utt}\n"
             prompt_text += f"[user] {data_item['dialog']['usr'][-1]}\n\n"
             if data_item['turn_slot_values']:
-                prompt_text += f"The Answer of dialogue is {conversion(', '.join({f'({slot} = {value})' for slot, value in data_item['turn_slot_values'].items()}))}\n"
-            prompt_text += f"paraphrase the dialogue with"
+                prompt_text += f"The dialogue state of the above dialogue is {conversion(', '.join({f'({slot} = {value})' for slot, value in data_item['turn_slot_values'].items()}))}\n"
+            prompt_text += f"Paraphrase the dialogue with"
 
             sys_exist = True
             if data_item['dialog']['sys'][-1] == "":
@@ -71,13 +71,13 @@ class ParaDialogue:
                 prompt_text += f" [system] and"
             prompt_text += f" [user] prefix." 
             
-            if sys_exist:    
-                prompt_text += f"(You should generate the [system] first, then [user]. Also, [system] and [user] should be one, respectively.)"
-            else:
-                prompt_text += f"([user] should be one.)"
+            # if sys_exist:    
+            #     prompt_text += f"(You should generate the [system] first, then [user]. Also, [system] and [user] should be one, respectively.)\n"
+            # else:
+            #     prompt_text += f"([user] should be one.)\n"
 
-            # rearrange the order of information presented
-            prompt_text += f" In addition, if possible, try to rearrange the order of information in each [system] and [user]. Don't generate the continuing dialogues."
+            # # rearrange the order of information presented
+            # prompt_text += f"In addition, if possible, try to rearrange the order of information in each [system] and [user]. Don't generate the continuing dialogues."
 
             completion = ""
             complete_flag = False
@@ -91,8 +91,11 @@ class ParaDialogue:
                     complete_flag = True
                     timer.step()    
 
+            print("="*60)
+            print('### prompt_text ###')
             print(prompt_text)
-            print("\n")
+            print("-"*60)
+            print('### completion ###')
             print(completion)
 
             # To filter unnecessary dialogue, extract first two line from completion.
@@ -111,7 +114,9 @@ class ParaDialogue:
             # usr_utt = normalize(usr_utt, clean_value=False)
             completion = normalize(completion, clean_value=False)
             os.chdir(cur_dir)
-            print(completion)
+            # print("-"*60)
+            # print('### completion (after processing) ###')
+            # print(completion)
 
             sys_utt = completion.split("[user]")[0].replace("[system]","").strip()
             usr_utt = completion.split("[user]")[1].strip()
@@ -120,13 +125,21 @@ class ParaDialogue:
             # save original
             data_item["original_sys"] = data_item['dialog']['sys'][-1]
             data_item["original_usr"] = data_item['dialog']['usr'][-1]
+            # save change
+            data_item["changed_sys"] = sys_utt
+            data_item["changed_usr"] = usr_utt
             # override augmented
             data_item['dialog']['sys'][-1] = sys_utt
             data_item['dialog']['usr'][-1] = usr_utt
 
-            print()
-            print(f"sys_usr: {data_item['dialog']['sys'][-1]}")
-            print(f"usr_usr: {data_item['dialog']['usr'][-1]}")
+            print("-"*60)
+            print('### original dialogue ###')
+            print(f"[system] {data_item['original_sys']}")
+            print(f"[user] {data_item['original_usr']}")
+            print('### changed dialogue ###')
+            print(f"[system] {data_item['changed_sys']}")
+            print(f"[user] {data_item['changed_usr']}")
+            print("="*60)
             print("\n\n\n")
 
             para_result.append(data_item)
