@@ -5,10 +5,15 @@ import time
 import argparse
 from tqdm import tqdm
 import copy
+import re
 
 from prompt.our_prompting import conversion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
 from utils.helper import SpeedLimitTimer
+
+import nltk
+nltk.download('punkt')
+from nltk.tokenize import word_tokenize
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--train_fn', type=str, default= "data/mw21_5p_train_v2.json")
@@ -53,48 +58,120 @@ class EntityDialogue:
     def get_span_info(self):
         span_dataset = []
         for data_idx, data_item in enumerate(tqdm(self.dataset)):
-            dialog_dict = {}
+            data_item['span_dialog'] = {}
+            data_item['span_dialog']['sys'] = [["",[]]]
+            data_item['span_dialog']['usr'] = []
 
             for dialog_idx, dialog in enumerate(self.original_dataset[data_item['ID']]['log']):
-                if dialog_idx == 0:
-                    span_utt = ""
-                    span_list = ""
+                if data_item['turn_id'] * 2 + 1 <= dialog_idx:
+                    break
+
+                # utterance
+                span_utt = dialog['text']
+
+                span_list = []
+                # states and span info
+                if dialog['span_info'] != []:
+                    for state in dialog['span_info']:
+                        temp = {}
+                        temp["domain"] = state[0].split('-')[0]
+                        temp["act"] = state[0].split('-')[1]
+                        temp["slot"] = state[1]
+                        temp["value"] = state[2]
+                        temp["span_idx"] = [state[3], state[4]]
+                        
+                        span_list.append(temp)
+
+                if dialog_idx % 2 == 1:
+                    data_item['span_dialog']['sys'].append([span_utt, span_list])
                 else:
-                    # utterance
-                    span_utt = dialog['text']
-
-                    span_list = []
-                    # states and span info
-                    if dialog['span_info'] != []:
-                        for state in dialog['span_info']:
-                            temp = {}
-                            temp["domain"] = state[0].split('-')[0]
-                            temp["act"] = state[0].split('-')[1]
-                            temp["slot"] = state[1]
-                            temp["value"] = state[2]
-                            temp["span_idx"] = [state[3], state[4]]
-                            
-                            span_list.append(temp)
-
-                dialog_dict['span_utt'] = span_utt
-                dialog_dict['span_list'] = span_list
-
-            data_item['span_dialog'] = {}
-            data_item['span_dialog']['usr'] = []
-            data_item['span_dialog']['sys'] = []
-
-            if data_idx % 2 == 0:
-                data_item['span_dialog']['usr'].append(dialog_dict)
-            else:
-                data_item['span_dialog']['sys'].append(dialog_dict)
+                    data_item['span_dialog']['usr'].append([span_utt, span_list])
 
             span_dataset.append(data_item)
 
+            data_item['ett_dialog'] = {}
+            data_item['ett_dialog']['sys'] = []
+            data_item['ett_dialog']['usr'] = []
+
+            def tokenize_for_span(text):
+                text = re.sub("/", " / ", text)
+                text = re.sub("\-", " \- ", text)
+                # text = re.sub("Im", "I\'m", text)
+                # text = re.sub("im", "i\'m", text)
+                # text = re.sub("theres", "there's", text)
+                # text = re.sub("dont", "don't", text)
+                # text = re.sub("whats", "what's", text)
+                text = re.sub(r"\bIm\b", "I'm", text)
+                text = re.sub(r"\bim\b", "i'm", text)
+                text = re.sub(r"\btheres\b", "there's", text)
+                text = re.sub(r"\bdont\b", "don't", text)
+                text = re.sub(r"\bwhats\b", "what's", text)
+            #     text = re.sub("[0-9]:[0-9]+\. ", "[0-9]:[0-9]+ \. ", text)
+            #     text = re.sub("[a-z]\.[A-Z]", "[a-z]\. [A-Z]", text)
+            #     text = re.sub("\t:[0-9]+", "\t: [0-9]+", text)
+                text = re.sub(r"([0-9]:[0-9]+)\. ", r"\1. ", text)
+                text = re.sub(r"([a-z])\.([A-Z])", r"\1. \2", text)
+                text = re.sub(r"\t:([0-9]+)", r"\t: \1", text)
+                tokens = word_tokenize(text)
+                return tokens
+
+            # remove one of dialog spans that they have same span idx.
+            # because we replace values with special tokens, so remove error cases.
+            # (ignore the cases when span_idx of i is subset of span_idx of j ex) i = [1,3] ,j = [1,4])
+            for k, v in data_item['span_dialog'].items():
+                for dialog, dialog_span in v:
+                    sp_list = []
+                    for state in dialog_span:
+                        sp_list.append(state['span_idx'])
+                    
+                    index_dict = {}
+                    for i,sublist in enumerate(sp_list):
+                        value = tuple(sublist)  # Convert sublist to a tuple for hashability
+                        if value not in index_dict:
+                            index_dict[value] = [i]
+                        else:
+                            index_dict[value].append(i)
+
+                    for value, indices in index_dict.items():
+                        if len(indices) > 1:
+                            # for j in indices:
+                            #     print(dialog_span[j])
+                            for ind in reversed(indices[1:]):
+                                del dialog_span[ind]
+
+
+            # In dialog, change states value into entity ex) 79 -> [ATTRACTION-CHOICE]
+            for k, v in data_item['span_dialog'].items():
+                for dialog, dialog_span in v:
+                    word_index = tokenize_for_span(dialog)
+                    pop_list = []
+                    for state in dialog_span:
+                        # Due to the popping, offset index
+                        for p in pop_list:
+                            if state['span_idx'][0] > p['start_idx']:
+                                state['span_idx'][0] -= p['n_pop']
+                                state['span_idx'][1] -= p['n_pop']
+                        
+                        n_pop = 0
+                        for i in reversed(range(state['span_idx'][0]+1,state['span_idx'][1]+1)):
+                            word_index.pop(i)
+                            n_pop += 1
+                        temp = {}
+                        temp['start_idx'] = state['span_idx'][0]
+                        temp['n_pop'] = n_pop
+                        pop_list.append(temp)
+                        # print(dialog)
+                        # print(state['span_idx'][0])
+                        # print(state['span_idx'][1])
+                        # print(f"[{state['domain'].upper()}-{state['slot'].upper()}]")
+                        word_index[state['span_idx'][0]] = f"[{state['domain'].upper()}-{state['slot'].upper()}]"
+                        # print(word_index)
+                        # print()
+                    data_item['ett_dialog'][k].append(' '.join(word_index))
 
         with open(os.path.join(args.output_dir, 'train_with_span_info.json'),'w') as f:
             json.dump(span_dataset, f, indent = 4)
-                        
-                
+
 
     def replace_ett(self):
         timer = SpeedLimitTimer(second_per_step=4)
