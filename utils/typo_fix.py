@@ -28,6 +28,13 @@ def typo_fix(slot_values, ontology, version="2.1"):
                           'restaurant-name', 'taxi-departure', 'taxi-destination', 'restaurant-food']
     fixed = {}
     for slot, value in slot_values.items():
+        # fix slot
+        if slot == 'train-book day':
+            slot = 'train-day'
+
+        if slot == 'train-id':
+            continue
+
         # lower
         value = value.lower() if value != '[DELETE]' else value
 
