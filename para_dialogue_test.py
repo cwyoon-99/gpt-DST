@@ -10,7 +10,7 @@ from prompt.our_prompting import conversion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
 from utils.helper import SpeedLimitTimer
 
-train_fn = "data/mw21_0.04p_train_v4.json"
+train_fn = "data/mw21_0.04p_train_v5.json"
 output_file_name = "test"
 output_dir = "./para/"
 mwz_ver = "2.4"
@@ -19,7 +19,7 @@ sample_rate = 1
 
 cur_time = time.strftime('%y%m%d_%H%M-')
 
-output_dir = 'para/' + cur_time + "spr" + str(sample_rate) + "_" + output_file_name
+output_dir = 'para/' + cur_time + output_file_name
 os.makedirs(output_dir, exist_ok=True)
 
 class ParaDialogue:
@@ -258,7 +258,10 @@ class ParaDialogue:
 
         # paraphrase
         para_result = []
+
         dataset = self.dataset
+        # dataset = self.dataset[:4]
+
         for data_idx, data_item in enumerate(tqdm(dataset)):
 
             # 생성한 paraphrase log에서 last_slot_value, slot_value 대체
@@ -267,10 +270,9 @@ class ParaDialogue:
                 with open(os.path.join(output_dir,f'para_log.json'),'r') as f:
                     para_item = json.load(f)
 
-                # data_item['last_slot_values'] = para_item[-1]['turn_slot_values']
-                for k, v in data_item['last_slot_values'].items():
-                    if k in list(para_item[-1]['turn_slot_values'].keys()):
-                        data_item['last_slot_values'][k] = para_item[-1]['turn_slot_values'][k]
+                # for k, v in data_item['last_slot_values'].items():
+                #     if k in list(para_item[-1]['turn_slot_values'].keys()):
+                #         data_item['last_slot_values'][k] = para_item[-1]['turn_slot_values'][k]
                 
                 for k, v in data_item['slot_values'].items():
                     if k in list(para_item[-1]['slot_values'].keys()):
@@ -305,6 +307,9 @@ class ParaDialogue:
                             data_item['slot_values'][slot] = new_value
                             break
             
+                # last_slot_values = slot_values - turn_slot_values
+                data_item['last_slot_values'] = {k : v for k, v in data_item['slot_values'].items() if k not in data_item['turn_slot_values']}
+
                 prompt_text += f"Paraphrase the dialogue with"
 
                 sys_exist = True
@@ -313,11 +318,11 @@ class ParaDialogue:
 
                 if sys_exist:
                     prompt_text += f" [system] and"
-                prompt_text += f" [user] prefix\n" 
+                prompt_text += f" [user] prefix "
 
-                org_slot_values = f"({list(data_item['org_slot_values'].keys())[0]} = {list(data_item['org_slot_values'].values())[0]})"
+                org_slot_values = conversion(f"({list(data_item['org_slot_values'].keys())[0]} = {list(data_item['org_slot_values'].values())[0]})")
                 new_slot_values = conversion(f"({list(data_item['turn_slot_values'].keys())[0]} = {list(data_item['turn_slot_values'].values())[0]})")
-                prompt_text += f" and change the dialogue state from {org_slot_values} to {new_slot_values}\n"
+                prompt_text += f"and change the dialogue state from {org_slot_values} to {new_slot_values}\n"
 
             else:
                 prompt_text += f"Paraphrase the dialogue with"
@@ -328,8 +333,8 @@ class ParaDialogue:
 
                 if sys_exist:
                     prompt_text += f" [system] and"
-                prompt_text += f" [user] prefix\n" 
-
+                prompt_text += f" [user] prefix\n"
+            
             if sys_exist:
                 prompt_text += f"(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n"
             else:
@@ -408,6 +413,11 @@ class ParaDialogue:
             data_item['dialog']['sys'][-1] = sys_utt
             data_item['dialog']['usr'][-1] = usr_utt
 
+            if data_item['turn_id'] != 0:
+                for i in range(1, data_item['turn_id'] + 1):
+                    data_item['dialog']['sys'][-1 * i - 1] = para_item[-1 * i]['dialog']['sys'][-1]
+                    data_item['dialog']['usr'][-1 * i - 1] = para_item[-1 * i]['dialog']['usr'][-1]
+
             print("-"*60)
             print('### original dialogue ###')
             print(f"[system] {data_item['original_sys']}")
@@ -416,8 +426,9 @@ class ParaDialogue:
             print(f"[system] {data_item['changed_sys']}")
             print(f"[user] {data_item['changed_usr']}")
             print('### changed data_item ###')
-            print(f"turn_slot_values: {data_item['turn_slot_values']}")
             print(f"slot_values: {data_item['slot_values']}")
+            print(f"turn_slot_values: {data_item['turn_slot_values']}")
+            print(f"last_slot_values: {data_item['last_slot_values']}")
             print("="*60)
             print("\n\n\n")
 
@@ -433,32 +444,3 @@ if __name__ == "__main__":
     para = ParaDialogue(train_fn, output_dir, specific_name)
 
     para.value_paraphrase()
-
-    # p = """# dialogue
-    # [system] my favorite it the copper kettle at 4 kings parade city centre cb21sj . it serves british food . does that interest you ?
-    # [user] absolutely ! thank you ! i also need information on the attractions that have multiple sports in town , in the same area as the restaurant please .
-    
-    # dialogues Entity (slot_name = value): (restaurant-name = copper kettle), (attraction-type = multiple sports), (attraction-area = centre), (restaurant-pricerange = moderate), (attraction-type = multiple sports), (restaurant-area = centre), (restaurant-food_type = dontcare)
-    # Your job is to do Named Entity Recognition (NER) of the dialogue based on the dialogue entity.
-
-    # After that, replace corresponding entity's value with slot_name with bracket '[]'. (remove value after replacement)"""
-
-    # p1 = """# dialogue
-    # [system] the only multiple sports attraction is located in the east of town . would you like more information ?
-    # [user] no , i want to be in the centre of town . what about architecture attractions ?
-    
-    # dialogues Entity (slot_name = value): (attraction-type = architecture), (restaurant-food_type = dontcare), (restaurant-area = centre), (restaurant-pricerange = moderate), (attraction-area = centre), (attraction-type = multiple sports)
-    # Your job is to do Named Entity Recognition (NER) of the dialogue based on the dialogue entity.
-
-    # After that, replace corresponding entity's value with slot_name with bracket '[]'. (remove value after replacement)"""
-
-    # p2 = """# dialogue
-    # [system] its entrance fee is free .
-    # [user] i also need to book a taxi between the restaurant and the church .
-    
-    # dialogues Entity (slot_name = value): (taxi-destination = all saints church), (taxi-departure = dojo noodle bar), (restaurant-name = dojo noodle bar), (attraction-name = all saints church)
-    # Your job is to do Named Entity Recognition (NER) of the dialogue based on the dialogue entity.
-
-    # After that, replace corresponding entity's value with slot_name with bracket '[]'. (remove value after replacement)"""
-
-    # print(gpt35_turbo_completion(p2))
