@@ -10,7 +10,7 @@ from prompt.our_prompting import conversion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
 from utils.helper import SpeedLimitTimer
 
-train_fn = "data/mw21_0.02p_train_v2.json"
+train_fn = "data/mw21_0.04p_train_v4.json"
 output_file_name = "test"
 output_dir = "./para/"
 mwz_ver = "2.4"
@@ -29,16 +29,13 @@ class ParaDialogue:
         self.specific_name = specific_name
         self.mwz_ver = mwz_ver
 
-        self.ontology_path = "./data/mwz2.1/ontology.json" if self.mwz_ver == '2.1' else "./data/mwz2.4/ontology.json"
+        self.ontology_path = "./data/mwz2.1/para_ontology.json" if self.mwz_ver == '2.1' else "./data/mwz2.4/para_ontology.json"
 
         with open(self.data_path,'r') as f:
             self.dataset = json.load(f)
 
         with open(self.ontology_path,'r') as f:
             self.ontology = json.load(f)
-
-            if 'hospital-department' in self.ontology:
-                self.ontology.pop('hospital-department')
 
     def paraphrase(self):
         timer = SpeedLimitTimer(second_per_step=4)
@@ -261,13 +258,29 @@ class ParaDialogue:
 
         # paraphrase
         para_result = []
-        sampled_dataset = random.sample(self.dataset, int(len(self.dataset) * sample_rate))
-        for data_idx, data_item in enumerate(tqdm(sampled_dataset)):
+        dataset = self.dataset
+        for data_idx, data_item in enumerate(tqdm(dataset)):
+
+            # 생성한 paraphrase log에서 last_slot_value, slot_value 대체
+
+            if data_idx > 0:
+                with open(os.path.join(output_dir,f'para_log.json'),'r') as f:
+                    para_item = json.load(f)
+
+                # data_item['last_slot_values'] = para_item[-1]['turn_slot_values']
+                for k, v in data_item['last_slot_values'].items():
+                    if k in list(para_item[-1]['turn_slot_values'].keys()):
+                        data_item['last_slot_values'][k] = para_item[-1]['turn_slot_values'][k]
+                
+                for k, v in data_item['slot_values'].items():
+                    if k in list(para_item[-1]['slot_values'].keys()):
+                        data_item['slot_values'][k] = para_item[-1]['slot_values'][k]
+
         # for data_idx, data_item in enumerate(tqdm(self.dataset)):
             prompt_text = ""
 
-            last_slot_values = {s: v.split(
-                '|')[0] for s, v in data_item['last_slot_values'].items()}
+            # last_slot_values = {s: v.split(
+            #     '|')[0] for s, v in data_item['last_slot_values'].items()}
             # prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in last_slot_values.items()}))}\n"
             
             last_sys_utt = data_item['dialog']['sys'][-1]
@@ -275,18 +288,60 @@ class ParaDialogue:
                 last_sys_utt = ''
             prompt_text += f"[system] {last_sys_utt}\n"
             prompt_text += f"[user] {data_item['dialog']['usr'][-1]}\n\n"
+            data_item['org_slot_values'] = copy.deepcopy(data_item['turn_slot_values'])
             if data_item['turn_slot_values']:
-                prompt_text += f"The dialogue state of the above dialogue is {conversion(', '.join({f'({slot} = {value})' for slot, value in data_item['turn_slot_values'].items()}))}\n"
-            prompt_text += f"Paraphrase the dialogue with"
+                turn_slot_values = conversion(', '.join({f'({slot} = {value})' for slot, value in data_item['turn_slot_values'].items()}))
+                prompt_text += f"The dialogue state of the above dialogue is {turn_slot_values}\n"
 
-            sys_exist = True
-            if data_item['dialog']['sys'][-1] == "":
-                sys_exist = False
+                # change value
+                for slot, value in data_item['turn_slot_values'].items():
+                    if slot in self.ontology:
+                        available_values = self.ontology[slot]
+                        if value in available_values:
+                            new_value = random.choice(available_values)
+                            while new_value == value: # 새로운 value로 바뀔때까지
+                                new_value = random.choice(available_values)
+                            data_item['turn_slot_values'][slot] = new_value
+                            data_item['slot_values'][slot] = new_value
+                            break
+            
+                prompt_text += f"Paraphrase the dialogue with"
+
+                sys_exist = True
+                if data_item['dialog']['sys'][-1] == "":
+                    sys_exist = False
+
+                if sys_exist:
+                    prompt_text += f" [system] and"
+                prompt_text += f" [user] prefix\n" 
+
+                org_slot_values = f"({list(data_item['org_slot_values'].keys())[0]} = {list(data_item['org_slot_values'].values())[0]})"
+                new_slot_values = conversion(f"({list(data_item['turn_slot_values'].keys())[0]} = {list(data_item['turn_slot_values'].values())[0]})")
+                prompt_text += f" and change the dialogue state from {org_slot_values} to {new_slot_values}\n"
+
+            else:
+                prompt_text += f"Paraphrase the dialogue with"
+
+                sys_exist = True
+                if data_item['dialog']['sys'][-1] == "":
+                    sys_exist = False
+
+                if sys_exist:
+                    prompt_text += f" [system] and"
+                prompt_text += f" [user] prefix\n" 
 
             if sys_exist:
-                prompt_text += f" [system] and"
-            prompt_text += f" [user] prefix." 
+                prompt_text += f"(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n"
+            else:
+                prompt_text += f"(Output only one sentence of user utterance.)\n"
             
+
+
+            # dictionary 형식으로 출력하도록
+            # prompt_text += f"Output in the form of a dictionary where the key is system and user, and the value is each utterance."
+            
+
+
             # if sys_exist:    
             #     prompt_text += f"(You should generate the [system] first, then [user]. Also, [system] and [user] should be one, respectively.)\n"
             # else:
@@ -338,12 +393,17 @@ class ParaDialogue:
             usr_utt = completion.split("[user]")[1].strip()
 
             data_item['ID'] = f"{data_item['ID'].split('.')[0]}-{specific_name}.json"
+            # prompt
+            data_item["prompt"] = prompt_text
+
             # save original
             data_item["original_sys"] = data_item['dialog']['sys'][-1]
             data_item["original_usr"] = data_item['dialog']['usr'][-1]
+
             # save change
             data_item["changed_sys"] = sys_utt
             data_item["changed_usr"] = usr_utt
+
             # override augmented
             data_item['dialog']['sys'][-1] = sys_utt
             data_item['dialog']['usr'][-1] = usr_utt
@@ -355,12 +415,15 @@ class ParaDialogue:
             print('### changed dialogue ###')
             print(f"[system] {data_item['changed_sys']}")
             print(f"[user] {data_item['changed_usr']}")
+            print('### changed data_item ###')
+            print(f"turn_slot_values: {data_item['turn_slot_values']}")
+            print(f"slot_values: {data_item['slot_values']}")
             print("="*60)
             print("\n\n\n")
 
             para_result.append(data_item)
 
-            if data_idx % 5 == 0:
+            if data_idx % 1 == 0:
                 with open(os.path.join(output_dir,f'para_log.json'),'w') as f:
                     json.dump(para_result, f, indent=4)
 
