@@ -1,0 +1,8 @@
+{
+    "train_fn": "data/mw21_0.1p_train_v1.json",
+    "output_file_name": "test-1",
+    "output_dir": "para/230522_1913-test1",
+    "mwz_ver": "2.4",
+    "specific_name": "para",
+    "sample_rate": 1.0
+}

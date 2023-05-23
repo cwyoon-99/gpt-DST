@@ -1,10 +1,10 @@
 python run_GPT35_test.py \
-      --train_fn data/mw21_1p_train_v2.json \
-      --retriever_dir retriever/expts/1p_v2 \
+      --train_fn data/mw21_5p_train_v2.json \
+      --retriever_dir retriever/expts/mw21_5p_v2 \
       --mwz_ver 2.4 \
-      --test_size 737 \
+      --test_size 7368 \
       --excluded_history \
-      --output_file_name gpt35_mw24_1p_v2_excluded_history_737 \
+      --output_file_name gpt35_mw24_mw21_5p_v2_excluded_history_7368 \
 
 # python run_GPT35_follow_up_CoT.py \
 #       --train_fn data/mw21_5p_train_v2.json \

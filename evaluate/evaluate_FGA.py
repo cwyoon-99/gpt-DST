@@ -103,7 +103,7 @@ def FGA(dir_path):
     
     result = []
     for l in range(len(lst_lambda)):
-        fga_acc = round(fga[l]*100.0/total, 2)
+        fga_acc = round(fga[l]/total, 4)
         result.append(f"FGA with L={lst_lambda[l]} : {fga_acc}")
     
     return result

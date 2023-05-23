@@ -1,0 +1,14 @@
+{
+    "train_fn": "data/mw21_5p_train_v2.json",
+    "retriever_dir": "retriever/expts/mw21_5p_v2",
+    "output_file_name": "gpt35_mw24_mw21_5p_v2_excluded_history_7368",
+    "output_dir": "expts/230523_0231-gpt35_mw24_mw21_5p_v2_excluded_history_7368",
+    "mwz_ver": "2.4",
+    "test_fn": "",
+    "save_interval": 1,
+    "test_size": 7368,
+    "bracket": false,
+    "full_history": false,
+    "excluded_history": true,
+    "slot_classify": false
+}

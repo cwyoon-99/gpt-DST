@@ -1,0 +1,1418 @@
+[
+    {
+        "ID": "SNG02120-para2.json",
+        "turn_id": 0,
+        "domains": [
+            "taxi"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you please send a taxi to pick me up from royal standard and take me to little saint mary s church ?"
+            ]
+        },
+        "slot_values": {
+            "taxi-destination": "little saint marys church",
+            "taxi-departure": "royal standard"
+        },
+        "turn_slot_values": {
+            "taxi-destination": "little saint marys church",
+            "taxi-departure": "royal standard"
+        },
+        "last_slot_values": {},
+        "org_slot_values": {
+            "taxi-destination": "maharajah tandoori restaurant",
+            "taxi-departure": "royal standard"
+        },
+        "prompt": "[system] \n[user] i need a taxi to come to royal standard and take me to maharajah tandoori restaurant .\n\nThe dialogue state of the above dialogue is (taxi-departure = royal standard), (taxi-destination = maharajah tandoori restaurant)\nParaphrase the dialogue with [user] prefix and change the dialogue state from (taxi-destination = maharajah tandoori restaurant) to (taxi-destination = little saint marys church)\n(Output only one sentence of user utterance.)\n",
+        "original_sys": "",
+        "original_usr": "i need a taxi to come to royal standard and take me to maharajah tandoori restaurant .",
+        "changed_sys": "",
+        "changed_usr": "can you please send a taxi to pick me up from royal standard and take me to little saint mary s church ?"
+    },
+    {
+        "ID": "SNG02120-para2.json",
+        "turn_id": 1,
+        "domains": [
+            "taxi"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure , i can assist you with that . may i know what time you would like to arrive at your destination ?"
+            ],
+            "usr": [
+                "can you please send a taxi to pick me up from royal standard and take me to little saint mary s church ?",
+                "i need to leave after 17:30 and arrive at 19:45 ."
+            ]
+        },
+        "slot_values": {
+            "taxi-leaveat": "19:45",
+            "taxi-destination": "little saint marys church",
+            "taxi-departure": "royal standard"
+        },
+        "turn_slot_values": {
+            "taxi-leaveat": "19:45"
+        },
+        "last_slot_values": {
+            "taxi-destination": "little saint marys church",
+            "taxi-departure": "royal standard"
+        },
+        "org_slot_values": {
+            "taxi-leaveat": "14:30"
+        },
+        "prompt": "[system] i would be happy to help with your request , but first i will need to know , what time you would like to leave and arrive ?\n[user] i need to leave after 14:30 .\n\nThe dialogue state of the above dialogue is (taxi-depart_time = 14:30)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (taxi-depart_time = 14:30) to (taxi-depart_time = 19:45)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "i would be happy to help with your request , but first i will need to know , what time you would like to leave and arrive ?",
+        "original_usr": "i need to leave after 14:30 .",
+        "changed_sys": "sure , i can assist you with that . may i know what time you would like to arrive at your destination ?",
+        "changed_usr": "i need to leave after 17:30 and arrive at 19:45 ."
+    },
+    {
+        "ID": "PMUL2096-para2.json",
+        "turn_id": 0,
+        "domains": [
+            "taxi",
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you assist me in locating a restaurant in cambridge ?"
+            ]
+        },
+        "slot_values": {},
+        "turn_slot_values": {},
+        "last_slot_values": {},
+        "org_slot_values": {},
+        "prompt": "[system] \n[user] sure , i want some help finding a restaurant in cambridge , please .\n\nParaphrase the dialogue with [user] prefix\n(Output only one sentence of user utterance.)\n",
+        "original_sys": "",
+        "original_usr": "sure , i want some help finding a restaurant in cambridge , please .",
+        "changed_sys": "",
+        "changed_usr": "can you assist me in locating a restaurant in cambridge ?"
+    },
+    {
+        "ID": "PMUL2096-para2.json",
+        "turn_id": 1,
+        "domains": [
+            "taxi",
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure , i can assist you with that . what type of cuisine are you interested in ?"
+            ],
+            "usr": [
+                "can you assist me in locating a restaurant in cambridge ?",
+                "i do not have a particular cuisine in mind . i am looking for a restaurant that serves food from around the world ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "world"
+        },
+        "turn_slot_values": {
+            "restaurant-food": "world"
+        },
+        "last_slot_values": {},
+        "org_slot_values": {
+            "restaurant-food": "indian"
+        },
+        "prompt": "[system] i can help you with that . what s the name of the restaurant you are looking for ?\n[user] i do not have a specific restaurant in mind . i am looking for an indian restaurant .\n\nThe dialogue state of the above dialogue is (restaurant-food_type = indian)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (restaurant-food_type = indian) to (restaurant-food_type = world)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "i can help you with that . what s the name of the restaurant you are looking for ?",
+        "original_usr": "i do not have a specific restaurant in mind . i am looking for an indian restaurant .",
+        "changed_sys": "sure , i can assist you with that . what type of cuisine are you interested in ?",
+        "changed_usr": "i do not have a particular cuisine in mind . i am looking for a restaurant that serves food from around the world ."
+    },
+    {
+        "ID": "PMUL2096-para2.json",
+        "turn_id": 2,
+        "domains": [
+            "taxi",
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure , i can assist you with that . what type of cuisine are you interested in ?",
+                "i have several indian restaurant -s available . what price range and part of town would you prefer ?"
+            ],
+            "usr": [
+                "can you assist me in locating a restaurant in cambridge ?",
+                "i do not have a particular cuisine in mind . i am looking for a restaurant that serves food from around the world .",
+                "i am looking for a moderate priced restaurant in the center of town ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "world",
+            "restaurant-pricerange": "moderate",
+            "restaurant-area": "centre"
+        },
+        "turn_slot_values": {
+            "restaurant-pricerange": "moderate",
+            "restaurant-area": "centre"
+        },
+        "last_slot_values": {
+            "restaurant-food": "world"
+        },
+        "org_slot_values": {
+            "restaurant-pricerange": "expensive",
+            "restaurant-area": "centre"
+        },
+        "prompt": "[system] i have several indian restaurant -s available . what price range and part of town would you prefer .\n[user] i want an expensive 1 in the centre .\n\nThe dialogue state of the above dialogue is (restaurant-pricerange = expensive), (restaurant-area = centre)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (restaurant-pricerange = expensive) to (restaurant-pricerange = moderate)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "i have several indian restaurant -s available . what price range and part of town would you prefer .",
+        "original_usr": "i want an expensive 1 in the centre .",
+        "changed_sys": "i have several indian restaurant -s available . what price range and part of town would you prefer ?",
+        "changed_usr": "i am looking for a moderate priced restaurant in the center of town ."
+    },
+    {
+        "ID": "PMUL4377-para2.json",
+        "turn_id": 0,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you help me make a reservation at restaurant 17 in cambridge ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-name": "restaurant 17"
+        },
+        "turn_slot_values": {
+            "restaurant-name": "restaurant 17"
+        },
+        "last_slot_values": {},
+        "org_slot_values": {
+            "restaurant-name": "clowns cafe"
+        },
+        "prompt": "[system] \n[user] i am looking forward to try a local restaurant in cambridge and i have clowns cafe particularly in my mind . can you assist to book a table for me ?\n\nThe dialogue state of the above dialogue is (restaurant-name = clowns cafe)\nParaphrase the dialogue with [user] prefix and change the dialogue state from (restaurant-name = clowns cafe) to (restaurant-name = restaurant 17)\n(Output only one sentence of user utterance.)\n",
+        "original_sys": "",
+        "original_usr": "i am looking forward to try a local restaurant in cambridge and i have clowns cafe particularly in my mind . can you assist to book a table for me ?",
+        "changed_sys": "",
+        "changed_usr": "can you help me make a reservation at restaurant 17 in cambridge ?"
+    },
+    {
+        "ID": "PMUL4377-para2.json",
+        "turn_id": 1,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "how may i assist you with booking a table ?"
+            ],
+            "usr": [
+                "can you help me make a reservation at restaurant 17 in cambridge ?",
+                "can i make a reservation for sunday ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-name": "restaurant 17"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-name": "clowns cafe"
+        },
+        "org_slot_values": {},
+        "prompt": "[system] i would be happy to help you book a table . what day do you need your reservation ?\n[user] i would like it for sunday .\n\nParaphrase the dialogue with [system] and [user] prefix\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "i would be happy to help you book a table . what day do you need your reservation ?",
+        "original_usr": "i would like it for sunday .",
+        "changed_sys": "how may i assist you with booking a table ?",
+        "changed_usr": "can i make a reservation for sunday ?"
+    },
+    {
+        "ID": "PMUL4377-para2.json",
+        "turn_id": 2,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "how may i assist you with booking a table ?",
+                "before i can book the table , can you please tell me the number of people dining and the time you prefer ?"
+            ],
+            "usr": [
+                "can you help me make a reservation at restaurant 17 in cambridge ?",
+                "can i make a reservation for sunday ?",
+                "sure , i need a table for 5 at 11:45 tomorrow ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "tomorrow",
+            "restaurant-book people": "5",
+            "restaurant-book time": "11:45",
+            "restaurant-name": "restaurant 17"
+        },
+        "turn_slot_values": {
+            "restaurant-book day": "tomorrow",
+            "restaurant-book people": "5",
+            "restaurant-book time": "11:45"
+        },
+        "last_slot_values": {
+            "restaurant-name": "restaurant 17"
+        },
+        "org_slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "5",
+            "restaurant-book time": "11:45"
+        },
+        "prompt": "[system] i need some additional information before i can book the table . how many people will be dining and at what time ?\n[user] oh , i'll need a table for 5 at 11:45 on sunday .\n\nThe dialogue state of the above dialogue is (restaurant-book time = 11:45), (restaurant-book day = sunday), (restaurant-book people = 5)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (restaurant-book day = sunday) to (restaurant-book day = tomorrow)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "i need some additional information before i can book the table . how many people will be dining and at what time ?",
+        "original_usr": "oh , i'll need a table for 5 at 11:45 on sunday .",
+        "changed_sys": "before i can book the table , can you please tell me the number of people dining and the time you prefer ?",
+        "changed_usr": "sure , i need a table for 5 at 11:45 tomorrow ."
+    },
+    {
+        "ID": "PMUL4377-para2.json",
+        "turn_id": 3,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "how may i assist you with booking a table ?",
+                "before i can book the table , can you please tell me the number of people dining and the time you prefer ?",
+                "your booking has been confirmed and the table will be reserved for 15 minutes . your reference number is rmg9ga7o ."
+            ],
+            "usr": [
+                "can you help me make a reservation at restaurant 17 in cambridge ?",
+                "can i make a reservation for sunday ?",
+                "sure , i need a table for 5 at 11:45 tomorrow .",
+                "can you help me find a hotel with free wifi ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "tomorrow",
+            "restaurant-book people": "5",
+            "restaurant-book time": "11:45",
+            "restaurant-name": "restaurant 17",
+            "hotel-internet": "no"
+        },
+        "turn_slot_values": {
+            "hotel-internet": "no"
+        },
+        "last_slot_values": {
+            "restaurant-book day": "tomorrow",
+            "restaurant-book people": "5",
+            "restaurant-book time": "11:45",
+            "restaurant-name": "restaurant 17"
+        },
+        "org_slot_values": {
+            "hotel-internet": "yes"
+        },
+        "prompt": "[system] booking was successful . the table will be reserved for 15 minutes . reference number is : rmg9ga7o .\n[user] thank you , i also need to find a hotel with free wifi .\n\nThe dialogue state of the above dialogue is (hotel-internet = yes)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (hotel-internet = yes) to (hotel-internet = no)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "booking was successful . the table will be reserved for 15 minutes . reference number is : rmg9ga7o .",
+        "original_usr": "thank you , i also need to find a hotel with free wifi .",
+        "changed_sys": "your booking has been confirmed and the table will be reserved for 15 minutes . your reference number is rmg9ga7o .",
+        "changed_usr": "can you help me find a hotel with free wifi ?"
+    },
+    {
+        "ID": "PMUL4377-para2.json",
+        "turn_id": 4,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "how may i assist you with booking a table ?",
+                "before i can book the table , can you please tell me the number of people dining and the time you prefer ?",
+                "your booking has been confirmed and the table will be reserved for 15 minutes . your reference number is rmg9ga7o .",
+                "sure , i can assist you with that . would you like to stay in the city centre instead of the north ? and are you still looking for a 2 star hotel ? hotel area = centre"
+            ],
+            "usr": [
+                "can you help me make a reservation at restaurant 17 in cambridge ?",
+                "can i make a reservation for sunday ?",
+                "sure , i need a table for 5 at 11:45 tomorrow .",
+                "can you help me find a hotel with free wifi ?",
+                "yes , i prefer the city centre and a 2 star hotel would be great . thank you ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "tomorrow",
+            "restaurant-book people": "5",
+            "restaurant-book time": "11:45",
+            "restaurant-name": "restaurant 17",
+            "hotel-area": "centre",
+            "hotel-stars": "2",
+            "hotel-internet": "no"
+        },
+        "turn_slot_values": {
+            "hotel-area": "centre",
+            "hotel-stars": "2"
+        },
+        "last_slot_values": {
+            "restaurant-book day": "tomorrow",
+            "restaurant-book people": "5",
+            "restaurant-book time": "11:45",
+            "restaurant-name": "restaurant 17",
+            "hotel-internet": "no"
+        },
+        "org_slot_values": {
+            "hotel-area": "north",
+            "hotel-stars": "2"
+        },
+        "prompt": "[system] i'll be glad to help with that . do you have a preference for the area or the price ?\n[user] some place in the north with a 2 star rating .\n\nThe dialogue state of the above dialogue is (hotel-stars = 2), (hotel-area = north)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (hotel-area = north) to (hotel-area = centre)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "i'll be glad to help with that . do you have a preference for the area or the price ?",
+        "original_usr": "some place in the north with a 2 star rating .",
+        "changed_sys": "sure , i can assist you with that . would you like to stay in the city centre instead of the north ? and are you still looking for a 2 star hotel ? hotel area = centre",
+        "changed_usr": "yes , i prefer the city centre and a 2 star hotel would be great . thank you ."
+    },
+    {
+        "ID": "PMUL4377-para2.json",
+        "turn_id": 5,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "how may i assist you with booking a table ?",
+                "before i can book the table , can you please tell me the number of people dining and the time you prefer ?",
+                "your booking has been confirmed and the table will be reserved for 15 minutes . your reference number is rmg9ga7o .",
+                "sure , i can assist you with that . would you like to stay in the city centre instead of the north ? and are you still looking for a 2 star hotel ? hotel area = centre",
+                "yes , we have availability for a room that can accommodate 5 people for 3 nights starting on tuesday at the ashley hotel on chesterton road . would you like to book it ?"
+            ],
+            "usr": [
+                "can you help me make a reservation at restaurant 17 in cambridge ?",
+                "can i make a reservation for sunday ?",
+                "sure , i need a table for 5 at 11:45 tomorrow .",
+                "can you help me find a hotel with free wifi ?",
+                "yes , i prefer the city centre and a 2 star hotel would be great . thank you .",
+                "that sounds perfect . yes , please book the room for us starting on tuesday ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "tomorrow",
+            "restaurant-book people": "5",
+            "restaurant-book time": "11:45",
+            "restaurant-name": "restaurant 17",
+            "hotel-book day": "tuesday",
+            "hotel-book people": "5",
+            "hotel-book stay": "3",
+            "hotel-area": "centre",
+            "hotel-stars": "2",
+            "hotel-internet": "no"
+        },
+        "turn_slot_values": {
+            "hotel-book day": "tuesday",
+            "hotel-book people": "5",
+            "hotel-book stay": "3"
+        },
+        "last_slot_values": {
+            "restaurant-book day": "tomorrow",
+            "restaurant-book people": "5",
+            "restaurant-book time": "11:45",
+            "restaurant-name": "restaurant 17",
+            "hotel-area": "centre",
+            "hotel-stars": "2",
+            "hotel-internet": "no"
+        },
+        "org_slot_values": {
+            "hotel-book day": "sunday",
+            "hotel-book people": "5",
+            "hotel-book stay": "3"
+        },
+        "prompt": "[system] the ashley hotel on chesterton road meets that criteria . how does that sound ?\n[user] great , can i get a room for 5 people for 3 nights on the same day ?\n\nThe dialogue state of the above dialogue is (hotel-book stay = 3), (hotel-book people = 5), (hotel-book day = sunday)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (hotel-book day = sunday) to (hotel-book day = tuesday)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "the ashley hotel on chesterton road meets that criteria . how does that sound ?",
+        "original_usr": "great , can i get a room for 5 people for 3 nights on the same day ?",
+        "changed_sys": "yes , we have availability for a room that can accommodate 5 people for 3 nights starting on tuesday at the ashley hotel on chesterton road . would you like to book it ?",
+        "changed_usr": "that sounds perfect . yes , please book the room for us starting on tuesday ."
+    },
+    {
+        "ID": "PMUL4377-para2.json",
+        "turn_id": 6,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "how may i assist you with booking a table ?",
+                "before i can book the table , can you please tell me the number of people dining and the time you prefer ?",
+                "your booking has been confirmed and the table will be reserved for 15 minutes . your reference number is rmg9ga7o .",
+                "sure , i can assist you with that . would you like to stay in the city centre instead of the north ? and are you still looking for a 2 star hotel ? hotel area = centre",
+                "yes , we have availability for a room that can accommodate 5 people for 3 nights starting on tuesday at the ashley hotel on chesterton road . would you like to book it ?",
+                "sure , what type of attraction are you interested in ? [attraction area = dontcare]"
+            ],
+            "usr": [
+                "can you help me make a reservation at restaurant 17 in cambridge ?",
+                "can i make a reservation for sunday ?",
+                "sure , i need a table for 5 at 11:45 tomorrow .",
+                "can you help me find a hotel with free wifi ?",
+                "yes , i prefer the city centre and a 2 star hotel would be great . thank you .",
+                "that sounds perfect . yes , please book the room for us starting on tuesday .",
+                "i am not sure , do you have any recommendations near the ashley hotel ? [attraction area = dontcare]"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "tomorrow",
+            "restaurant-book people": "5",
+            "restaurant-book time": "11:45",
+            "restaurant-name": "restaurant 17",
+            "hotel-book day": "tuesday",
+            "hotel-book people": "5",
+            "hotel-book stay": "3",
+            "hotel-area": "centre",
+            "hotel-stars": "2",
+            "hotel-internet": "no",
+            "attraction-area": "dontcare"
+        },
+        "turn_slot_values": {
+            "attraction-area": "dontcare"
+        },
+        "last_slot_values": {
+            "restaurant-book day": "tomorrow",
+            "restaurant-book people": "5",
+            "restaurant-book time": "11:45",
+            "restaurant-name": "restaurant 17",
+            "hotel-book day": "tuesday",
+            "hotel-book people": "5",
+            "hotel-book stay": "3",
+            "hotel-area": "centre",
+            "hotel-stars": "2",
+            "hotel-internet": "no"
+        },
+        "org_slot_values": {
+            "attraction-area": "north"
+        },
+        "prompt": "[system] done ! your reference number is is1ayuck . can i help you with anything else ?\n[user] yes , are you familiar with any of the attractions around the ashley hotel ?\n\nThe dialogue state of the above dialogue is (attraction-area = north)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (attraction-area = north) to (attraction-area = dontcare)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "done ! your reference number is is1ayuck . can i help you with anything else ?",
+        "original_usr": "yes , are you familiar with any of the attractions around the ashley hotel ?",
+        "changed_sys": "sure , what type of attraction are you interested in ? [attraction area = dontcare]",
+        "changed_usr": "i am not sure , do you have any recommendations near the ashley hotel ? [attraction area = dontcare]"
+    },
+    {
+        "ID": "PMUL4377-para2.json",
+        "turn_id": 7,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "how may i assist you with booking a table ?",
+                "before i can book the table , can you please tell me the number of people dining and the time you prefer ?",
+                "your booking has been confirmed and the table will be reserved for 15 minutes . your reference number is rmg9ga7o .",
+                "sure , i can assist you with that . would you like to stay in the city centre instead of the north ? and are you still looking for a 2 star hotel ? hotel area = centre",
+                "yes , we have availability for a room that can accommodate 5 people for 3 nights starting on tuesday at the ashley hotel on chesterton road . would you like to book it ?",
+                "sure , what type of attraction are you interested in ? [attraction area = dontcare]",
+                "apologies , the computer system is not functioning at the moment , and i am unable to look up any attractions for you . is there anything else i can assist you with ?"
+            ],
+            "usr": [
+                "can you help me make a reservation at restaurant 17 in cambridge ?",
+                "can i make a reservation for sunday ?",
+                "sure , i need a table for 5 at 11:45 tomorrow .",
+                "can you help me find a hotel with free wifi ?",
+                "yes , i prefer the city centre and a 2 star hotel would be great . thank you .",
+                "that sounds perfect . yes , please book the room for us starting on tuesday .",
+                "i am not sure , do you have any recommendations near the ashley hotel ? [attraction area = dontcare]",
+                "no , thank you . i do not need any further assistance . goodbye ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "tomorrow",
+            "restaurant-book people": "5",
+            "restaurant-book time": "11:45",
+            "restaurant-name": "restaurant 17",
+            "hotel-book day": "tuesday",
+            "hotel-book people": "5",
+            "hotel-book stay": "3",
+            "hotel-area": "centre",
+            "hotel-stars": "2",
+            "hotel-internet": "no",
+            "attraction-area": "dontcare"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "5",
+            "restaurant-book time": "11:45",
+            "restaurant-name": "clowns cafe",
+            "hotel-book day": "sunday",
+            "hotel-book people": "5",
+            "hotel-book stay": "3",
+            "hotel-area": "north",
+            "hotel-stars": "2",
+            "hotel-internet": "yes",
+            "attraction-area": "north"
+        },
+        "org_slot_values": {},
+        "prompt": "[system] i am sorry , the computer system is currently down and i cannot search attractions for you . can i help with anything else ?\n[user] no thanks . i am all set . goodbye .\n\nParaphrase the dialogue with [system] and [user] prefix\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "i am sorry , the computer system is currently down and i cannot search attractions for you . can i help with anything else ?",
+        "original_usr": "no thanks . i am all set . goodbye .",
+        "changed_sys": "apologies , the computer system is not functioning at the moment , and i am unable to look up any attractions for you . is there anything else i can assist you with ?",
+        "changed_usr": "no , thank you . i do not need any further assistance . goodbye ."
+    },
+    {
+        "ID": "SNG1288-para2.json",
+        "turn_id": 0,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you recommend a german restaurant on the west side of town ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "german",
+            "restaurant-area": "west"
+        },
+        "turn_slot_values": {
+            "restaurant-food": "german",
+            "restaurant-area": "west"
+        },
+        "last_slot_values": {},
+        "org_slot_values": {
+            "restaurant-food": "spanish",
+            "restaurant-area": "west"
+        },
+        "prompt": "[system] \n[user] i am looking for a spanish restaurant in the west side of town\n\nThe dialogue state of the above dialogue is (restaurant-food_type = spanish), (restaurant-area = west)\nParaphrase the dialogue with [user] prefix and change the dialogue state from (restaurant-food_type = spanish) to (restaurant-food_type = german)\n(Output only one sentence of user utterance.)\n",
+        "original_sys": "",
+        "original_usr": "i am looking for a spanish restaurant in the west side of town",
+        "changed_sys": "",
+        "changed_usr": "can you recommend a german restaurant on the west side of town ?"
+    },
+    {
+        "ID": "SNG1288-para2.json",
+        "turn_id": 1,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i am sorry , but we do not have any restaurant -s serving british food ."
+            ],
+            "usr": [
+                "can you recommend a german restaurant on the west side of town ?",
+                "how about a restaurant that serves north african cuisine ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "north african",
+            "restaurant-area": "west"
+        },
+        "turn_slot_values": {
+            "restaurant-food": "north african"
+        },
+        "last_slot_values": {
+            "restaurant-area": "west"
+        },
+        "org_slot_values": {
+            "restaurant-food": "british"
+        },
+        "prompt": "[system] i am sorry , but there are no restaurant -s matching your request .\n[user] how about a restaurant that serves british food ?\n\nThe dialogue state of the above dialogue is (restaurant-food_type = british)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (restaurant-food_type = british) to (restaurant-food_type = north african)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "i am sorry , but there are no restaurant -s matching your request .",
+        "original_usr": "how about a restaurant that serves british food ?",
+        "changed_sys": "i am sorry , but we do not have any restaurant -s serving british food .",
+        "changed_usr": "how about a restaurant that serves north african cuisine ?"
+    },
+    {
+        "ID": "SNG1288-para2.json",
+        "turn_id": 2,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i am sorry , but we do not have any restaurant -s serving british food .",
+                "we have some great options in the cheap price range . would you like to see those ?"
+            ],
+            "usr": [
+                "can you recommend a german restaurant on the west side of town ?",
+                "how about a restaurant that serves north african cuisine ?",
+                "yes , please show me the cheap options ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "north african",
+            "restaurant-pricerange": "cheap",
+            "restaurant-area": "west"
+        },
+        "turn_slot_values": {
+            "restaurant-pricerange": "cheap"
+        },
+        "last_slot_values": {
+            "restaurant-food": "north african",
+            "restaurant-area": "west"
+        },
+        "org_slot_values": {
+            "restaurant-pricerange": "moderate"
+        },
+        "prompt": "[system] we have 3 excellent options here . do you prefer a moderate price range or expensive ?\n[user] a moderate price range , please .\n\nThe dialogue state of the above dialogue is (restaurant-pricerange = moderate)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (restaurant-pricerange = moderate) to (restaurant-pricerange = cheap)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "we have 3 excellent options here . do you prefer a moderate price range or expensive ?",
+        "original_usr": "a moderate price range , please .",
+        "changed_sys": "we have some great options in the cheap price range . would you like to see those ?",
+        "changed_usr": "yes , please show me the cheap options ."
+    },
+    {
+        "ID": "SNG1288-para2.json",
+        "turn_id": 3,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i am sorry , but we do not have any restaurant -s serving british food .",
+                "we have some great options in the cheap price range . would you like to see those ?",
+                "i found frankie and benny s . would you like me to book a table for you ?"
+            ],
+            "usr": [
+                "can you recommend a german restaurant on the west side of town ?",
+                "how about a restaurant that serves north african cuisine ?",
+                "yes , please show me the cheap options .",
+                "no , i just need the address with postcode and phone number ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "north african",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "frankie and bennys",
+            "restaurant-area": "west"
+        },
+        "turn_slot_values": {
+            "restaurant-name": "frankie and bennys"
+        },
+        "last_slot_values": {
+            "restaurant-food": "north african",
+            "restaurant-pricerange": "cheap",
+            "restaurant-area": "west"
+        },
+        "org_slot_values": {
+            "restaurant-name": "saint johns chop house"
+        },
+        "prompt": "[system] i found saint johns chop house . would you like me to book a table for you ?\n[user] no , i just need an address with postcode and phone number .\n\nThe dialogue state of the above dialogue is (restaurant-name = saint johns chop house)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (restaurant-name = saint johns chop house) to (restaurant-name = frankie and bennys)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "i found saint johns chop house . would you like me to book a table for you ?",
+        "original_usr": "no , i just need an address with postcode and phone number .",
+        "changed_sys": "i found frankie and benny s . would you like me to book a table for you ?",
+        "changed_usr": "no , i just need the address with postcode and phone number ."
+    },
+    {
+        "ID": "SNG1288-para2.json",
+        "turn_id": 4,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i am sorry , but we do not have any restaurant -s serving british food .",
+                "we have some great options in the cheap price range . would you like to see those ?",
+                "i found frankie and benny s . would you like me to book a table for you ?",
+                ": our address is 2124 northampton street with the postcode cb30ad and our phone number is 01223353110 . is there anything else i can assist you with ?"
+            ],
+            "usr": [
+                "can you recommend a german restaurant on the west side of town ?",
+                "how about a restaurant that serves north african cuisine ?",
+                "yes , please show me the cheap options .",
+                "no , i just need the address with postcode and phone number .",
+                ": no , you have been very helpful . thank you ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "north african",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "frankie and bennys",
+            "restaurant-area": "west"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-food": "british",
+            "restaurant-pricerange": "moderate",
+            "restaurant-name": "saint johns chop house",
+            "restaurant-area": "west"
+        },
+        "org_slot_values": {},
+        "prompt": "[system] the address is 2124 northampton street , postcode: cb30ad and the phone number is 01223353110 . is there anything else i can do for you ?\n[user] no , you have been a great help . thank you .\n\nParaphrase the dialogue with [system] and [user] prefix\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "the address is 2124 northampton street , postcode: cb30ad and the phone number is 01223353110 . is there anything else i can do for you ?",
+        "original_usr": "no , you have been a great help . thank you .",
+        "changed_sys": ": our address is 2124 northampton street with the postcode cb30ad and our phone number is 01223353110 . is there anything else i can assist you with ?",
+        "changed_usr": ": no , you have been very helpful . thank you ."
+    },
+    {
+        "ID": "PMUL3315-para2.json",
+        "turn_id": 0,
+        "domains": [
+            "taxi",
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you suggest an expensive restaurant that serves corsican cuisine ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "corsica",
+            "restaurant-pricerange": "cheap"
+        },
+        "turn_slot_values": {
+            "restaurant-food": "corsica",
+            "restaurant-pricerange": "expensive"
+        },
+        "last_slot_values": {},
+        "org_slot_values": {
+            "restaurant-food": "indian",
+            "restaurant-pricerange": "expensive"
+        },
+        "prompt": "[system] \n[user] i am looking for a place to dine . the restaurant should be in the expensive price range and should serve indian food .\n\nThe dialogue state of the above dialogue is (restaurant-food_type = indian), (restaurant-pricerange = expensive)\nParaphrase the dialogue with [user] prefix and change the dialogue state from (restaurant-food_type = indian) to (restaurant-food_type = corsica)\n(Output only one sentence of user utterance.)\n",
+        "original_sys": "",
+        "original_usr": "i am looking for a place to dine . the restaurant should be in the expensive price range and should serve indian food .",
+        "changed_sys": "",
+        "changed_usr": "can you suggest an expensive restaurant that serves corsican cuisine ?"
+    },
+    {
+        "ID": "PMUL3315-para2.json",
+        "turn_id": 1,
+        "domains": [
+            "taxi",
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure , i can book a table for 6 at saffron brasserie at 19:45 on tuesday . is that okay for you ?"
+            ],
+            "usr": [
+                "can you suggest an expensive restaurant that serves corsican cuisine ?",
+                "yes , that works for me . thank you for making the reservation ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "tuesday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "19:45",
+            "restaurant-food": "corsica",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "saffron brasserie"
+        },
+        "turn_slot_values": {
+            "restaurant-book day": "tuesday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "19:45",
+            "restaurant-name": "saffron brasserie"
+        },
+        "last_slot_values": {
+            "restaurant-food": "corsica",
+            "restaurant-pricerange": "cheap"
+        },
+        "org_slot_values": {
+            "restaurant-book day": "wednesday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "19:45",
+            "restaurant-name": "saffron brasserie"
+        },
+        "prompt": "[system] there a several throughout the city . is there an area of town in which you would prefer to dine ?\n[user] not really . i have heard saffron brasserie is good , though . could you book a table for 6 there at 19:45 on wednesday ?\n\nThe dialogue state of the above dialogue is (restaurant-book day = wednesday), (restaurant-book people = 6), (restaurant-name = saffron brasserie), (restaurant-book time = 19:45)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (restaurant-book day = wednesday) to (restaurant-book day = tuesday)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "there a several throughout the city . is there an area of town in which you would prefer to dine ?",
+        "original_usr": "not really . i have heard saffron brasserie is good , though . could you book a table for 6 there at 19:45 on wednesday ?",
+        "changed_sys": "sure , i can book a table for 6 at saffron brasserie at 19:45 on tuesday . is that okay for you ?",
+        "changed_usr": "yes , that works for me . thank you for making the reservation ."
+    },
+    {
+        "ID": "PMUL3315-para2.json",
+        "turn_id": 2,
+        "domains": [
+            "taxi",
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure , i can book a table for 6 at saffron brasserie at 19:45 on tuesday . is that okay for you ?",
+                "sure , i can suggest some fun activities in the city center . how about visiting the local museum or checking out the nearby amusement park ?"
+            ],
+            "usr": [
+                "can you suggest an expensive restaurant that serves corsican cuisine ?",
+                "yes , that works for me . thank you for making the reservation .",
+                "that sounds great ! can you recommend any good restaurant -s in the area as well ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "tuesday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "19:45",
+            "restaurant-food": "corsica",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "saffron brasserie",
+            "attraction-area": "centre"
+        },
+        "turn_slot_values": {
+            "attraction-area": "centre"
+        },
+        "last_slot_values": {
+            "restaurant-book day": "tuesday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "19:45",
+            "restaurant-food": "corsica",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "saffron brasserie"
+        },
+        "org_slot_values": {
+            "attraction-area": "west"
+        },
+        "prompt": "[system] done ! your reference number is mfp31ma6 . do you need anything else ?\n[user] i would also like to find something fun to do in the west of town .\n\nThe dialogue state of the above dialogue is (attraction-area = west)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (attraction-area = west) to (attraction-area = centre)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "done ! your reference number is mfp31ma6 . do you need anything else ?",
+        "original_usr": "i would also like to find something fun to do in the west of town .",
+        "changed_sys": "sure , i can suggest some fun activities in the city center . how about visiting the local museum or checking out the nearby amusement park ?",
+        "changed_usr": "that sounds great ! can you recommend any good restaurant -s in the area as well ?"
+    },
+    {
+        "ID": "PMUL3315-para2.json",
+        "turn_id": 3,
+        "domains": [
+            "taxi",
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure , i can book a table for 6 at saffron brasserie at 19:45 on tuesday . is that okay for you ?",
+                "sure , i can suggest some fun activities in the city center . how about visiting the local museum or checking out the nearby amusement park ?",
+                ": i can suggest a college or a museum for you to visit , which 1 would you prefer ?"
+            ],
+            "usr": [
+                "can you suggest an expensive restaurant that serves corsican cuisine ?",
+                "yes , that works for me . thank you for making the reservation .",
+                "that sounds great ! can you recommend any good restaurant -s in the area as well ?",
+                ": can you recommend your favorite 1 and provide its type and phone number ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "tuesday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "19:45",
+            "restaurant-food": "corsica",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "saffron brasserie",
+            "attraction-area": "centre"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-book day": "wednesday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "19:45",
+            "restaurant-food": "indian",
+            "restaurant-pricerange": "expensive",
+            "restaurant-name": "saffron brasserie",
+            "attraction-area": "west"
+        },
+        "org_slot_values": {},
+        "prompt": "[system] there are several colleges and museums you can visit . would you like a recommendation for both ?\n[user] just choose 1 that is your favorite and tell me its type and phone number\n\nParaphrase the dialogue with [system] and [user] prefix\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "there are several colleges and museums you can visit . would you like a recommendation for both ?",
+        "original_usr": "just choose 1 that is your favorite and tell me its type and phone number",
+        "changed_sys": ": i can suggest a college or a museum for you to visit , which 1 would you prefer ?",
+        "changed_usr": ": can you recommend your favorite 1 and provide its type and phone number ?"
+    },
+    {
+        "ID": "PMUL3315-para2.json",
+        "turn_id": 4,
+        "domains": [
+            "taxi",
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure , i can book a table for 6 at saffron brasserie at 19:45 on tuesday . is that okay for you ?",
+                "sure , i can suggest some fun activities in the city center . how about visiting the local museum or checking out the nearby amusement park ?",
+                ": i can suggest a college or a museum for you to visit , which 1 would you prefer ?",
+                "hughes hall s phone number is 01223334700 . is there anything else i can assist you with ?"
+            ],
+            "usr": [
+                "can you suggest an expensive restaurant that serves corsican cuisine ?",
+                "yes , that works for me . thank you for making the reservation .",
+                "that sounds great ! can you recommend any good restaurant -s in the area as well ?",
+                ": can you recommend your favorite 1 and provide its type and phone number ?",
+                "yes , i also need a taxi ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "tuesday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "19:45",
+            "restaurant-food": "corsica",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "saffron brasserie",
+            "attraction-name": "hughes hall",
+            "attraction-area": "centre"
+        },
+        "turn_slot_values": {
+            "attraction-name": "hughes hall"
+        },
+        "last_slot_values": {
+            "restaurant-book day": "tuesday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "19:45",
+            "restaurant-food": "corsica",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "saffron brasserie",
+            "attraction-area": "centre"
+        },
+        "org_slot_values": {
+            "attraction-name": "churchills college"
+        },
+        "prompt": "[system] churchill college s phone number is 01223336233 . is there anything else i can assist you with ?\n[user] i assume that is a college type , right ? and i also need a taxi\n\nThe dialogue state of the above dialogue is (attraction-name = churchills college)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (attraction-name = churchills college) to (attraction-name = hughes hall)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "churchill college s phone number is 01223336233 . is there anything else i can assist you with ?",
+        "original_usr": "i assume that is a college type , right ? and i also need a taxi",
+        "changed_sys": "hughes hall s phone number is 01223334700 . is there anything else i can assist you with ?",
+        "changed_usr": "yes , i also need a taxi ."
+    },
+    {
+        "ID": "PMUL3315-para2.json",
+        "turn_id": 5,
+        "domains": [
+            "taxi",
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure , i can book a table for 6 at saffron brasserie at 19:45 on tuesday . is that okay for you ?",
+                "sure , i can suggest some fun activities in the city center . how about visiting the local museum or checking out the nearby amusement park ?",
+                ": i can suggest a college or a museum for you to visit , which 1 would you prefer ?",
+                "hughes hall s phone number is 01223334700 . is there anything else i can assist you with ?",
+                "sure , we can arrange a taxi to pick you up from churchill s college and take you to your destination by 18:45 . is that okay with you ?"
+            ],
+            "usr": [
+                "can you suggest an expensive restaurant that serves corsican cuisine ?",
+                "yes , that works for me . thank you for making the reservation .",
+                "that sounds great ! can you recommend any good restaurant -s in the area as well ?",
+                ": can you recommend your favorite 1 and provide its type and phone number ?",
+                "yes , i also need a taxi .",
+                "yes , that s perfect . thank you ."
+            ]
+        },
+        "slot_values": {
+            "taxi-destination": "churchills college",
+            "taxi-departure": "churchills college",
+            "taxi-arriveby": "18:45",
+            "restaurant-book day": "tuesday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "19:45",
+            "restaurant-food": "corsica",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "saffron brasserie",
+            "attraction-name": "hughes hall",
+            "attraction-area": "centre"
+        },
+        "turn_slot_values": {
+            "taxi-destination": "churchills college",
+            "taxi-departure": "churchills college",
+            "taxi-arriveby": "18:45"
+        },
+        "last_slot_values": {
+            "restaurant-book day": "tuesday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "19:45",
+            "restaurant-food": "corsica",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "saffron brasserie",
+            "attraction-name": "hughes hall",
+            "attraction-area": "centre"
+        },
+        "org_slot_values": {
+            "taxi-destination": "saffron brasserie",
+            "taxi-departure": "churchills college",
+            "taxi-arriveby": "18:45"
+        },
+        "prompt": "[system] yes it is and they have free entrance . where would the taxi be picking you up ?\n[user] i need to be picked up at the college and arrive at the restaurant by 18:45 .\n\nThe dialogue state of the above dialogue is (taxi-departure = churchills college), (taxi-arrive_by_time = 18:45), (taxi-destination = saffron brasserie)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (taxi-destination = saffron brasserie) to (taxi-destination = churchills college)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "yes it is and they have free entrance . where would the taxi be picking you up ?",
+        "original_usr": "i need to be picked up at the college and arrive at the restaurant by 18:45 .",
+        "changed_sys": "sure , we can arrange a taxi to pick you up from churchill s college and take you to your destination by 18:45 . is that okay with you ?",
+        "changed_usr": "yes , that s perfect . thank you ."
+    },
+    {
+        "ID": "PMUL3315-para2.json",
+        "turn_id": 6,
+        "domains": [
+            "taxi",
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure , i can book a table for 6 at saffron brasserie at 19:45 on tuesday . is that okay for you ?",
+                "sure , i can suggest some fun activities in the city center . how about visiting the local museum or checking out the nearby amusement park ?",
+                ": i can suggest a college or a museum for you to visit , which 1 would you prefer ?",
+                "hughes hall s phone number is 01223334700 . is there anything else i can assist you with ?",
+                "sure , we can arrange a taxi to pick you up from churchill s college and take you to your destination by 18:45 . is that okay with you ?",
+                "your taxi booking for a red skoda has been confirmed . the contact number is 07447845138 ."
+            ],
+            "usr": [
+                "can you suggest an expensive restaurant that serves corsican cuisine ?",
+                "yes , that works for me . thank you for making the reservation .",
+                "that sounds great ! can you recommend any good restaurant -s in the area as well ?",
+                ": can you recommend your favorite 1 and provide its type and phone number ?",
+                "yes , i also need a taxi .",
+                "yes , that s perfect . thank you .",
+                "thank you for your assistance . that s all i need for now ."
+            ]
+        },
+        "slot_values": {
+            "taxi-destination": "churchills college",
+            "taxi-departure": "churchills college",
+            "taxi-arriveby": "18:45",
+            "restaurant-book day": "tuesday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "19:45",
+            "restaurant-food": "corsica",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "saffron brasserie",
+            "attraction-name": "hughes hall",
+            "attraction-area": "centre"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "taxi-destination": "saffron brasserie",
+            "taxi-departure": "churchills college",
+            "taxi-arriveby": "18:45",
+            "restaurant-book day": "wednesday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "19:45",
+            "restaurant-food": "indian",
+            "restaurant-pricerange": "expensive",
+            "restaurant-name": "saffron brasserie",
+            "attraction-name": "churchills college",
+            "attraction-area": "west"
+        },
+        "org_slot_values": {},
+        "prompt": "[system] i have booked a red skoda as your taxi . you can reach them at 07447845138 .\n[user] i appreciate all your help . that will be all for now .\n\nParaphrase the dialogue with [system] and [user] prefix\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "i have booked a red skoda as your taxi . you can reach them at 07447845138 .",
+        "original_usr": "i appreciate all your help . that will be all for now .",
+        "changed_sys": "your taxi booking for a red skoda has been confirmed . the contact number is 07447845138 .",
+        "changed_usr": "thank you for your assistance . that s all i need for now ."
+    },
+    {
+        "ID": "WOZ20321-para2.json",
+        "turn_id": 0,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you recommend a restaurant any where in town ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-area": "dontcare"
+        },
+        "turn_slot_values": {
+            "restaurant-area": "dontcare"
+        },
+        "last_slot_values": {},
+        "org_slot_values": {
+            "restaurant-area": "east"
+        },
+        "prompt": "[system] \n[user] looking for a restaurant in the east side of town\n\nThe dialogue state of the above dialogue is (restaurant-area = east)\nParaphrase the dialogue with [user] prefix and change the dialogue state from (restaurant-area = east) to (restaurant-area = dontcare)\n(Output only one sentence of user utterance.)\n",
+        "original_sys": "",
+        "original_usr": "looking for a restaurant in the east side of town",
+        "changed_sys": "",
+        "changed_usr": "can you recommend a restaurant any where in town ?"
+    },
+    {
+        "ID": "WOZ20321-para2.json",
+        "turn_id": 1,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are several restaurant -s on the east side of town with moderate price -s . would you like me to recommend some ?"
+            ],
+            "usr": [
+                "can you recommend a restaurant any where in town ?",
+                "yes , please suggest some moderate priced restaurant -s ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-pricerange": "moderate",
+            "restaurant-area": "dontcare"
+        },
+        "turn_slot_values": {
+            "restaurant-pricerange": "moderate"
+        },
+        "last_slot_values": {
+            "restaurant-area": "dontcare"
+        },
+        "org_slot_values": {
+            "restaurant-pricerange": "expensive"
+        },
+        "prompt": "[system] it looks like there are 9 restaurant -s in the east side of town . do you have a preference for the price range ?\n[user] yes expensive restaurant please\n\nThe dialogue state of the above dialogue is (restaurant-pricerange = expensive)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (restaurant-pricerange = expensive) to (restaurant-pricerange = moderate)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "it looks like there are 9 restaurant -s in the east side of town . do you have a preference for the price range ?",
+        "original_usr": "yes expensive restaurant please",
+        "changed_sys": "there are several restaurant -s on the east side of town with moderate price -s . would you like me to recommend some ?",
+        "changed_usr": "yes , please suggest some moderate priced restaurant -s ."
+    },
+    {
+        "ID": "WOZ20321-para2.json",
+        "turn_id": 2,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are several restaurant -s on the east side of town with moderate price -s . would you like me to recommend some ?",
+                "barbakan is a moderate -ly priced restaurant located in the west part of town . would you like the address and phone number ?"
+            ],
+            "usr": [
+                "can you recommend a restaurant any where in town ?",
+                "yes , please suggest some moderate priced restaurant -s .",
+                "yes , please provide me with the address and phone number for barbakan ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-pricerange": "moderate",
+            "restaurant-name": "barbakan",
+            "restaurant-area": "dontcare"
+        },
+        "turn_slot_values": {
+            "restaurant-name": "barbakan"
+        },
+        "last_slot_values": {
+            "restaurant-pricerange": "moderate",
+            "restaurant-area": "dontcare"
+        },
+        "org_slot_values": {
+            "restaurant-name": "grafton hotel restaurant"
+        },
+        "prompt": "[system] grafton hotel restaurant is in the expensive price range and located in the east part of town .\n[user] may i have the address and phone number please ?\n\nThe dialogue state of the above dialogue is (restaurant-name = grafton hotel restaurant)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (restaurant-name = grafton hotel restaurant) to (restaurant-name = barbakan)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "grafton hotel restaurant is in the expensive price range and located in the east part of town .",
+        "original_usr": "may i have the address and phone number please ?",
+        "changed_sys": "barbakan is a moderate -ly priced restaurant located in the west part of town . would you like the address and phone number ?",
+        "changed_usr": "yes , please provide me with the address and phone number for barbakan ."
+    },
+    {
+        "ID": "WOZ20321-para2.json",
+        "turn_id": 3,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are several restaurant -s on the east side of town with moderate price -s . would you like me to recommend some ?",
+                "barbakan is a moderate -ly priced restaurant located in the west part of town . would you like the address and phone number ?",
+                ": the grafton hotel restaurant is situated at 619 newmarket road , fen ditton , and their phone number is 01223241387 . can i assist you with anything else ?"
+            ],
+            "usr": [
+                "can you recommend a restaurant any where in town ?",
+                "yes , please suggest some moderate priced restaurant -s .",
+                "yes , please provide me with the address and phone number for barbakan .",
+                ": could you please provide me with the postcode as well ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-pricerange": "moderate",
+            "restaurant-name": "barbakan",
+            "restaurant-area": "dontcare"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-pricerange": "expensive",
+            "restaurant-name": "grafton hotel restaurant",
+            "restaurant-area": "east"
+        },
+        "org_slot_values": {},
+        "prompt": "[system] grafton hotel restaurant is located at grafton hotel 619 newmarket road fen ditton and the phone number is 01223241387 . is there anything else i can help you with ?\n[user] yes , i would like the postcode too please .\n\nParaphrase the dialogue with [system] and [user] prefix\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "grafton hotel restaurant is located at grafton hotel 619 newmarket road fen ditton and the phone number is 01223241387 . is there anything else i can help you with ?",
+        "original_usr": "yes , i would like the postcode too please .",
+        "changed_sys": ": the grafton hotel restaurant is situated at 619 newmarket road , fen ditton , and their phone number is 01223241387 . can i assist you with anything else ?",
+        "changed_usr": ": could you please provide me with the postcode as well ?"
+    },
+    {
+        "ID": "WOZ20321-para2.json",
+        "turn_id": 4,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are several restaurant -s on the east side of town with moderate price -s . would you like me to recommend some ?",
+                "barbakan is a moderate -ly priced restaurant located in the west part of town . would you like the address and phone number ?",
+                ": the grafton hotel restaurant is situated at 619 newmarket road , fen ditton , and their phone number is 01223241387 . can i assist you with anything else ?",
+                "the post code for the restaurant at grafton hotel is cb5 8pa . can i assist you with anything else ?"
+            ],
+            "usr": [
+                "can you recommend a restaurant any where in town ?",
+                "yes , please suggest some moderate priced restaurant -s .",
+                "yes , please provide me with the address and phone number for barbakan .",
+                ": could you please provide me with the postcode as well ?",
+                "no , that s all . thank you ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-pricerange": "moderate",
+            "restaurant-name": "barbakan",
+            "restaurant-area": "dontcare"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-pricerange": "expensive",
+            "restaurant-name": "grafton hotel restaurant",
+            "restaurant-area": "east"
+        },
+        "org_slot_values": {},
+        "prompt": "[system] the post code for the grafton hotel restaurant is c . b 5 , 8 p . a . is there anything else i can help you with ?\n[user] that is all . thank you .\n\nParaphrase the dialogue with [system] and [user] prefix\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "the post code for the grafton hotel restaurant is c . b 5 , 8 p . a . is there anything else i can help you with ?",
+        "original_usr": "that is all . thank you .",
+        "changed_sys": "the post code for the restaurant at grafton hotel is cb5 8pa . can i assist you with anything else ?",
+        "changed_usr": "no , that s all . thank you ."
+    },
+    {
+        "ID": "PMUL3334-para2.json",
+        "turn_id": 0,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you suggest a restaurant in the south , regardless of the price range ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-pricerange": "dontcare",
+            "restaurant-area": "dontcare"
+        },
+        "turn_slot_values": {
+            "restaurant-pricerange": "dontcare",
+            "restaurant-area": "south"
+        },
+        "last_slot_values": {},
+        "org_slot_values": {
+            "restaurant-pricerange": "expensive",
+            "restaurant-area": "south"
+        },
+        "prompt": "[system] \n[user] find me an expensive restaurant in the south please .\n\nThe dialogue state of the above dialogue is (restaurant-area = south), (restaurant-pricerange = expensive)\nParaphrase the dialogue with [user] prefix and change the dialogue state from (restaurant-pricerange = expensive) to (restaurant-pricerange = dontcare)\n(Output only one sentence of user utterance.)\n",
+        "original_sys": "",
+        "original_usr": "find me an expensive restaurant in the south please .",
+        "changed_sys": "",
+        "changed_usr": "can you suggest a restaurant in the south , regardless of the price range ?"
+    },
+    {
+        "ID": "PMUL3334-para2.json",
+        "turn_id": 1,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "we have several options available . would you prefer japanese , indian , italian , or mexican cuisine ?"
+            ],
+            "usr": [
+                "can you suggest a restaurant in the south , regardless of the price range ?",
+                "i would like to find a restaurant that serves japanese food , please ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "japanese",
+            "restaurant-pricerange": "dontcare",
+            "restaurant-area": "dontcare"
+        },
+        "turn_slot_values": {
+            "restaurant-food": "japanese"
+        },
+        "last_slot_values": {
+            "restaurant-pricerange": "dontcare",
+            "restaurant-area": "dontcare"
+        },
+        "org_slot_values": {
+            "restaurant-food": "chinese"
+        },
+        "prompt": "[system] there are 5 results . would you like chinese , indian , italian , or mexican food ?\n[user] i would like a restaurant that serves chinese food .\n\nThe dialogue state of the above dialogue is (restaurant-food_type = chinese)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (restaurant-food_type = chinese) to (restaurant-food_type = japanese)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "there are 5 results . would you like chinese , indian , italian , or mexican food ?",
+        "original_usr": "i would like a restaurant that serves chinese food .",
+        "changed_sys": "we have several options available . would you prefer japanese , indian , italian , or mexican cuisine ?",
+        "changed_usr": "i would like to find a restaurant that serves japanese food , please ."
+    },
+    {
+        "ID": "PMUL3334-para2.json",
+        "turn_id": 2,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "we have several options available . would you prefer japanese , indian , italian , or mexican cuisine ?",
+                "there are 2 great choices . the good luck chinese food takeaway and la raza . would you like me to book you 1 ?"
+            ],
+            "usr": [
+                "can you suggest a restaurant in the south , regardless of the price range ?",
+                "i would like to find a restaurant that serves japanese food , please .",
+                "no , i am just interested in the address and phone number right now ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "japanese",
+            "restaurant-pricerange": "dontcare",
+            "restaurant-name": "la raza",
+            "restaurant-area": "dontcare"
+        },
+        "turn_slot_values": {
+            "restaurant-name": "la raza"
+        },
+        "last_slot_values": {
+            "restaurant-food": "japanese",
+            "restaurant-pricerange": "dontcare",
+            "restaurant-area": "dontcare"
+        },
+        "org_slot_values": {
+            "restaurant-name": "peking restaurant"
+        },
+        "prompt": "[system] there are 2 great choices . the good luck chinese food takeaway and the peking restaurant . would you like me to book you 1 ?\n[user] no , i am just interested in the address and phone number right now .\n\nThe dialogue state of the above dialogue is (restaurant-name = peking restaurant)\nParaphrase the dialogue with [system] and [user] prefix and change the dialogue state from (restaurant-name = peking restaurant) to (restaurant-name = la raza)\n(You should generate the [system] first, then [user]. Output only one sentence each of system utterance and user utterance.)\n",
+        "original_sys": "there are 2 great choices . the good luck chinese food takeaway and the peking restaurant . would you like me to book you 1 ?",
+        "original_usr": "no , i am just interested in the address and phone number right now .",
+        "changed_sys": "there are 2 great choices . the good luck chinese food takeaway and la raza . would you like me to book you 1 ?",
+        "changed_usr": "no , i am just interested in the address and phone number right now ."
+    }
+]
