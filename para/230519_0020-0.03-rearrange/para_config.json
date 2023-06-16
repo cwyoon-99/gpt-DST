@@ -1,0 +1,8 @@
+{
+    "train_fn": "data/mw21_5p_train_v2.json",
+    "output_file_name": "rearrange",
+    "output_dir": "para/230519_0020-0.03-rearrange",
+    "mwz_ver": "2.4",
+    "specific_name": "para",
+    "sample_rate": 0.03
+}

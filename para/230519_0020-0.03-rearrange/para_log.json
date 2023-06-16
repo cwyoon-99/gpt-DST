@@ -1,0 +1,3448 @@
+[
+    {
+        "ID": "WOZ20536-para.json",
+        "turn_id": 3,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "what is the food type you would prefer ?",
+                "nandos is a cheap restaurant in the south part of town , serving portuguese food .",
+                "the lucky star is a chinese restaurant located in the south area ."
+            ],
+            "usr": [
+                "can you find me something cheap in the south part of town ?",
+                "i do not care about the type of food .",
+                "is there anything else ?",
+                "can you tell me the address of the lucky star ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "dontcare",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "the lucky star",
+            "restaurant-area": "south"
+        },
+        "turn_slot_values": {
+            "restaurant-name": "the lucky star"
+        },
+        "last_slot_values": {
+            "restaurant-food": "dontcare",
+            "restaurant-pricerange": "cheap",
+            "restaurant-area": "south"
+        },
+        "original_sys": "the lucky star is a cheap price range , south area chinese restaurant",
+        "original_usr": "what is the address ?"
+    },
+    {
+        "ID": "MUL1327-para.json",
+        "turn_id": 2,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "they are a great modern european restaurant located in the south . they are moderate -ly priced . they are located on 152154 hills road . can i reserve a table for you ?",
+                "the phone number for [delete] is 01223413000 ."
+            ],
+            "usr": [
+                "hi , i am trying to find a good place to eat . i heard about restaurant alimentum . what can you tell me about it ?",
+                "i am not quite ready to reserve a table , but may i have the phone number for this european restaurant ?",
+                "thank you . can you also help me find a place to stay in the east ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-area": "east"
+        },
+        "turn_slot_values": {
+            "hotel-area": "east",
+            "restaurant-name": "[DELETE]"
+        },
+        "last_slot_values": {
+            "restaurant-name": "restaurant alimentum"
+        },
+        "original_sys": "their phone number is 01223413000",
+        "original_usr": "thank you . i also need to find a place to stay in the east ."
+    },
+    {
+        "ID": "PMUL1682-para.json",
+        "turn_id": 6,
+        "domains": [
+            "train",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are many . from where are you departing ?",
+                "do you have a specific time frame in mind ?",
+                "i have 14 trains available . what time would you like to arrive by ?",
+                "the tr6715 leaves at 10:21 and you will arrive by 12:06 . would you like me to book that for you ?",
+                "the travel time is 105 minutes . will that be all ?",
+                "i have multiple options available for you . which area are you interested in ?"
+            ],
+            "usr": [
+                "hi , i need to find out if there s a train going to leicester that leaves on monday .",
+                "i will be departing from cambridge .",
+                "i want to leave after 09:45 .",
+                "i would like to leave after 9:45 .",
+                "i just need the travel time please .",
+                "i also need an expensive hotel with free parking .",
+                "i am specifically looking for a guest house in the east ."
+            ]
+        },
+        "slot_values": {
+            "hotel-area": "east",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "expensive",
+            "hotel-stars": "dontcare",
+            "hotel-internet": "dontcare",
+            "hotel-type": "guest house",
+            "train-leaveat": "09:45",
+            "train-destination": "leicester",
+            "train-day": "monday",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {
+            "hotel-area": "east",
+            "hotel-type": "guest house"
+        },
+        "last_slot_values": {
+            "hotel-parking": "yes",
+            "hotel-pricerange": "expensive",
+            "hotel-stars": "dontcare",
+            "hotel-internet": "dontcare",
+            "train-leaveat": "09:45",
+            "train-destination": "leicester",
+            "train-day": "monday",
+            "train-departure": "cambridge"
+        },
+        "original_sys": "great i have 5 different options for you !",
+        "original_usr": "i specifically am looking for a guest house in the east if that helps narrow things down ."
+    },
+    {
+        "ID": "PMUL4463-para.json",
+        "turn_id": 3,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure , is there a specific price range you are looking for ?",
+                "you have a reservation at saffron brasserie for 8 people on sunday at 17:15 . reference #q7c8ex21 . can i help you with anything else today ?",
+                "can you please specify the area where you want your hotel to be located ?"
+            ],
+            "usr": [
+                "i need a place to dine on indian food . centre of the town please .",
+                "no . just a place that can accommodate a table of 8 at 17:15 on sunday .",
+                "i need to find a 3 star guest house that has free wifi . can you help me ?",
+                "it does not matter to me . i just need a guest house that offers free wifi and parking ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "8",
+            "restaurant-book time": "17:15",
+            "restaurant-food": "indian",
+            "restaurant-area": "centre",
+            "hotel-area": "dontcare",
+            "hotel-parking": "yes",
+            "hotel-stars": "3",
+            "hotel-internet": "yes",
+            "hotel-type": "guest house"
+        },
+        "turn_slot_values": {
+            "hotel-area": "dontcare",
+            "hotel-parking": "yes"
+        },
+        "last_slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "8",
+            "restaurant-book time": "17:15",
+            "restaurant-food": "indian",
+            "restaurant-area": "centre",
+            "hotel-stars": "3",
+            "hotel-internet": "yes",
+            "hotel-type": "guest house"
+        },
+        "original_sys": "on what area should your hotel be ?",
+        "original_usr": "the area does not matter , i would just like a guest house with free wifi and parking ."
+    },
+    {
+        "ID": "MUL1557-para.json",
+        "turn_id": 1,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "hello , how may i assist you today ?"
+            ],
+            "usr": [
+                "i would like to leave cambridge on sunday . can you check on trains for me ?",
+                "yes , i would like to go to bishops stortford ."
+            ]
+        },
+        "slot_values": {
+            "train-destination": "bishops stortford",
+            "train-day": "sunday",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {
+            "train-destination": "bishops stortford"
+        },
+        "last_slot_values": {
+            "train-day": "sunday",
+            "train-departure": "cambridge"
+        },
+        "original_sys": "sure , i can check on that for you . where would you like to go ?",
+        "original_usr": "i would like to go to bishops stortford ."
+    },
+    {
+        "ID": "PMUL2687-para.json",
+        "turn_id": 5,
+        "domains": [
+            "hotel",
+            "taxi",
+            "attraction"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are many things to visit including museums , theaters , colleges , nightclubs , parks , swimming pools , cinema , boating , concert halls , and architecture attractions .",
+                "i have parkside pools in the centre of town on gonville place postbcode cb11ly .",
+                "01223446100 . i do not have access to their entrance fee . is there anything else you need help with ?",
+                "great , i have several options for you . do you want a hotel in a particular part of town ?",
+                "acorn house is a lovely guest house . would you like to book a stay there ?"
+            ],
+            "usr": [
+                "are there any fun place -s to go in the centre of town ?",
+                "recommend a swimming pool for me please .",
+                "what s their phone number , and how much does it cost to get in ?",
+                "yes . i need a place to stay . free parking and free wifi are important to me",
+                "no but it needs to be in the moderate price range .",
+                "actually , i need a hotel for 8 people for 3 nights . is there anything available ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-book people": "8",
+            "hotel-book stay": "3",
+            "hotel-area": "dontcare",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "moderate",
+            "hotel-internet": "yes",
+            "hotel-type": "hotel",
+            "attraction-type": "swimming pool",
+            "attraction-name": "parkside pools",
+            "attraction-area": "centre"
+        },
+        "turn_slot_values": {
+            "hotel-book people": "8",
+            "hotel-book stay": "3",
+            "hotel-type": "hotel"
+        },
+        "last_slot_values": {
+            "hotel-area": "dontcare",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "moderate",
+            "hotel-internet": "yes",
+            "attraction-type": "swimming pool",
+            "attraction-name": "parkside pools",
+            "attraction-area": "centre"
+        },
+        "original_sys": "what about acorn house ? it is a lovely guest house .",
+        "original_usr": "i would rather have a hotel . i need it for 8 people for 3 nights . is there anything available ?"
+    },
+    {
+        "ID": "PMUL1187-para.json",
+        "turn_id": 3,
+        "domains": [
+            "attraction",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure . where are you departing from and what day would you like to travel ?",
+                "there is a train leaving at 19:12 .",
+                "can i help you with anything else ?"
+            ],
+            "usr": [
+                "i need a train that leaves at 18:45 and goes to cambridge .",
+                "i am leaving from broxburne on friday .",
+                "great , can i get 2 tickets on that train ?",
+                "yes , i am looking for a place to go . maybe a theatre ?"
+            ]
+        },
+        "slot_values": {
+            "attraction-type": "theatre",
+            "train-book people": "2",
+            "train-leaveat": "18:45",
+            "train-destination": "cambridge",
+            "train-day": "friday",
+            "train-departure": "broxbourne"
+        },
+        "turn_slot_values": {
+            "attraction-type": "theatre"
+        },
+        "last_slot_values": {
+            "train-book people": "2",
+            "train-leaveat": "18:45",
+            "train-destination": "cambridge",
+            "train-day": "friday",
+            "train-departure": "broxbourne"
+        },
+        "original_sys": "i have made those reservations . your reference number is f2a9ac1k . can i help you with anything else ?",
+        "original_usr": "yes i am looking for a place to go maybe a theatre ."
+    },
+    {
+        "ID": "PMUL4341-para.json",
+        "turn_id": 0,
+        "domains": [
+            "train",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you recommend a hotel in the north that offers free wifi ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-area": "north",
+            "hotel-internet": "yes"
+        },
+        "turn_slot_values": {
+            "hotel-area": "north",
+            "hotel-internet": "yes"
+        },
+        "last_slot_values": {},
+        "original_sys": "",
+        "original_usr": "i need a place to stay in the north that include -s free wifi ."
+    },
+    {
+        "ID": "MUL1891-para.json",
+        "turn_id": 0,
+        "domains": [
+            "attraction",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you suggest some colleges in the centre of town for me to visit ?"
+            ]
+        },
+        "slot_values": {
+            "attraction-type": "college",
+            "attraction-area": "centre"
+        },
+        "turn_slot_values": {
+            "attraction-type": "college",
+            "attraction-area": "centre"
+        },
+        "last_slot_values": {},
+        "original_sys": "",
+        "original_usr": "i am looking for colleges to visit in the centre of town ."
+    },
+    {
+        "ID": "PMUL0138-para.json",
+        "turn_id": 2,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i have 3 guest houses to choose from . do you mind they are in the north ?",
+                "in the west , we have several moderate priced guest houses available . would you like me to provide you with some options ?"
+            ],
+            "usr": [
+                "i am looking for a guest house to stay in and i do not need a free parking .",
+                "no that is okay , can you book the cheapest 1 for me please ?",
+                "yes , please . can you tell me if any of them have a 3 star rating ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-area": "west",
+            "hotel-parking": "no",
+            "hotel-pricerange": "cheap",
+            "hotel-type": "guest house"
+        },
+        "turn_slot_values": {
+            "hotel-area": "west"
+        },
+        "last_slot_values": {
+            "hotel-parking": "no",
+            "hotel-pricerange": "cheap",
+            "hotel-type": "guest house"
+        },
+        "original_sys": "they are all moderate -ly priced , but avalon has free internet and 4 stars . would that suit you ?",
+        "original_usr": "are there any moderate -ly priced 3 star guest houses in the west available ? if not in the west , what about the north ?"
+    },
+    {
+        "ID": "PMUL2901-para.json",
+        "turn_id": 4,
+        "domains": [
+            "attraction",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "what type of attraction are you looking for ?",
+                "in the west there are no parks . but there are colleges , museums , and an entertainment place called whale of a time if you are interested .",
+                "the post code for whale of a time is cb238el . the cambridge belfry fits your needs perfectly . would you like me to make a reservation ?",
+                "the address and phone number of the cambridge belfry , a 4 star hotel in the west area , are available ."
+            ],
+            "usr": [
+                "can you help me find an attraction in the west part of town ?",
+                "a park for kid -s or a mini mall ?",
+                "please get me the postcode . i am also looking for a place to stay . the hotel should be in the cheap price range and should include free parking .",
+                "is that a 4 star hotel ?",
+                "can you please provide me with their address and phone number ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-name": "cambridge belfry",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "cheap",
+            "hotel-stars": "4",
+            "hotel-type": "hotel",
+            "attraction-name": "whale of a time",
+            "attraction-area": "west"
+        },
+        "turn_slot_values": {
+            "hotel-name": "cambridge belfry"
+        },
+        "last_slot_values": {
+            "hotel-parking": "yes",
+            "hotel-pricerange": "cheap",
+            "hotel-stars": "4",
+            "hotel-type": "hotel",
+            "attraction-name": "whale of a time",
+            "attraction-area": "west"
+        },
+        "original_sys": "yes , the cambridge belfy is a 4 star hotel in the west area .",
+        "original_usr": "what is their address and phone number ?"
+    },
+    {
+        "ID": "PMUL1655-para.json",
+        "turn_id": 6,
+        "domains": [
+            "train",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "what area of town and what price range are you looking for ?",
+                "how about the ashley hotel ? it is in the north area and is moderate -ly priced with free internet and free parking .",
+                "your hotel has been booked . your reference number is e174aw95 . is there anything else that i can help you with ?",
+                "what are your departure and arrival stations , and what time of day would you like to travel ?",
+                "there are several , could you tell me where you are departing from and going to and what time you would like to arrive by ?",
+                "good morning . where would you like to go today ?"
+            ],
+            "usr": [
+                "i need a place to stay with free parking . ideas ?",
+                "moderate . i would like to stay at an actual hotel and would like free internet as well .",
+                "yes , actually that will work . can you reserve a room for friday for 7 people , 5 nights ?",
+                "thank you for the reservation ! yes , i also need a train departing on friday .",
+                "i would like to travel on thursday . i need to leave by 17:00 .",
+                "i am sorry , we'll actually be traveling on friday and departing from leicester .",
+                "i need to get to cambridge and arrive by 9:00 am ."
+            ]
+        },
+        "slot_values": {
+            "hotel-book day": "friday",
+            "hotel-book people": "7",
+            "hotel-book stay": "5",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "moderate",
+            "hotel-internet": "yes",
+            "hotel-type": "hotel",
+            "train-destination": "cambridge",
+            "train-day": "friday",
+            "train-arriveby": "09:00",
+            "train-departure": "leicester"
+        },
+        "turn_slot_values": {
+            "train-destination": "cambridge",
+            "train-arriveby": "09:00",
+            "train-leaveat": "[DELETE]"
+        },
+        "last_slot_values": {
+            "hotel-book day": "friday",
+            "hotel-book people": "7",
+            "hotel-book stay": "5",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "moderate",
+            "hotel-internet": "yes",
+            "hotel-type": "hotel",
+            "train-leaveat": "17:00",
+            "train-day": "friday",
+            "train-departure": "leicester"
+        },
+        "original_sys": "what is your destination ?",
+        "original_usr": "i'll be going to cambridge and need to arrive by 09:00 ."
+    },
+    {
+        "ID": "SNG01971-para.json",
+        "turn_id": 1,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "the phone number for prezzo , an italian restaurant in the west , is 01799521260 . would you like me to make a reservation for you ?"
+            ],
+            "usr": [
+                "i am looking for a particular restaurant . its name is called prezzo",
+                "yes , please . can you book a table for 4 people at 11:00 on friday and provide me with the reference number ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "friday",
+            "restaurant-book people": "4",
+            "restaurant-book time": "11:00",
+            "restaurant-name": "prezzo"
+        },
+        "turn_slot_values": {
+            "restaurant-book day": "friday",
+            "restaurant-book people": "4",
+            "restaurant-book time": "11:00"
+        },
+        "last_slot_values": {
+            "restaurant-name": "prezzo"
+        },
+        "original_sys": "prezzo is an italian restaurant in the west . their phone number is 01799521260 . would you like me to make a reservation for you ?",
+        "original_usr": "yes please , 4 people at 11:00 on friday . can you please provide me with the reference number ?"
+    },
+    {
+        "ID": "MUL1572-para.json",
+        "turn_id": 3,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "unfortunately , i haven't found any inexpensive restaurant -s that serve scandinavian food . would you be willing to look for a moderate -ly priced restaurant instead ?",
+                "unfortunately there are no scandinavian restaurant -s in that area . would you like to try another type of cuisine ?",
+                "i have found 4 different british restaurant -s in the centre area with a moderate price range . may i recommend restaurant 17 ?"
+            ],
+            "usr": [
+                "is there an inexpensive restaurant which serves scandinavian food ?",
+                "yes , that is fine . please make sure it s in the centre of town .",
+                "how about british food ?",
+                "can i get their phone number ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "british",
+            "restaurant-pricerange": "moderate",
+            "restaurant-area": "centre"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-food": "british",
+            "restaurant-pricerange": "moderate",
+            "restaurant-area": "centre"
+        },
+        "original_sys": "i have found 4 different british restaurant -s in the centre area with a moderate price range . may i recommend restaurant 17 ?",
+        "original_usr": "yes , that sounds good , can i get their phone number ?"
+    },
+    {
+        "ID": "PMUL1126-para.json",
+        "turn_id": 0,
+        "domains": [
+            "attraction",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you suggest a restaurant in the west that serves indian food ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "indian",
+            "restaurant-area": "west"
+        },
+        "turn_slot_values": {
+            "restaurant-food": "indian",
+            "restaurant-area": "west"
+        },
+        "last_slot_values": {},
+        "original_sys": "",
+        "original_usr": "i am looking for a restaurant that serves indian food in the west ."
+    },
+    {
+        "ID": "SSNG0025-para.json",
+        "turn_id": 4,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i am sorry , i do not see any moderate -ly priced sri lankan restaurant -s . would you like to try another sort of cuisine ?",
+                "no , i am sorry , there are no sri lankan restaurant -s in the moderate or the expensive price range . can i help you find something else ?",
+                "yes . ali baba serves lebanese . may i book a table for you ?",
+                "i am sorry , but i could not book the restaurant you requested . would you like me to suggest another restaurant ?"
+            ],
+            "usr": [
+                "could you help me find a restaurant that s moderate -ly priced , and services sri lankan cuisine ?",
+                "yes , are there are restaurant -s with lebanese cuisine ?",
+                "do you have a moderate -ly priced restaurant serving lebanese food ?",
+                "yes see if there is booking for 6 people at 11:15 on thursday .",
+                "yes , please . do you know of any other restaurant -s that serve lebanese cuisine ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "thursday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "11:15",
+            "restaurant-food": "lebanese",
+            "restaurant-pricerange": "moderate"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-book day": "thursday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "11:15",
+            "restaurant-food": "lebanese",
+            "restaurant-pricerange": "moderate"
+        },
+        "original_sys": "i am sorry , i was unable to book the restaurant . would you like to try a different restaurant ?",
+        "original_usr": "yes , is there another restaurant serving lebanese food that you can recommend ?"
+    },
+    {
+        "ID": "SSNG0154-para.json",
+        "turn_id": 4,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "great ! there are 2 cheap asian oriental restaurant -s in the city centre . would you like me to book you a reservation at 1 of them ?",
+                "i am sorry , but there is not a table available at that time . would you like to try a different restaurant ?",
+                "i have you at j restaurant , 16:15 , reference number is : enozr5ha . anything else ?",
+                "hello , how may i assist you today ?"
+            ],
+            "usr": [
+                "i am looking for a cheap asian oriental restaurant .",
+                "yes . i need a reservation for 2 people , saturday night at 6:00pm .",
+                "i am sorry , i was actually looking for a reservation for monday at 6:15 . are there any tables available at that time ?",
+                "great thank you for your help .",
+                "yes , i would like to book a table for 6 people on monday at 6:15 pm ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "6",
+            "restaurant-book time": "18:15",
+            "restaurant-food": "asian oriental",
+            "restaurant-pricerange": "cheap"
+        },
+        "turn_slot_values": {
+            "restaurant-book people": "6"
+        },
+        "last_slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "18:15",
+            "restaurant-food": "asian oriental",
+            "restaurant-pricerange": "cheap"
+        },
+        "original_sys": "is there anything else i can help you with today ?",
+        "original_usr": "yes , i actually need a table for 6 people not 2 18:15 on monday ."
+    },
+    {
+        "ID": "MUL1194-para.json",
+        "turn_id": 1,
+        "domains": [
+            "hotel",
+            "taxi",
+            "attraction"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "unfortunately , there are no multiple sports attractions in the area . would you like me to search for something else ?"
+            ],
+            "usr": [
+                "hi , i am looking for a nightclub located in the east .",
+                "no , that s alright . how about in the east ? are there any attractions that offer multiple sports activities ?"
+            ]
+        },
+        "slot_values": {
+            "attraction-type": "multiple sports",
+            "attraction-area": "east"
+        },
+        "turn_slot_values": {
+            "attraction-type": "multiple sports"
+        },
+        "last_slot_values": {
+            "attraction-type": "nightclub",
+            "attraction-area": "east"
+        },
+        "original_sys": "there are not any , unfortunately . shall i look for something elsewhere ?",
+        "original_usr": "no that s ok . is there anything in the east in the category of multiple sports ?"
+    },
+    {
+        "ID": "SNG0709-para.json",
+        "turn_id": 0,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you help me find an expensive restaurant in the south ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-pricerange": "expensive",
+            "restaurant-area": "south"
+        },
+        "turn_slot_values": {
+            "restaurant-pricerange": "expensive",
+            "restaurant-area": "south"
+        },
+        "last_slot_values": {},
+        "original_sys": "",
+        "original_usr": "can you locate an expensive restaurant in the south ?"
+    },
+    {
+        "ID": "PMUL1682-para.json",
+        "turn_id": 7,
+        "domains": [
+            "train",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are many . from where are you departing ?",
+                "do you have a specific time frame in mind ?",
+                "i have 14 trains available . what time would you like to arrive by ?",
+                "the tr6715 leaves at 10:21 and you will arrive by 12:06 . would you like me to book that for you ?",
+                "the travel time is 105 minutes . will that be all ?",
+                "great i have 5 different options for you !",
+                "i am sorry , but none of the available options match the specification -s you provided . would you like me to search for a different price range or area ?"
+            ],
+            "usr": [
+                "hi , i need to find out if there s a train going to leicester that leaves on monday .",
+                "i will be departing from cambridge .",
+                "i want to leave after 09:45 .",
+                "i would like to leave after 9:45 .",
+                "i just need the travel time please .",
+                "i also need an expensive hotel with free parking .",
+                "i specifically am looking for a guest house in the east if that helps narrow things down .",
+                "please look for something moderate -ly priced instead ."
+            ]
+        },
+        "slot_values": {
+            "hotel-area": "east",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "moderate",
+            "hotel-stars": "dontcare",
+            "hotel-internet": "dontcare",
+            "hotel-type": "guest house",
+            "train-leaveat": "09:45",
+            "train-destination": "leicester",
+            "train-day": "monday",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {
+            "hotel-pricerange": "moderate"
+        },
+        "last_slot_values": {
+            "hotel-area": "east",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "expensive",
+            "hotel-stars": "dontcare",
+            "hotel-internet": "dontcare",
+            "hotel-type": "guest house",
+            "train-leaveat": "09:45",
+            "train-destination": "leicester",
+            "train-day": "monday",
+            "train-departure": "cambridge"
+        },
+        "original_sys": "unfortunately , once i add those specification -s i do not have anything that fits . did you want to try a different price range or area ?",
+        "original_usr": "please look for something moderate -ly priced , then ."
+    },
+    {
+        "ID": "PMUL2138-para.json",
+        "turn_id": 9,
+        "domains": [
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "clare hall is a college in the west part of town .",
+                "the address is herschel road and it is free . can i help you with anything else ?",
+                "is there a certain cuisine you are interested in eating ?",
+                "there is not an expensive austrian restaurant in the area . is there another cuisine you would like to try ?",
+                "i am afraid there are not any austrian restaurant -s in town at all , regardless of price . is there anything else that could be acceptable ?",
+                "no indian makes me get the runs . how about pizza ?",
+                "well , do not say i did not warn you . we have 14 expensive indian place -s in cambridge , what side of town are you looking for ?",
+                "there are 5 place -s in the west . if you want a suggestion , my friends always go to tandoori palace .",
+                "i am sorry , there are no place -s that serve austrian food in any area ."
+            ],
+            "usr": [
+                "hello , i am interested in seeing the attractions on the west side of town . can you assist me ?",
+                "great . can you let me know the address and entrance fee ?",
+                "yes , im looking for a nice high end expensive place to dine at in the same area .",
+                "yes , i was hoping for austrian food .",
+                "how about cheap price range ?",
+                "what about an expensive indian restaurant , then ?",
+                "that s more information than i needed to know . i am sure your supervisors wouldn't approve . i was looking for expensive indian food , please .",
+                "on the west side please",
+                "do they serve austrian food ?",
+                "what about an indian restaurant in the west that s expensive ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "indian",
+            "restaurant-area": "west",
+            "attraction-area": "west"
+        },
+        "turn_slot_values": {
+            "restaurant-food": "indian",
+            "restaurant-area": "west"
+        },
+        "last_slot_values": {
+            "restaurant-food": "austrian",
+            "attraction-area": "west"
+        },
+        "original_sys": "no , there are no place -s that serve austrian food , any where .",
+        "original_usr": "how about an expensive indian restaurant in the west ?"
+    },
+    {
+        "ID": "PMUL4726-para.json",
+        "turn_id": 5,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure , what is your destination ?",
+                "sure ! tr1661 will leave at 11:54 and arrive by 12:43 . do you require more information or do you want book now ?",
+                "the train ride is 49 minutes and it will cost 12.80 pounds .",
+                "i am sorry . i am not finding any vegetarian restaurant -s at all . would you like to choose a different type of food ?",
+                "the only available restaurant is yippee noodle bar . would you like me to make a reservation for you ?"
+            ],
+            "usr": [
+                "i need a train for thursday please . get me 1 that arrives by 13:45",
+                "i'll be heading to cambridge . leaving from stevenage . can you tell me about this ?",
+                "could you tell me the price for a ticket , and the typical travel time ?",
+                "thank you ! also , can you recommend a moderate -ly priced vegetarian restaurant , please ?",
+                "ok , try the asian oriental food then .",
+                "yes , please . can you book a table for 5 people at 6:45 pm on thursday ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "thursday",
+            "restaurant-book people": "5",
+            "restaurant-book time": "18:45",
+            "restaurant-food": "asian oriental",
+            "restaurant-pricerange": "moderate",
+            "restaurant-name": "yippee noodle bar",
+            "train-destination": "cambridge",
+            "train-day": "thursday",
+            "train-arriveby": "13:45",
+            "train-departure": "stevenage"
+        },
+        "turn_slot_values": {
+            "restaurant-book day": "thursday",
+            "restaurant-book people": "5",
+            "restaurant-book time": "18:45",
+            "restaurant-name": "yippee noodle bar"
+        },
+        "last_slot_values": {
+            "restaurant-food": "asian oriental",
+            "restaurant-pricerange": "moderate",
+            "train-destination": "cambridge",
+            "train-day": "thursday",
+            "train-arriveby": "13:45",
+            "train-departure": "stevenage"
+        },
+        "original_sys": "ok the only 1 is yippee noodle bar . would you like for me to book a table ?",
+        "original_usr": "sure ! i'll need a booking for 5 at 18:45 on thursday ."
+    },
+    {
+        "ID": "SNG1101-para.json",
+        "turn_id": 3,
+        "domains": [
+            "attraction"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "are you looking for a room , or another type of service ?",
+                "i have 4 different kinds , what type would you like ?",
+                "do you need any information about something like the riverboat georgina ?"
+            ],
+            "usr": [
+                "i am in the north area of town and need to get a room to stay in .",
+                "sorry . i am actually looking for some type of attraction i can go to up in the north . any suggestions ?",
+                "how about your favorite ? what type is that ?",
+                "yes , what type of attraction is it and where is it located ? can you give me the address and postcode ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-area": "north",
+            "attraction-area": "north"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "hotel-area": "north",
+            "attraction-area": "north"
+        },
+        "original_sys": "i really like the riverboat georgina . do you need any information about something like this ?",
+        "original_usr": "yes , what type of attraction is this ? also , could i get the address and postcode ?"
+    },
+    {
+        "ID": "PMUL4992-para.json",
+        "turn_id": 2,
+        "domains": [
+            "hotel",
+            "taxi",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure , there are 2 . i recommend the anatolia . would you like a reservation ?",
+                "hello , the restaurant you are looking for is anatolia and it is located in the center . would you like me to make a reservation for you ?"
+            ],
+            "usr": [
+                "i am looking for a moderate -ly priced turkish restaurant .",
+                "is it located in the centre ?",
+                "yes , please . can you book it for 3 people on thursday at 8 pm ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "thursday",
+            "restaurant-book people": "3",
+            "restaurant-book time": "20:00",
+            "restaurant-food": "turkish",
+            "restaurant-pricerange": "moderate",
+            "restaurant-name": "anatolia",
+            "restaurant-area": "centre",
+            "hotel-name": "anatolia"
+        },
+        "turn_slot_values": {
+            "restaurant-book day": "thursday",
+            "restaurant-book people": "3",
+            "restaurant-book time": "20:00",
+            "restaurant-name": "anatolia",
+            "hotel-name": "anatolia"
+        },
+        "last_slot_values": {
+            "restaurant-food": "turkish",
+            "restaurant-pricerange": "moderate",
+            "restaurant-area": "centre"
+        },
+        "original_sys": "why , yes it is in the center . i can book you a reservation if you like .",
+        "original_usr": "yes can you book it for 3 people thursday at 20:00 ?"
+    },
+    {
+        "ID": "PMUL3038-para.json",
+        "turn_id": 8,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are 29 different options , anything else that we can search for to narrow this down ?",
+                "i have 2 location -s . 1 is in the north and 1 in the centre . do you have a preference of area ?",
+                "both are guest houses .",
+                "i would suggest el shaddai .",
+                "it is in the north and the past code is cb43ht .",
+                "do you know the name ?",
+                "ah , yes , graffiti . great place , they just repainted . would you like to book a reservation ?",
+                "would you like to know about a restaurant that serves british food in the west ?"
+            ],
+            "usr": [
+                "hi , this is a 2 fer . i need to find a hotel that offers both free wifi and free parking",
+                "yes , it needs to be cheap with 0 stars !",
+                "what type of hotel -s are they ?",
+                "which 1 do you suggest ?",
+                "ok great . what is the postcode and what area is it in ?",
+                "i am also looking for a particular restaurant .",
+                "yes , it s called graffiti .",
+                "i want to know the food type and area",
+                "yes , please . can you give me more information about it ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-name": "graffiti",
+            "hotel-name": "el shaddia guest house",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "cheap",
+            "hotel-stars": "0",
+            "hotel-internet": "yes"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-name": "graffiti",
+            "hotel-name": "el shaddia guest house",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "cheap",
+            "hotel-stars": "0",
+            "hotel-internet": "yes"
+        },
+        "original_sys": "graffiti serves british food and it s in the west . would you like any additional information ?",
+        "original_usr": "thank you ! that is all i need !"
+    },
+    {
+        "ID": "PMUL3818-para.json",
+        "turn_id": 6,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "can we narrow it down by choosing where you want to depart and arrive ?",
+                "how about tr6110 that leaves at 13:00",
+                "how many people should i book for ?",
+                "tr6110 has a total travel time of 51 minutes . can i help you with anything else today ?",
+                "it is a chinese restaurant in the north part of town located at 66 chesterton road chesterton",
+                "hello , how may i assist you today ?"
+            ],
+            "usr": [
+                "hello , i am looking for a train to leave on monday after 12:45 .",
+                "i need to leave after 12:45 on monday",
+                "that sounds great . thank you so much for your help .",
+                "i do not need anything to be booked but i do need the train id and the travel time .",
+                "yes , can you tell me about the hotpot restaurant ?",
+                "can you please book me a table at the restaurant for 2 people ?",
+                "hi , i would like to make a reservation for monday at 5:45 pm ."
+            ]
+        },
+        "slot_values": {
+            "taxi-leaveat": "12:45",
+            "restaurant-book day": "monday",
+            "restaurant-book people": "2",
+            "restaurant-book time": "17:45",
+            "restaurant-name": "the hotpot",
+            "train-leaveat": "12:45",
+            "train-day": "monday"
+        },
+        "turn_slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book time": "17:45"
+        },
+        "last_slot_values": {
+            "taxi-leaveat": "12:45",
+            "restaurant-book people": "2",
+            "restaurant-name": "the hotpot",
+            "train-leaveat": "12:45",
+            "train-day": "monday"
+        },
+        "original_sys": "i would be happy to help with your request , first i will need to know what day and time you would like the reservation for .",
+        "original_usr": "thanks ! for 17:45 on monday , please ."
+    },
+    {
+        "ID": "PMUL3443-para.json",
+        "turn_id": 1,
+        "domains": [
+            "attraction",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "clare hall and christ s college are both great options . would you like the phone number for either 1 ?"
+            ],
+            "usr": [
+                "i am interested in visiting colleges while in town , can you please recommend some ?",
+                "can you give me the postcode for clare hall ?"
+            ]
+        },
+        "slot_values": {
+            "attraction-type": "college",
+            "attraction-name": "clare hall"
+        },
+        "turn_slot_values": {
+            "attraction-name": "clare hall"
+        },
+        "last_slot_values": {
+            "attraction-type": "college"
+        },
+        "original_sys": "i can recommend clare hall and christ s college . you need phone numbers for either 1 ?",
+        "original_usr": "i would like the post code for clare hall please ."
+    },
+    {
+        "ID": "PMUL1887-para.json",
+        "turn_id": 5,
+        "domains": [
+            "train",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are 8 accomodations of the hotel type with free parking . what part of town do you prefer ?",
+                "the cambridge belfry is an inexpensive , 4 star option on the west side with free wifi and free parking .",
+                "sure , i can do that . how many nights would you like it for ?",
+                "i was able to book the hotel for you . the reference number is btts9gyc . is there anything else i can help you with today ?",
+                "when do you need to arrive at your destination ?"
+            ],
+            "usr": [
+                "i want a place to stay . find me a hotel that include -s free parking .",
+                "the west , please . and can i get free wifi ?",
+                "yes , that sounds like a good choice . can you book it for me for 3 people starting saturday ? thanks",
+                "i would like to stay for 3 nights .",
+                "i need a train from norwich to get to the hotel by 16:30 .",
+                "it does not matter , as long as i get there by 4:30 pm ."
+            ]
+        },
+        "slot_values": {
+            "hotel-book day": "saturday",
+            "hotel-book people": "3",
+            "hotel-book stay": "3",
+            "hotel-name": "cambridge belfry",
+            "hotel-area": "west",
+            "hotel-parking": "yes",
+            "hotel-internet": "yes",
+            "hotel-type": "hotel",
+            "train-destination": "cambridge",
+            "train-day": "saturday",
+            "train-arriveby": "16:30",
+            "train-departure": "norwich"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "hotel-book day": "saturday",
+            "hotel-book people": "3",
+            "hotel-book stay": "3",
+            "hotel-name": "cambridge belfry",
+            "hotel-area": "west",
+            "hotel-parking": "yes",
+            "hotel-internet": "yes",
+            "hotel-type": "hotel",
+            "train-destination": "cambridge",
+            "train-day": "saturday",
+            "train-arriveby": "16:30",
+            "train-departure": "norwich"
+        },
+        "original_sys": "i have several available . when do you want to leave ?",
+        "original_usr": "it does not really matter , just need to get there by 16:30 ."
+    },
+    {
+        "ID": "PMUL2026-para.json",
+        "turn_id": 7,
+        "domains": [
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "what area of town would you like the restaurant to be in ?",
+                "jinling noodle bar is in the centre area serving chinese in the moderate price range . would you like to reserve a table ?",
+                "i think you would enjoy ugly duckling . want more information ?",
+                "i made a reservation for your party of 3 at the ugly duckling for saturday at 15:15 . your reference is pez07fh7 . is there anything else i can help you with ?",
+                "there are 4 options , but i personally recommend the cambridge corn exchange , would you like more info ?",
+                "ok , their address is wheeler street .",
+                "i suspect the price varies based on day and time . the best way to find out is to call 01223357851 ."
+            ],
+            "usr": [
+                "i am looking for a chinese restaurant please . or 1 that serves chinese food .",
+                "i would like to be in the centre of town .",
+                "i want something expensive .",
+                "could you make a reservation for 3 people at 15:15 on saturday and provide the reference number ? also looking for a theatre in the same area .",
+                "i am also looking for a theater .",
+                "yes more info and adress and is there any fee s ?",
+                "and i there an entrance fee ?",
+                "thank you for the information . i will give them a call ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "saturday",
+            "restaurant-book people": "3",
+            "restaurant-book time": "15:15",
+            "restaurant-food": "chinese",
+            "restaurant-pricerange": "expensive",
+            "restaurant-name": "ugly duckling",
+            "restaurant-area": "centre",
+            "attraction-type": "theatre",
+            "attraction-name": "the cambridge corn exchange",
+            "attraction-area": "centre"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-book day": "saturday",
+            "restaurant-book people": "3",
+            "restaurant-book time": "15:15",
+            "restaurant-food": "chinese",
+            "restaurant-pricerange": "expensive",
+            "restaurant-name": "ugly duckling",
+            "restaurant-area": "centre",
+            "attraction-type": "theatre",
+            "attraction-name": "the cambridge corn exchange",
+            "attraction-area": "centre"
+        },
+        "original_sys": "i do not know you can call 01223357851 and find out . i suspect it varies based on day and time so calling would be best .",
+        "original_usr": "that s great i will call them , thank you ."
+    },
+    {
+        "ID": "PMUL4265-para.json",
+        "turn_id": 1,
+        "domains": [
+            "attraction",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "the centre does not offer any entertainment options . would you like to explore other parts of the city for entertainment ?"
+            ],
+            "usr": [
+                "what kind of entertainment is there in the centre ?",
+                "are there any architectural attractions in the centre ?"
+            ]
+        },
+        "slot_values": {
+            "attraction-type": "architecture",
+            "attraction-area": "centre"
+        },
+        "turn_slot_values": {
+            "attraction-type": "architecture"
+        },
+        "last_slot_values": {
+            "attraction-type": "entertainment",
+            "attraction-area": "centre"
+        },
+        "original_sys": "there is no entertainment in the centre . would you like to try another part of the city ?",
+        "original_usr": "are there any architectural attractions in the centre ?"
+    },
+    {
+        "ID": "MUL0291-para.json",
+        "turn_id": 5,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "curry king restaurant is located in the centre of town , address 5 jordans yard bridge street city centre , postcode cb21ug .",
+                "booking was successful . the table will be reserved for 15 minutes . your reference number is : pq0vc3cl . is there anything else i can help you with today ?",
+                "might i ask if you had a destination and arrival time in mind ?",
+                "fantastic , there are 5 options available to you , all priced at 75.10 pounds . they leave a minute after the hour every hour , starting at 5 am . which would you prefer ?",
+                "your booking reference number is b6oktghx ."
+            ],
+            "usr": [
+                "can you please tell me how to get to the curry king restaurant please ?",
+                "could i please get a table booked for 1 person on sunday at 20:00 ?",
+                "thank you , yes , i also need to find a train . i would like to leave on monday , departing from cambridge .",
+                "i want to arrive at birmingham new street by 11:30 .",
+                "i'll take the third train . for 1 person , and i need the reference number .",
+                "thank you , have a nice day !"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "1",
+            "restaurant-book time": "20:00",
+            "restaurant-name": "curry king",
+            "train-book people": "1",
+            "train-leaveat": "08:01",
+            "train-destination": "birmingham new street",
+            "train-day": "monday",
+            "train-arriveby": "11:30",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "1",
+            "restaurant-book time": "20:00",
+            "restaurant-name": "curry king",
+            "train-book people": "1",
+            "train-leaveat": "08:01",
+            "train-destination": "birmingham new street",
+            "train-day": "monday",
+            "train-arriveby": "11:30",
+            "train-departure": "cambridge"
+        },
+        "original_sys": "hello , the reference number for your booking is b6oktghx .",
+        "original_usr": "thank you very much . have a nice day !"
+    },
+    {
+        "ID": "SNG0952-para.json",
+        "turn_id": 0,
+        "domains": [
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "hello , can you assist me in locating a guest house that would be suitable for my needs ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-type": "guest house"
+        },
+        "turn_slot_values": {
+            "hotel-type": "guest house"
+        },
+        "last_slot_values": {},
+        "original_sys": "",
+        "original_usr": "can you help me in finding a suitable guest house please ?"
+    },
+    {
+        "ID": "MUL0240-para.json",
+        "turn_id": 5,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "if you are interested in chinese food , there is rice house located at 88 mill road city centre in the cheap price range .",
+                "i cannot find any cheap russian restaurant -s . are you open to moderate price ?",
+                "there are 3 restaurant -s matching that , charlie chan , rice house , and golden house .",
+                "great your reservation is all set , the reference number is d6vcx5ia",
+                "hello , how may i assist you today ?"
+            ],
+            "usr": [
+                "i am looking for a cheap place to dine in the centre of cambridge .",
+                "i prefer russian food actually .",
+                "no . it really does need to be cheap . what about chinese in the centre ?",
+                "i want to book a golden house table for 1 person at 16:30 on sunday .",
+                "could you also help me book a train for monday ?",
+                "i need help with my travel plans ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "1",
+            "restaurant-book time": "16:30",
+            "restaurant-food": "chinese",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "golden house",
+            "restaurant-area": "centre",
+            "train-destination": "birmingham new street",
+            "train-day": "monday"
+        },
+        "turn_slot_values": {
+            "train-destination": "birmingham new street"
+        },
+        "last_slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "1",
+            "restaurant-book time": "16:30",
+            "restaurant-food": "chinese",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "golden house",
+            "restaurant-area": "centre",
+            "train-day": "monday"
+        },
+        "original_sys": "i would be glad to help , where are you traveling to ?",
+        "original_usr": "i am traveling to birmingham new street"
+    },
+    {
+        "ID": "PMUL2950-para.json",
+        "turn_id": 4,
+        "domains": [
+            "hotel",
+            "taxi",
+            "attraction"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "what price range and in what area ?",
+                "do you have a preference of number of stars ?",
+                "how about aylesbray lodge guest house on mowbray road ? it has 4 stars and is in the moderate price range .",
+                "would you like me to book the internet for the postcode cb17sr ?"
+            ],
+            "usr": [
+                "i need a place to stay , can you help ?",
+                "i do not care about price , but i would like to stay in the south . i do like guest houses better than hotel -s .",
+                "i do not have a star preference .",
+                "great . can you tell me their post code , and if they have internet ?",
+                "no , not yet . can you also suggest some place -s i can visit while i am in town ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-name": "aylesbray lodge guest house",
+            "hotel-area": "south",
+            "hotel-pricerange": "moderate",
+            "hotel-stars": "4",
+            "hotel-internet": "yes",
+            "hotel-type": "guest house"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "hotel-name": "aylesbray lodge guest house",
+            "hotel-area": "south",
+            "hotel-pricerange": "moderate",
+            "hotel-stars": "4",
+            "hotel-internet": "yes",
+            "hotel-type": "guest house"
+        },
+        "original_sys": "the postcode is cb17sr and they have internet . would you like me to book it ?",
+        "original_usr": "i am not ready to book yet . would you also look up place -s i can visit while i am in town ?"
+    },
+    {
+        "ID": "SNG02020-para.json",
+        "turn_id": 0,
+        "domains": [
+            "taxi"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you help me find a taxi to take me to fitzbillies restaurant ?"
+            ]
+        },
+        "slot_values": {
+            "taxi-destination": "fitzbillies restaurant"
+        },
+        "turn_slot_values": {
+            "taxi-destination": "fitzbillies restaurant"
+        },
+        "last_slot_values": {},
+        "original_sys": "",
+        "original_usr": "i need a taxi to take me to fitzbillies restaurant"
+    },
+    {
+        "ID": "MUL2623-para.json",
+        "turn_id": 3,
+        "domains": [
+            "hotel",
+            "taxi",
+            "attraction"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "do you have a preferred section of town ?",
+                "i have several place -s . are you sure you do not have an area you prefer ?",
+                "autumn house in the east part of town is a popular choice due to their affordable rates . would you like me to make a reservation for you ?"
+            ],
+            "usr": [
+                "i am looking for a cheap guest house to stay in while i am in town .",
+                "not really , but i want free wifi and it should be 4 star .",
+                "it does not matter which area it s in . which would you recommend ?",
+                "yes , please . can you book a room for 7 people starting on tuesday for 4 nights ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-book day": "tuesday",
+            "hotel-book people": "7",
+            "hotel-book stay": "4",
+            "hotel-pricerange": "cheap",
+            "hotel-stars": "4",
+            "hotel-internet": "yes",
+            "hotel-type": "guest house"
+        },
+        "turn_slot_values": {
+            "hotel-book day": "tuesday",
+            "hotel-book people": "7",
+            "hotel-book stay": "4"
+        },
+        "last_slot_values": {
+            "hotel-pricerange": "cheap",
+            "hotel-stars": "4",
+            "hotel-internet": "yes",
+            "hotel-type": "guest house"
+        },
+        "original_sys": "a lot of people like autumn house in the east part of town , they are very economically priced . would you like me to book you a room ?",
+        "original_usr": "great can you book that for 7 people for 4 nights starting tuesday ?"
+    },
+    {
+        "ID": "SSNG0159-para.json",
+        "turn_id": 4,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "sure ! there are 15 cheap restaurant -s in the centre . is there a certain type of food you are looking for ?",
+                "i can recommend ask restaurant . would you like me to make a reservation ?",
+                "i was able to book your party at ask . your reservation will hold for 15 minutes . is there anything else i can help you with today ?",
+                "can i assist you with anything today ? your reference number is v0pvdpbc ."
+            ],
+            "usr": [
+                "can you help me find a cheap restaurant in the centre ?",
+                "oh , yes ! italian , please .",
+                "no , let s try italian on the cheap side located in the centre . book for 7 people on wednesday at 11:45 please .",
+                "could i get the reference number please ?",
+                "no , thank you . goodbye ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "wednesday",
+            "restaurant-book people": "7",
+            "restaurant-book time": "11:45",
+            "restaurant-food": "italian",
+            "restaurant-pricerange": "cheap",
+            "restaurant-area": "centre"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-book day": "wednesday",
+            "restaurant-book people": "7",
+            "restaurant-book time": "11:45",
+            "restaurant-food": "italian",
+            "restaurant-pricerange": "cheap",
+            "restaurant-area": "centre"
+        },
+        "original_sys": "reference number is : v0pvdpbc . need anything else ?",
+        "original_usr": "no thank you ! goodbye ."
+    },
+    {
+        "ID": "PMUL3536-para.json",
+        "turn_id": 5,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "we have a lot of those ! i like the acorn guest house . would that work for you ?",
+                "the acorn guest house is in the north and is a moderate -ly priced 4 start hotel with internet and parking .",
+                "absolutely , just a few questions . . . when do you plan on arriving and how many days are you planning on staying ?",
+                "alright , i have booked your room and the reference number is 26vytsij . can i help you with anything else ?",
+                "hello ! i have many indian restaurant -s available . can you please tell me the area where you want to dine or your price range ?"
+            ],
+            "usr": [
+                "i want to find out if there are any moderate -ly priced hotel -s in the north part of the city .",
+                "yes that would be great ! can i have some information on it ?",
+                "could i getting a booking for 7 people ?",
+                "i want to stay for 3 nights starting on thursday .",
+                "i also need a place to dine serving indian food .",
+                "can you suggest a restaurant and book a table for 7 people on thursday at 5:45 pm ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "thursday",
+            "restaurant-book people": "7",
+            "restaurant-book time": "17:45",
+            "restaurant-food": "indian",
+            "hotel-book day": "thursday",
+            "hotel-book people": "7",
+            "hotel-book stay": "3",
+            "hotel-name": "acorn guest house",
+            "hotel-area": "north",
+            "hotel-pricerange": "moderate"
+        },
+        "turn_slot_values": {
+            "restaurant-book day": "thursday",
+            "restaurant-book people": "7",
+            "restaurant-book time": "17:45"
+        },
+        "last_slot_values": {
+            "restaurant-food": "indian",
+            "hotel-book day": "thursday",
+            "hotel-book people": "7",
+            "hotel-book stay": "3",
+            "hotel-name": "acorn guest house",
+            "hotel-area": "north",
+            "hotel-pricerange": "moderate"
+        },
+        "original_sys": "i have a lot of indian restaurant -s available . can you tell me your price range or the area where you want to dine ?",
+        "original_usr": "why do not you suggest 1 a book a table for 7 on thursday at 17:45"
+    },
+    {
+        "ID": "WOZ20253-para.json",
+        "turn_id": 4,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "the royal spice is a cheap indian restaurant in the south . would you like more information ?",
+                "no , i am sorry . would you prefer a cheap bistro in the north , or some other qualifications ?",
+                "i would recommend cotto . they serve british food and are moderate -ly priced . would you like their contact information ?",
+                "hello , how may i assist you today ?"
+            ],
+            "usr": [
+                "im looking for a restaurant in the north part of town in the cheap price range",
+                "does it serve bistro food ?",
+                "i would settle for british . i would prefer moderate -ly priced , actually , and location does not matter .",
+                "what is the phone number ?",
+                "can you provide me with cotto s phone number ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "british",
+            "restaurant-pricerange": "moderate",
+            "restaurant-name": "cotto",
+            "restaurant-area": "dontcare"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-food": "british",
+            "restaurant-pricerange": "moderate",
+            "restaurant-name": "cotto",
+            "restaurant-area": "dontcare"
+        },
+        "original_sys": "cotto s phone number is 01223302010 . is there anything i can help you with ?",
+        "original_usr": "no , thank you , that is all i need . goodbye !"
+    },
+    {
+        "ID": "MUL1344-para.json",
+        "turn_id": 3,
+        "domains": [
+            "hotel",
+            "taxi",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "it is on hotel felix whitehouse lane huntingdon road . would you like me to book it ?",
+                "i have booked your reservation at graffiti for sunday 18 and 06 and 2017 for 7 people . reference number 3gq3itlz .",
+                "is there a specific type of accommodation you are looking for ?"
+            ],
+            "usr": [
+                "hello . i am trying to find a restaurant called graffiti . can you help me locate it ?",
+                "yes , i would like to book a table for 7 for sunday at 14:45 .",
+                "excellent . i am also looking for a place to stay . it should have free parking and free wifi .",
+                "just a hotel , please ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "7",
+            "restaurant-book time": "14:45",
+            "restaurant-name": "graffiti",
+            "hotel-area": "dontcare",
+            "hotel-parking": "yes",
+            "hotel-internet": "yes",
+            "hotel-type": "hotel"
+        },
+        "turn_slot_values": {
+            "hotel-area": "dontcare",
+            "hotel-type": "hotel"
+        },
+        "last_slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "7",
+            "restaurant-book time": "14:45",
+            "restaurant-name": "graffiti",
+            "hotel-parking": "yes",
+            "hotel-internet": "yes"
+        },
+        "original_sys": "i can help with that . is there a particular area that you would prefer to stay in ?",
+        "original_usr": "no , not really . it just needs to be a hotel ."
+    },
+    {
+        "ID": "MUL2256-para.json",
+        "turn_id": 1,
+        "domains": [
+            "train",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "what type of hotel are you looking for ?"
+            ],
+            "usr": [
+                "i need a place to stay in south of town .",
+                "i want it to be like a guest house ."
+            ]
+        },
+        "slot_values": {
+            "hotel-area": "south",
+            "hotel-type": "guest house"
+        },
+        "turn_slot_values": {
+            "hotel-type": "guest house"
+        },
+        "last_slot_values": {
+            "hotel-area": "south"
+        },
+        "original_sys": "okay , do you have any price range you are looking for ?",
+        "original_usr": "it does not matter on the pricing or about having free parking . i would like the hotel to be like a guest house ."
+    },
+    {
+        "ID": "SNG0513-para.json",
+        "turn_id": 0,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you recommend a scottish restaurant with moderate price -s ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "scottish",
+            "restaurant-pricerange": "moderate"
+        },
+        "turn_slot_values": {
+            "restaurant-food": "scottish",
+            "restaurant-pricerange": "moderate"
+        },
+        "last_slot_values": {},
+        "original_sys": "",
+        "original_usr": "i am looking for a moderate -ly priced scottish restaurant"
+    },
+    {
+        "ID": "MUL0240-para.json",
+        "turn_id": 2,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "if you are interested in chinese food , there is rice house located at 88 mill road city centre in the cheap price range .",
+                "are you open to moderate price restaurant -s ? i cannot find any cheap russian restaurant -s nearby ."
+            ],
+            "usr": [
+                "i am looking for a cheap place to dine in the centre of cambridge .",
+                "i prefer russian food actually .",
+                "no , it really does need to be cheap . what about chinese restaurant -s in the center ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "chinese",
+            "restaurant-pricerange": "cheap",
+            "restaurant-area": "centre"
+        },
+        "turn_slot_values": {
+            "restaurant-food": "chinese"
+        },
+        "last_slot_values": {
+            "restaurant-food": "russian",
+            "restaurant-pricerange": "cheap",
+            "restaurant-area": "centre"
+        },
+        "original_sys": "i cannot find any cheap russian restaurant -s . are you open to moderate price ?",
+        "original_usr": "no . it really does need to be cheap . what about chinese in the centre ?"
+    },
+    {
+        "ID": "MUL2256-para.json",
+        "turn_id": 5,
+        "domains": [
+            "train",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "okay , do you have any price range you are looking for ?",
+                "aylesbray lodge guest house fits your needs . would you like me to book that for you ?",
+                "is there anything else i can help you with ?",
+                "that s fine . i am here to help . for how many people and how many nights will that be ?",
+                "good day ! when would you like to make a reservation ?"
+            ],
+            "usr": [
+                "i need a place to stay in south of town .",
+                "it does not matter on the pricing or about having free parking . i would like the hotel to be like a guest house .",
+                "that will not be necessary thanks .",
+                "yes actually , could you book that for me ? i have changed my mind .",
+                "the stay is for 4 of us for 3 nights .",
+                "hi ! i would like to book a room for 3 nights starting on friday , please . thank you !"
+            ]
+        },
+        "slot_values": {
+            "hotel-book day": "friday",
+            "hotel-book people": "4",
+            "hotel-book stay": "3",
+            "hotel-area": "south",
+            "hotel-type": "guest house"
+        },
+        "turn_slot_values": {
+            "hotel-book day": "friday"
+        },
+        "last_slot_values": {
+            "hotel-book people": "4",
+            "hotel-book stay": "3",
+            "hotel-area": "south",
+            "hotel-type": "guest house"
+        },
+        "original_sys": "what day would you like that reservation ?",
+        "original_usr": "friday , please , and for 3 nights . thank you !"
+    },
+    {
+        "ID": "MUL2570-para.json",
+        "turn_id": 6,
+        "domains": [
+            "hotel",
+            "taxi",
+            "attraction"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are 23 museums in town . do you have a specific area you would be interested in ?",
+                "cambridge artworks is in the east . they have no admission and their number is 01223902168",
+                "their postcode is cb13ef . is there anything else i can assist you with ?",
+                "acorn guest house looks available , would you like to book that ?",
+                "the postcode is cb41da . is there anything else i can help you with today ?",
+                "your contact number is 07522217444 and the car type will be a red tesla . booking is complete . can i assist you with anything else ?"
+            ],
+            "usr": [
+                "i am looking for museums in town . can you recommend 1 ?",
+                "which ever 1 is your favorite will do . can i have their contact information and what is the entrance fee ?",
+                "i need the post code also for the museum please .",
+                "yes . i need a guest house . i should be a 4 star in the north . parking is not important .",
+                "not right now , but could you tell me their postcode ?",
+                "yeah , can you have a taxi pick me up at the acorn and take me to the artworks , say around 24:45 ?",
+                "no , that s all i needed . thank you !"
+            ]
+        },
+        "slot_values": {
+            "taxi-leaveat": "24:45",
+            "taxi-destination": "cambridge artworks",
+            "taxi-departure": "acorn guest house",
+            "hotel-name": "acorn guest house",
+            "hotel-area": "north",
+            "hotel-parking": "no",
+            "hotel-stars": "4",
+            "hotel-type": "guest house",
+            "attraction-type": "museum",
+            "attraction-name": "cambridge artworks"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "taxi-leaveat": "24:45",
+            "taxi-destination": "cambridge artworks",
+            "taxi-departure": "acorn guest house",
+            "hotel-name": "acorn guest house",
+            "hotel-area": "north",
+            "hotel-parking": "no",
+            "hotel-stars": "4",
+            "hotel-type": "guest house",
+            "attraction-type": "museum",
+            "attraction-name": "cambridge artworks"
+        },
+        "original_sys": "booking is complete . your contact number is 07522217444 . the car type will be a red tesla . can i help you with anything else ?",
+        "original_usr": "no that s all i needed thank you !"
+    },
+    {
+        "ID": "PMUL3995-para.json",
+        "turn_id": 2,
+        "domains": [
+            "hotel",
+            "taxi",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are 2 . 1 with 4 star another with 3 . which 1 do you prefer ?",
+                "there are 2 hotel -s nearby that offer free wifi . 1 has a rating of 3 stars and the other has a rating of 4 stars . do you have a preference ?"
+            ],
+            "usr": [
+                "can you help me find somewhere to stay in the south ? i want it to be moderate -ly priced please .",
+                "either is fine but i would need to have wifi included , this is a business trip .",
+                "i would prefer the hotel with 4 stars ."
+            ]
+        },
+        "slot_values": {
+            "hotel-area": "south",
+            "hotel-pricerange": "moderate",
+            "hotel-stars": "4",
+            "hotel-internet": "yes"
+        },
+        "turn_slot_values": {
+            "hotel-stars": "4"
+        },
+        "last_slot_values": {
+            "hotel-area": "south",
+            "hotel-pricerange": "moderate",
+            "hotel-internet": "yes"
+        },
+        "original_sys": "i have 2 that offer free wifi . 1 is rated 3 stars , the other is 4 . do you have a preference ?",
+        "original_usr": "how about the 4 stars 1 ."
+    },
+    {
+        "ID": "MUL2598-para.json",
+        "turn_id": 8,
+        "domains": [
+            "hotel",
+            "taxi",
+            "attraction"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are 15 options . do you have a specific area you would like to stay in ? and are you interested in wifi and parking ?",
+                "i would go with the acorn guest house if i were choosing a moderate -ly price guest house .",
+                "the address is 154 chesterton rd , the postal code is cb41da , is there anything else that i can assist with ?",
+                "there are no boats in the west , can i try something else for you ?",
+                "cambridge and county folk museum is available , would you like that ?",
+                "sure their address is 23 castle street and the postcode is cb30aq",
+                "can you tell what time you want to be picked up and at which location ?",
+                "your booking is complete ! the car type is a black ford and your contact number is 07349924614 . is there anything else i can assist you with ?"
+            ],
+            "usr": [
+                "i am looking for a moderate -ly priced guest house . can you recommend 1 ?",
+                "i do not care about wifi or parking . to be honest , i do not care what area it is in , either . what would you pick ?",
+                "sounds nice . what is the address and postcode please ?",
+                "i am also looking for an attraction preferably on a boat in the west .",
+                "hmm . what about museums ?",
+                "sure . that sounds good . can i get their address and postcode please ?",
+                "thanks ! i also need a taxi between both location -s , please .",
+                "i want to leave the hotel by 23:15 .",
+                "thank you for the quick response ! no , that s all i needed . have a great day !"
+            ]
+        },
+        "slot_values": {
+            "taxi-leaveat": "23:15",
+            "taxi-destination": "cambridge and county folk museum",
+            "taxi-departure": "acorn guest house",
+            "hotel-name": "acorn guest house",
+            "hotel-pricerange": "moderate",
+            "hotel-type": "guest house",
+            "attraction-type": "museum",
+            "attraction-area": "west"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "taxi-leaveat": "23:15",
+            "taxi-destination": "cambridge and county folk museum",
+            "taxi-departure": "acorn guest house",
+            "hotel-name": "acorn guest house",
+            "hotel-pricerange": "moderate",
+            "hotel-type": "guest house",
+            "attraction-type": "museum",
+            "attraction-area": "west"
+        },
+        "original_sys": "booking completed ! your contact number is 07349924614 . the car type is a black ford . can i help you with anything else ?",
+        "original_usr": "wow that was fast thanks ! no , that is all i needed . hope you have a wonderful day ."
+    },
+    {
+        "ID": "MUL1891-para.json",
+        "turn_id": 6,
+        "domains": [
+            "attraction",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are 13 colleges in the centre . king s college and saint catharine s college are on the same street and both have free admission .",
+                "king s college is cb21st and their number is 01223331100 . saint catharine s is cb21rl and their number is 01223338300 .",
+                "both are free . is there anything else you would like help with ?",
+                "what day and departure time do you prefer ?",
+                "how many ticket will you need ?",
+                "both trips are 38 minutes long ."
+            ],
+            "usr": [
+                "i am looking for colleges to visit in the centre of town .",
+                "can you provide the phone number and post code to the attraction ?",
+                "what is the entrance fee ?",
+                "yes , actually . i could use some help finding a train to take me from cambridge heading to bishops stortford .",
+                "i want to leave on saturday at any time after 21:15 .",
+                "i would just like to know the travel time of 1 or more of the trains .",
+                "thank you for the information . that s all i needed today . your help is appreciated ."
+            ]
+        },
+        "slot_values": {
+            "attraction-type": "college",
+            "attraction-name": "kings college",
+            "attraction-area": "centre",
+            "train-leaveat": "21:15",
+            "train-destination": "bishops stortford",
+            "train-day": "saturday",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "attraction-type": "college",
+            "attraction-name": "kings college",
+            "attraction-area": "centre",
+            "train-leaveat": "21:15",
+            "train-destination": "bishops stortford",
+            "train-day": "saturday",
+            "train-departure": "cambridge"
+        },
+        "original_sys": "they are both 38 minute trips",
+        "original_usr": "thanks . that s all the information i needed today . i appreciate your help ."
+    },
+    {
+        "ID": "MUL0548-para.json",
+        "turn_id": 3,
+        "domains": [
+            "attraction",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are several attractions available in the east . is there a type of attraction you are looking for ?",
+                "i like the cambridge artworks it s a museum at 5 greens road and it has free admission .",
+                "the postal code for your destination is cb13ef . do you need any further assistance ?"
+            ],
+            "usr": [
+                "i am looking for an attraction in the east .",
+                "hook me up with the spot you like best , just be sure to tell me what it is , where it is , and what it will cost me , yo .",
+                "that sounds , good , what is the postcode ?",
+                "yes , i also need to find a train that departs after 12:15 and goes to kings lynn ."
+            ]
+        },
+        "slot_values": {
+            "attraction-name": "cambridge artworks",
+            "attraction-area": "east",
+            "train-leaveat": "12:15",
+            "train-destination": "kings lynn"
+        },
+        "turn_slot_values": {
+            "train-leaveat": "12:15",
+            "train-destination": "kings lynn"
+        },
+        "last_slot_values": {
+            "attraction-name": "cambridge artworks",
+            "attraction-area": "east"
+        },
+        "original_sys": "the postal code is cb13ef . would you like for me to get you tickets ?",
+        "original_usr": "no that s all i needed with that . i also need a train leaving after 12:15 heading to kings lynn ."
+    },
+    {
+        "ID": "PMUL0837-para.json",
+        "turn_id": 6,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i have several inexpensive restaurant -s in different area -s of town . do you have a location preference ?",
+                "i can recommend rice house that serves chinese food",
+                "i am showing nothing for english food in the centre area . would you like to try something else ?",
+                "i booked you at kohinoor . the table will be reserved for 15 minutes . reference number is : 1ob1sn34 . is there anything else i can help you with ?",
+                "there are 202 trains leaving cambridge on thursday . where is your destination ?",
+                "good day ! the tr5225 train is scheduled to depart at 13:50 on thursday . would you like me to make a booking for you ?"
+            ],
+            "usr": [
+                "i need a place to eat that is cheap .",
+                "yes . i want the center area .",
+                "do you have any restaurant -s that serve english food ?",
+                "how about some awesome indian food . i need a table for 8 on 16:30 monday",
+                "thanks for your help . in addition , i am looking for a thursday train departing cambridge , please .",
+                "i am looking to travel to ely departing after 13:15 if possible .",
+                "yes , please . i need to book 8 tickets and i would like to have a reference number for the booking ."
+            ]
+        },
+        "slot_values": {
+            "taxi-destination": "ely train station",
+            "restaurant-book day": "monday",
+            "restaurant-book people": "8",
+            "restaurant-book time": "16:30",
+            "restaurant-food": "indian",
+            "restaurant-pricerange": "cheap",
+            "restaurant-area": "centre",
+            "train-book people": "8",
+            "train-leaveat": "13:15",
+            "train-destination": "ely",
+            "train-day": "thursday",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {
+            "train-book people": "8"
+        },
+        "last_slot_values": {
+            "taxi-destination": "ely train station",
+            "restaurant-book day": "monday",
+            "restaurant-book people": "8",
+            "restaurant-book time": "16:30",
+            "restaurant-food": "indian",
+            "restaurant-pricerange": "cheap",
+            "restaurant-area": "centre",
+            "train-leaveat": "13:15",
+            "train-destination": "ely",
+            "train-day": "thursday",
+            "train-departure": "cambridge"
+        },
+        "original_sys": "the tr5225 leaves at 13:50 on thursday . would you like me to book you ?",
+        "original_usr": "yes , please book 8 tickets and provide me with a reference number"
+    },
+    {
+        "ID": "PMUL3356-para.json",
+        "turn_id": 1,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i am sorry , we do not have any restaurant -s available at the moment ."
+            ],
+            "usr": [
+                "find me a restaurant that serves belgian food in the centre",
+                "is there a restaurant that serves turkish food ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "turkish",
+            "restaurant-area": "centre"
+        },
+        "turn_slot_values": {
+            "restaurant-food": "turkish"
+        },
+        "last_slot_values": {
+            "restaurant-food": "belgian",
+            "restaurant-area": "centre"
+        },
+        "original_sys": "i am sorry , there are not any .",
+        "original_usr": "how about 1 that serves turkish food ?"
+    },
+    {
+        "ID": "PMUL3867-para.json",
+        "turn_id": 0,
+        "domains": [
+            "hotel",
+            "taxi",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you help me find an expensive restaurant in cambridge that serves british cuisine ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "british",
+            "restaurant-pricerange": "expensive"
+        },
+        "turn_slot_values": {
+            "restaurant-food": "british",
+            "restaurant-pricerange": "expensive"
+        },
+        "last_slot_values": {},
+        "original_sys": "",
+        "original_usr": "can you assist me in finding me an expensive restaurant in cambridge where i can dine ? the restaurant should be serving british foods ."
+    },
+    {
+        "ID": "PMUL0951-para.json",
+        "turn_id": 9,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are 4 to choose from . would you prefer the centre or north ?",
+                "i have the kohinoor , the gandhi , or mahal of cambridge . would you like me to book 1 for you ?",
+                "sure , first let s figure out which restaurant you would like . kohinoor , the gandhi , or mahal of cambridge ?",
+                "what day and time will you be coming in ?",
+                "i will book you up , welcome",
+                "i have booked a table for 1 at the gandhi . your reference number is wjboroqr . can you give me more information about the train you need ?",
+                "the tr4626 could get you there by 10:43 , does that work for you ?",
+                "travel time is 49 minutes .",
+                "shall i book that for you ?"
+            ],
+            "usr": [
+                "do you know of any cheap indian restaurant -s ?",
+                "i would like it to ideally be in the center .",
+                "yes , could i have a table for 1 please ?",
+                "let s try the gandhi .",
+                "i will need a table on wednesday at 18:15 .",
+                "i need the reference number for the booking . also can you help me find a train going to cambridge wednesday ?",
+                "i need a train on wednesday from stevanage to cambridge . it needs to arrive by 10:45 .",
+                "absolutely ! what is the travel time ?",
+                "would you like me to book it for you ?",
+                "no , thank you . i need to check some other things before i book ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "wednesday",
+            "restaurant-book people": "1",
+            "restaurant-book time": "18:15",
+            "restaurant-food": "indian",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "the gandhi",
+            "restaurant-area": "centre",
+            "train-destination": "cambridge",
+            "train-day": "wednesday",
+            "train-arriveby": "10:45",
+            "train-departure": "stevenage"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-book day": "wednesday",
+            "restaurant-book people": "1",
+            "restaurant-book time": "18:15",
+            "restaurant-food": "indian",
+            "restaurant-pricerange": "cheap",
+            "restaurant-name": "the gandhi",
+            "restaurant-area": "centre",
+            "train-destination": "cambridge",
+            "train-day": "wednesday",
+            "train-arriveby": "10:45",
+            "train-departure": "stevenage"
+        },
+        "original_sys": "i believe i am to book that for you , shall i book it ?",
+        "original_usr": "no , thank you . i need to check some other things before i book ."
+    },
+    {
+        "ID": "PMUL1935-para.json",
+        "turn_id": 0,
+        "domains": [
+            "train",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "hello , can you help me find a place to stay ?"
+            ]
+        },
+        "slot_values": {},
+        "turn_slot_values": {},
+        "last_slot_values": {},
+        "original_sys": "",
+        "original_usr": "hi , i am looking for information on a place to stay ."
+    },
+    {
+        "ID": "MUL0579-para.json",
+        "turn_id": 2,
+        "domains": [
+            "attraction",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are 325 matches for your search . would you like to narrow down your selection by specifying a departure site or destination ?",
+                "how may i assist you today ?"
+            ],
+            "usr": [
+                "i am looking for a train that leaves on tuesday at 08:45",
+                "i am looking to go to cambridge from bishops stortford .",
+                "yes , i need to purchase 2 train tickets ."
+            ]
+        },
+        "slot_values": {
+            "train-book people": "1",
+            "train-leaveat": "08:45",
+            "train-destination": "cambridge",
+            "train-day": "tuesday",
+            "train-departure": "bishops stortford"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "train-book people": "1",
+            "train-leaveat": "08:45",
+            "train-destination": "cambridge",
+            "train-day": "tuesday",
+            "train-departure": "bishops stortford"
+        },
+        "original_sys": "how many tickets do you need ?",
+        "original_usr": "i need 2 tickets . can you tell me when the 8:45 train will arrive in bishops stortford ?"
+    },
+    {
+        "ID": "PMUL4703-para.json",
+        "turn_id": 7,
+        "domains": [
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i see both an italian and a modern european restaurant in that area in your price range . which would you prefer ?",
+                "you have a reservation at restaurant alimentum . your reference number is jbvumn45 .",
+                "is there a specific type of attraction you are looking for ?",
+                "there are 2 entertainments: nusha and tenpin . do you want more information about either 1 ?",
+                "tenpin is located at cambridge leisure park , clifton way . the entrance fee is unlisted .",
+                "i am sorry i cannot find any price listings . can i help you find something else ?",
+                "is there anything i can help you with today ?"
+            ],
+            "usr": [
+                "i need a restaurant in the south that is moderate -ly priced .",
+                "any will be fine with me . book a table for 8 at 15:15 on monday",
+                "i would like to find some entertainment in the same area as well .",
+                "i am looking for something entertaining please .",
+                "can you please recommend 1 and give me their address and entrance fee ?",
+                "is there another 1 that tells you how much it is ?",
+                "i need an address for the cambridge leisure park .",
+                "yes , can you provide me with the address for tenpin ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "8",
+            "restaurant-book time": "15:15",
+            "restaurant-food": "dontcare",
+            "restaurant-pricerange": "moderate",
+            "restaurant-area": "south",
+            "attraction-type": "entertainment",
+            "attraction-name": "tenpin"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-book day": "monday",
+            "restaurant-book people": "8",
+            "restaurant-book time": "15:15",
+            "restaurant-food": "dontcare",
+            "restaurant-pricerange": "moderate",
+            "restaurant-area": "south",
+            "attraction-type": "entertainment",
+            "attraction-name": "tenpin"
+        },
+        "original_sys": "the address for tenpin is cambridge leisure park , clifton way in postcode cb17dy . is there anything else i can do for you today ?",
+        "original_usr": "that will be all . thank you so much ."
+    },
+    {
+        "ID": "PMUL4669-para.json",
+        "turn_id": 4,
+        "domains": [
+            "attraction",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "if you will be in the north , i recommend taking a ride on the riverboat georgina .",
+                "riverboat georgina is located in the north area , its postcode is cb43ax . would you like to know the address , as well ?",
+                "is there any other information i can assist you with today ?",
+                "what type of food do you prefer ?"
+            ],
+            "usr": [
+                "please find a place to go in the north .",
+                "what is the postcode ?",
+                "i just need the postcode .",
+                "yes , i am also looking for a place to dine . i want it to be expensive and in the north area .",
+                "it does not matter . what do you recommend ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-pricerange": "expensive",
+            "restaurant-area": "north",
+            "attraction-name": "riverboat georgina",
+            "attraction-area": "north"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-pricerange": "expensive",
+            "restaurant-area": "north",
+            "attraction-name": "riverboat georgina",
+            "attraction-area": "north"
+        },
+        "original_sys": "there are 5 place -s in north , which are expensive what type of food do you want ?",
+        "original_usr": "it does not matter . something that you would recommend ."
+    },
+    {
+        "ID": "PMUL1972-para.json",
+        "turn_id": 8,
+        "domains": [
+            "train",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "where will you be traveling to ?",
+                "the rate for a trip from cambridge to london kings cross range -s from 18.88 pounds to 23.60 pounds depending on the day of travel .",
+                "there are a few to choose from . do you prefer a hotel or a guest house ?",
+                "unfortunately there are no hotel -s meeting your criteria . would you like me to look in another part of town ?",
+                "there are 4 . do you have a price range in mind ?",
+                "finches bed and breakfast is a cheap guest house in the west with a 4 star rating . it has internet and parking . would you like me to book this ?",
+                "you are booked at finches bed and breakfast . your reference number is lmap8loo . is there anything else i can help you with ?",
+                "when would you like to depart and how many tickets do you need ?"
+            ],
+            "usr": [
+                "how much does it cost to take the bus in cambridge ?",
+                "i will be traveling to london .",
+                "i am also looking for a hotel in the west side of cambridge . can you help me ?",
+                "i want a hotel on the west side that does not have to include internet . if no internet , what about free wifi ?",
+                "are you sure that there are no hotel -s on the west side of town ? with or without internet ?",
+                "no price preference , whatever you recommend .",
+                "yes please book for 7 people for 5 nights starting from monday .",
+                "i also need to book passage on a train on friday , from cambridge to birmingham new street .",
+                "i need 7 tickets and the train should leave after 15:45 ."
+            ]
+        },
+        "slot_values": {
+            "hotel-book day": "monday",
+            "hotel-book people": "7",
+            "hotel-book stay": "5",
+            "hotel-name": "finches bed and breakfast",
+            "hotel-area": "west",
+            "hotel-pricerange": "dontcare",
+            "hotel-stars": "4",
+            "hotel-internet": "no",
+            "hotel-type": "hotel",
+            "train-leaveat": "15:45",
+            "train-destination": "birmingham new street",
+            "train-day": "friday",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {
+            "train-leaveat": "15:45",
+            "train-destination": "birmingham new street",
+            "train-day": "friday"
+        },
+        "last_slot_values": {
+            "hotel-book day": "monday",
+            "hotel-book people": "7",
+            "hotel-book stay": "5",
+            "hotel-name": "finches bed and breakfast",
+            "hotel-area": "west",
+            "hotel-pricerange": "dontcare",
+            "hotel-stars": "4",
+            "hotel-internet": "no",
+            "hotel-type": "hotel",
+            "train-departure": "cambridge"
+        },
+        "original_sys": "what time do you want to depart ?",
+        "original_usr": "it needs to leave sometime after 15:45 , and i'll need 7 tickets ."
+    },
+    {
+        "ID": "PMUL3103-para.json",
+        "turn_id": 3,
+        "domains": [
+            "hotel",
+            "taxi",
+            "attraction"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "there are 23 guest houses in town with free wifi . do you have a price range ?",
+                "unfortunately , there are no guest houses that meet you needs . there are 2 hotel -s if you are interested .",
+                "hello ! what can i help you with today ?"
+            ],
+            "usr": [
+                "can you find me a guest house that has free wifi in this town ?",
+                "how about 1 that has a 4 star rating and is expensive ?",
+                "what about something in the moderate price range , instead ?",
+                "i need to book a hotel for 8 people for 3 nights starting from saturday . can you assist me with that ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-book day": "saturday",
+            "hotel-book people": "8",
+            "hotel-book stay": "3",
+            "hotel-pricerange": "moderate",
+            "hotel-stars": "4",
+            "hotel-internet": "yes",
+            "hotel-type": "hotel"
+        },
+        "turn_slot_values": {
+            "hotel-book day": "saturday",
+            "hotel-book people": "8",
+            "hotel-book stay": "3",
+            "hotel-type": "hotel"
+        },
+        "last_slot_values": {
+            "hotel-pricerange": "moderate",
+            "hotel-stars": "4",
+            "hotel-internet": "yes",
+            "hotel-type": "guest house"
+        },
+        "original_sys": "yes i have many choices in that category . would you like me to suggest something ?",
+        "original_usr": "book a hotel for 8 people and 3 nights starting from saturday ."
+    },
+    {
+        "ID": "PMUL1634-para.json",
+        "turn_id": 7,
+        "domains": [
+            "train",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i have listings for 3 guest houses would that be okay ?",
+                "the 3 guest houses mentioned all have free wifi and parking . i recommend the allenbell .",
+                "how many days would you like to stay ?",
+                "how many people would you like to book for ?",
+                "your booking at the allenbell was successful . your reference number is pv039ajh .",
+                "okay what day will you be travelling and what time would you like to travel ?",
+                "the train departing from your location to cambridge on tuesday has its latest schedule at 18:43 . would that be convenient for you ?"
+            ],
+            "usr": [
+                "i am looking for a cheap hotel on the east .",
+                "can you give me 1 that has free wifi and free parking ?",
+                "the allenbell sounds perfect . can you book it for me for tuesday ?",
+                "i would like to stay for 2 nights please .",
+                "my party will consist of 5 people . may i please get a reference number ?",
+                "i also need a train from stevanage to cambridge .",
+                "tuesday , i want to arrive at 20:15 .",
+                "what time does the train leave ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-book day": "tuesday",
+            "hotel-book people": "5",
+            "hotel-book stay": "2",
+            "hotel-name": "allenbell",
+            "hotel-area": "east",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "cheap",
+            "hotel-internet": "yes",
+            "hotel-type": "guest house",
+            "train-destination": "cambridge",
+            "train-day": "tuesday",
+            "train-arriveby": "20:15",
+            "train-departure": "stevenage"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "hotel-book day": "tuesday",
+            "hotel-book people": "5",
+            "hotel-book stay": "2",
+            "hotel-name": "allenbell",
+            "hotel-area": "east",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "cheap",
+            "hotel-internet": "yes",
+            "hotel-type": "guest house",
+            "train-destination": "cambridge",
+            "train-day": "tuesday",
+            "train-arriveby": "20:15",
+            "train-departure": "stevenage"
+        },
+        "original_sys": "the latest train gets into cambridge on tuesday is at 18:43 . will that work for you ?",
+        "original_usr": "it might , what time does the train depart ?"
+    },
+    {
+        "ID": "SNG02112-para.json",
+        "turn_id": 3,
+        "domains": [
+            "taxi"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "when would you like to leave by ?",
+                "great . and your destination please ?",
+                "a white ford will be arriving to pick you up . your booking is complete ."
+            ],
+            "usr": [
+                "can you book a taxi for me ? i'll be departing from bangkok city .",
+                "i do not care when i leave but i need to arrive by 15:15 .",
+                "the taxi should take me to hotel du vin and bistro .",
+                "can i have the contact number for the taxi , please ?"
+            ]
+        },
+        "slot_values": {
+            "taxi-destination": "hotel du vin and bistro",
+            "taxi-departure": "bangkok city",
+            "taxi-arriveby": "15:15"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "taxi-destination": "hotel du vin and bistro",
+            "taxi-departure": "bangkok city",
+            "taxi-arriveby": "15:15"
+        },
+        "original_sys": "your booking is complete , a white ford will be arriving to pick you up .",
+        "original_usr": "may i have the contact number for the taxi , please ."
+    },
+    {
+        "ID": "MUL0066-para.json",
+        "turn_id": 1,
+        "domains": [
+            "hotel",
+            "taxi",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "the alexander bed and breakfast guest house is located in the center of town and offers free internet . would you like me to book it for you ?"
+            ],
+            "usr": [
+                "please find me a place to stay in the centre that include -s free wifi .",
+                "yes , please . does the hotel have free parking available ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-name": "alexander bed and breakfast",
+            "hotel-area": "centre",
+            "hotel-parking": "yes",
+            "hotel-internet": "yes"
+        },
+        "turn_slot_values": {
+            "hotel-name": "alexander bed and breakfast",
+            "hotel-parking": "yes"
+        },
+        "last_slot_values": {
+            "hotel-area": "centre",
+            "hotel-internet": "yes"
+        },
+        "original_sys": "i see that the alexander bed and breakfast guest house is in the centre of town and include -s free internet . would you like me to book it for you ?",
+        "original_usr": "yes , i would like it , and hope that is has free parking space ."
+    },
+    {
+        "ID": "PMUL2554-para.json",
+        "turn_id": 7,
+        "domains": [
+            "attraction",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i have 8 guest houses in the north . would you like some information on the archway house ? it has free parking and internet .",
+                "no , it s moderate -ly priced would you like another hotel ?",
+                "i have the archway house that offers free parking . would you like to make reservations ?",
+                "the address is 52 gilbert road cb43pe , phone number 01223575314 . is there anything else you need today ?",
+                "there is the riverboat georgina in the north . would you like the information for it ?",
+                "the address is cambridge passenger cruisers , jubilee house . the entrance fee is unlisted . anything else today ?",
+                "the entrance fee is absent from my database . it is not available ."
+            ],
+            "usr": [
+                "i need a place to stay in the north with a 4 star rating please .",
+                "is it in the cheap price range ?",
+                "what hotel -s have free parking ?",
+                "no thank you , could i have the address with postcode and phone number ?",
+                "i would like to find a boat in the north of town as well .",
+                "can you just give me the entrance fee amount and the address ?",
+                "there is no entrance fee ?",
+                "alright , thank you for letting me know . i do not require any further assistance . goodbye !"
+            ]
+        },
+        "slot_values": {
+            "hotel-name": "archway house",
+            "hotel-area": "north",
+            "hotel-parking": "yes",
+            "hotel-stars": "4",
+            "attraction-type": "boat",
+            "attraction-name": "riverboat georgina",
+            "attraction-area": "north"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "hotel-name": "archway house",
+            "hotel-area": "north",
+            "hotel-parking": "yes",
+            "hotel-stars": "4",
+            "attraction-type": "boat",
+            "attraction-name": "riverboat georgina",
+            "attraction-area": "north"
+        },
+        "original_sys": "the entrance fee is not available . it is absent from my database .",
+        "original_usr": "okay , thank you so much ! i do not need anything else then , goodbye !"
+    },
+    {
+        "ID": "SNG01646-para.json",
+        "turn_id": 1,
+        "domains": [
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "good day ! what day are you planning to depart from london kings cross ?"
+            ],
+            "usr": [
+                "i am looking for a train departing from london kings cross",
+                "hi ! i am planning to depart on saturday ."
+            ]
+        },
+        "slot_values": {
+            "train-destination": "cambridge",
+            "train-day": "saturday",
+            "train-departure": "london kings cross"
+        },
+        "turn_slot_values": {
+            "train-destination": "cambridge",
+            "train-day": "saturday"
+        },
+        "last_slot_values": {
+            "train-departure": "london kings cross"
+        },
+        "original_sys": "when would you like to depart london kings cross ?",
+        "original_usr": "yes departing from there heading to cambridge on saturday ."
+    },
+    {
+        "ID": "MUL1210-para.json",
+        "turn_id": 1,
+        "domains": [
+            "hotel",
+            "taxi",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "the finches bed and breakfast is in the cheap price range and located in the west ."
+            ],
+            "usr": [
+                "need a place to stay on the west side , and i need it cheap .",
+                "great , that sounds perfect . thank you ."
+            ]
+        },
+        "slot_values": {
+            "hotel-area": "west",
+            "hotel-pricerange": "cheap"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "hotel-area": "west",
+            "hotel-pricerange": "cheap"
+        },
+        "original_sys": "the finches bed and breakfast is located in the west and in the cheap price range",
+        "original_usr": "ok , that will work ! thanks ."
+    },
+    {
+        "ID": "SNG0764-para.json",
+        "turn_id": 4,
+        "domains": [
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "we have 7 matches for your requirement -s . do you have any additional preferences ?",
+                "i have 7 options for you . 6 are moderate -ly priced , and 1 , worth house , has a cheap price . would you like more information ?",
+                "yes , worth house is a cheap 4 star guest house in the north area with free parking and internet . all our options for your other preferences have wifi . would you like to reserve a room ?",
+                "i am sorry , but i am unable to process your request . would you like to shorten your stay ?"
+            ],
+            "usr": [
+                "i need to find a 4 stars hotel in the north that has indoor free parking .",
+                "it does not need internet included",
+                "does worth house have free wifi ?",
+                "yes book me a stay for 4 people and 4 nights starting from wednesday please",
+                "can you check if i can book a stay for 3 nights ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-book day": "wednesday",
+            "hotel-book people": "4",
+            "hotel-book stay": "3",
+            "hotel-name": "worth house",
+            "hotel-area": "north",
+            "hotel-parking": "yes",
+            "hotel-stars": "4",
+            "hotel-internet": "dontcare"
+        },
+        "turn_slot_values": {
+            "hotel-book stay": "3"
+        },
+        "last_slot_values": {
+            "hotel-book day": "wednesday",
+            "hotel-book people": "4",
+            "hotel-book stay": "4",
+            "hotel-name": "worth house",
+            "hotel-area": "north",
+            "hotel-parking": "yes",
+            "hotel-stars": "4",
+            "hotel-internet": "dontcare"
+        },
+        "original_sys": "oh , i am unable to process that . would you care for a shorter stay ?",
+        "original_usr": "can you see if i can get 3 nights ?"
+    },
+    {
+        "ID": "WOZ20000-para.json",
+        "turn_id": 1,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "do you have a cuisine preference ?"
+            ],
+            "usr": [
+                "i need to find an expensive restauant that s in the south section of the city .",
+                "no , i do not care about the type of cuisine ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "dontcare",
+            "restaurant-pricerange": "expensive",
+            "restaurant-area": "south"
+        },
+        "turn_slot_values": {
+            "restaurant-food": "dontcare"
+        },
+        "last_slot_values": {
+            "restaurant-pricerange": "expensive",
+            "restaurant-area": "south"
+        },
+        "original_sys": "there are several restaurant -s in the south part of town that serve expensive food . do you have a cuisine preference ?",
+        "original_usr": "no i do not care about the type of cuisine ."
+    },
+    {
+        "ID": "PMUL3681-para.json",
+        "turn_id": 4,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i am not finding a german restaurant in the east part of town . would you like me to try other parts of town ?",
+                "there are 9 restaurant -s in the east , including british , chinese , gastropub , indian , international and italian . do you need more information ?",
+                "there are 4 indian restaurant -s in the east part of town ranging from moderate to expensive . do you have a preference ?",
+                "i have found a suitable restaurant for you , the sitar tandoori . would you like me to make a reservation ?"
+            ],
+            "usr": [
+                "can you tell me about any german restaurant -s in the east part of the city ?",
+                "yes please . tell me if there are other restaurant -s in the east as well .",
+                "indian sounds good .",
+                "can you book a table at your favorite expensive 1 ? there will be 4 of us at 15:15 on friday .",
+                "yes , please . can you also help me find a place to stay ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "friday",
+            "restaurant-book people": "4",
+            "restaurant-book time": "15:15",
+            "restaurant-food": "indian",
+            "restaurant-name": "sitar",
+            "restaurant-area": "east"
+        },
+        "turn_slot_values": {
+            "restaurant-book day": "friday",
+            "restaurant-book people": "4",
+            "restaurant-book time": "15:15",
+            "restaurant-name": "sitar"
+        },
+        "last_slot_values": {
+            "restaurant-food": "indian",
+            "restaurant-area": "east"
+        },
+        "original_sys": "the sitar tandoori seems appropriate . i have booked it for you .",
+        "original_usr": "i am also looking for a place to stay"
+    },
+    {
+        "ID": "PMUL0138-para.json",
+        "turn_id": 3,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i have 3 guest houses to choose from . do you mind they are in the north ?",
+                "they are all moderate -ly priced , but avalon has free internet and 4 stars . would that suit you ?",
+                "the hotel i found is located in the north and it s called a and b guest house ."
+            ],
+            "usr": [
+                "i am looking for a guest house to stay in and i do not need a free parking .",
+                "no that is okay , can you book the cheapest 1 for me please ?",
+                "are there any moderate -ly priced 3 star guest houses in the west available ? if not in the west , what about the north ?",
+                "that sounds like a good option . can you tell me if they have wifi available ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-name": "a and b guest house",
+            "hotel-area": "north",
+            "hotel-parking": "no",
+            "hotel-pricerange": "cheap",
+            "hotel-type": "guest house"
+        },
+        "turn_slot_values": {
+            "hotel-name": "a and b guest house",
+            "hotel-area": "north"
+        },
+        "last_slot_values": {
+            "hotel-area": "west",
+            "hotel-parking": "no",
+            "hotel-pricerange": "cheap",
+            "hotel-type": "guest house"
+        },
+        "original_sys": "this 1 is in the north a and b guest house",
+        "original_usr": "that sounds good . do they have wifi ?"
+    },
+    {
+        "ID": "MUL0736-para.json",
+        "turn_id": 1,
+        "domains": [
+            "train",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "may i know the day of your travel ?"
+            ],
+            "usr": [
+                "i need a train to norwich . i need to get there right before 20:45 .",
+                "i am planning to leave on sunday ."
+            ]
+        },
+        "slot_values": {
+            "train-destination": "norwich",
+            "train-day": "sunday",
+            "train-arriveby": "20:45"
+        },
+        "turn_slot_values": {
+            "train-day": "sunday"
+        },
+        "last_slot_values": {
+            "train-destination": "norwich",
+            "train-arriveby": "20:45"
+        },
+        "original_sys": "and what day are you traveling ?",
+        "original_usr": "i will be leaving on sunday ."
+    },
+    {
+        "ID": "PMUL2068-para.json",
+        "turn_id": 10,
+        "domains": [
+            "attraction",
+            "taxi",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "do you have a particular type of food you would like to try ?",
+                "saigon city serves asian oriental in the north part of town .",
+                "i have no restaurant -s that list there food as unusual , do you have any other preferences ?",
+                "yes , there s a place called the hotpot",
+                "ok , how many people and what time ?",
+                "i was able to make a booking for the hotpot . you reservation number is 55cap7fc .",
+                "there are 2 in the north , jesus green outdoor pool and kings hedges learner pool . would you like the location of either of those ?",
+                "i am going to recommend the kings hedges learner pool located at jedburgh court , kings hedges the post code is cb42xh . the phone number is 01223353248 .",
+                "what time do you need to leave by ?",
+                "good day ! how may i assist you today ?"
+            ],
+            "usr": [
+                "we want to find a restaurant that serves unusual food .",
+                "no , just please make sure the food s unusual , located in the north and expensive .",
+                "that s pretty offensive to call asian oriental unusual . i am looking for a restaurant that serves food labelled as unusual .",
+                "ok , how about chinese food ? still expensive and in the north please .",
+                "let me have a reservation at hotpot on friday , thank you .",
+                "7 people at 19:45 on friday .",
+                "awesome . now can you tell me if there is a swimming pool nearby the restaurant ? i love to swim after egg rolls !",
+                "can you pick the best swimming pool and get me the postcode and phone number please ?",
+                "i also need to book a taxi between the hotel and restaurant . i need to arrive by 19:45 .",
+                "i just need it to arrive by the time the restaurant was booked .",
+                "hi there ! we need a taxi for 7 people ."
+            ]
+        },
+        "slot_values": {
+            "taxi-destination": "the hotpot",
+            "taxi-departure": "hotel",
+            "taxi-arriveby": "19:45",
+            "restaurant-book day": "friday",
+            "restaurant-book people": "7",
+            "restaurant-book time": "19:45",
+            "restaurant-pricerange": "expensive",
+            "restaurant-name": "hotpot",
+            "restaurant-area": "north",
+            "attraction-type": "swimming pool",
+            "attraction-area": "north"
+        },
+        "turn_slot_values": {
+            "taxi-destination": "the hotpot",
+            "taxi-departure": "hotel"
+        },
+        "last_slot_values": {
+            "taxi-arriveby": "19:45",
+            "restaurant-book day": "friday",
+            "restaurant-book people": "7",
+            "restaurant-book time": "19:45",
+            "restaurant-pricerange": "expensive",
+            "restaurant-name": "hotpot",
+            "restaurant-area": "north",
+            "attraction-type": "swimming pool",
+            "attraction-area": "north"
+        },
+        "original_sys": "how many people are traveling ?",
+        "original_usr": "7 people for the taxi ."
+    },
+    {
+        "ID": "WOZ20028-para.json",
+        "turn_id": 5,
+        "domains": [
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i am sorry i do not find any restaurant -s meeting those requirement -s",
+                "there are several chinese restaurant -s in the moderate price range . would you prefer the north or centre of town ?",
+                "golden wok is located in the north part of town . would you like their address and phone number ?",
+                "golden wok s phone number is 01223350688",
+                "is there anything else i can assist you with ?"
+            ],
+            "usr": [
+                "i want some welsh food . moderate -ly priced please .",
+                "i would like a chinese restaurant instead then .",
+                "i do not care .",
+                "i would like their phone number , please .",
+                "is there any thing else i can help you with ?",
+                "thank you , but i appreciate the offer . goodbye ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "chinese",
+            "restaurant-pricerange": "moderate",
+            "restaurant-name": "golden wok",
+            "restaurant-area": "dontcare"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-food": "chinese",
+            "restaurant-pricerange": "moderate",
+            "restaurant-name": "golden wok",
+            "restaurant-area": "dontcare"
+        },
+        "original_sys": "i appreciate the offer , but it is my job to help you . is there anything else ?",
+        "original_usr": "thank you , goodbye ."
+    },
+    {
+        "ID": "PMUL1187-para.json",
+        "turn_id": 0,
+        "domains": [
+            "attraction",
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you help me find a train that goes to cambridge and departs at 18:45 ?"
+            ]
+        },
+        "slot_values": {
+            "train-leaveat": "18:45",
+            "train-destination": "cambridge"
+        },
+        "turn_slot_values": {
+            "train-leaveat": "18:45",
+            "train-destination": "cambridge"
+        },
+        "last_slot_values": {},
+        "original_sys": "",
+        "original_usr": "i need a train that leaves at 18:45 and goes to cambridge ."
+    },
+    {
+        "ID": "SNG02112-para.json",
+        "turn_id": 2,
+        "domains": [
+            "taxi"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "when would you like to leave by ?",
+                "welcome ! where would you like to go today ?"
+            ],
+            "usr": [
+                "can you book a taxi for me ? i'll be departing from bangkok city .",
+                "i do not care when i leave but i need to arrive by 15:15 .",
+                "i need to go to hotel du vin and bistro . can you take me there , please ?"
+            ]
+        },
+        "slot_values": {
+            "taxi-destination": "hotel du vin and bistro",
+            "taxi-departure": "bangkok city",
+            "taxi-arriveby": "15:15"
+        },
+        "turn_slot_values": {
+            "taxi-destination": "hotel du vin and bistro"
+        },
+        "last_slot_values": {
+            "taxi-departure": "bangkok city",
+            "taxi-arriveby": "15:15"
+        },
+        "original_sys": "great . and your destination please ?",
+        "original_usr": "the taxi should take me to hotel du vin and bistro ."
+    },
+    {
+        "ID": "PMUL0363-para.json",
+        "turn_id": 2,
+        "domains": [
+            "hotel",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "the avalon is a 4 star hotel in north cambridge that is in the moderate price range . would you like their phone number ?",
+                "your booking has been confirmed and your reference number is dyamg2cy . is there anything else i can assist you with today ?"
+            ],
+            "usr": [
+                "can you tell me about a particular hotel called the avalon ?",
+                "actually , could you book a room for me ? i need it for 2 people , 5 nights . we'll arrive on wednesday .",
+                "yes , i am looking for a nice restaurant in the north . can you help me find 1 ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-area": "north",
+            "hotel-book day": "wednesday",
+            "hotel-book people": "2",
+            "hotel-book stay": "5",
+            "hotel-name": "avalon"
+        },
+        "turn_slot_values": {
+            "restaurant-area": "north"
+        },
+        "last_slot_values": {
+            "hotel-book day": "wednesday",
+            "hotel-book people": "2",
+            "hotel-book stay": "5",
+            "hotel-name": "avalon"
+        },
+        "original_sys": "booking was successful . reference number is : dyamg2cy . can i help you with anything else today ?",
+        "original_usr": "yes , could you help me find a nice place to dine in the north ."
+    },
+    {
+        "ID": "PMUL0357-para.json",
+        "turn_id": 10,
+        "domains": [
+            "hotel",
+            "taxi",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "what type of food are you interested in ?",
+                "dojo noodle bar is a cheap restaurant in the centre of town . would you like to make a reservation ?",
+                "that is asian oriental . is that okay ?",
+                "sure thing , what price range are you looking for ?",
+                "we have 1 expensive hotel in the east . would you like me to book a room for you ?",
+                "how about autumn house ?",
+                "autumn house is cheap but it is a guest house . is that okay ?",
+                "i am sorry , there does not appear to be any cheap hotel -s located in the east .",
+                "no i am sorry something else perhaps ?",
+                "welcome to our hotel booking service . how many nights would you like to stay and how many people will be joining you ?"
+            ],
+            "usr": [
+                "i am looking for a cheap restaurant",
+                "i am not looking for a specific food type but i would like it to be in centre please .",
+                "what type of food is that ?",
+                "sounds good . i am also looking for a place to stay in the east . can you help me find something ?",
+                "im looking for the expensive price range",
+                "no , i am sorry can you lookup a hotel in the east that s priced cheap and has free wifi ?",
+                "actually , can you find me a cheap place instead ?",
+                "no , i need a hotel please .",
+                "how about 1 that has free parking ?",
+                "you mentioned earlier about the autumn house being a guest house that is cheap in the east . i guess i can do a guest house . let s book there please for friday .",
+                "we will need 3 nights starting friday and there will be 4 of us ."
+            ]
+        },
+        "slot_values": {
+            "restaurant-food": "dontcare",
+            "restaurant-pricerange": "cheap",
+            "restaurant-area": "centre",
+            "hotel-book day": "friday",
+            "hotel-book people": "4",
+            "hotel-book stay": "3",
+            "hotel-area": "east",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "cheap",
+            "hotel-internet": "yes",
+            "hotel-type": "guest house"
+        },
+        "turn_slot_values": {
+            "hotel-book people": "4",
+            "hotel-book stay": "3"
+        },
+        "last_slot_values": {
+            "restaurant-food": "dontcare",
+            "restaurant-pricerange": "cheap",
+            "restaurant-area": "centre",
+            "hotel-book day": "friday",
+            "hotel-area": "east",
+            "hotel-parking": "yes",
+            "hotel-pricerange": "cheap",
+            "hotel-internet": "yes",
+            "hotel-type": "guest house"
+        },
+        "original_sys": "of course ! how many rooms will you require and for how many days ?",
+        "original_usr": "there will be 4 of us and we will need 3 nights starting friday please ."
+    },
+    {
+        "ID": "PMUL2064-para.json",
+        "turn_id": 6,
+        "domains": [
+            "attraction",
+            "taxi",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "where you interested in any particular type of cuisine ? i have some restaurant -s like that including: indian , chinese , and italian . do you have a preference ?",
+                "i can suggest ask located at 12 bridge street city centre . would you like to make reservations ?",
+                "cb21uf . is there anything else i can do to assist you ?",
+                "you should check out the downing college on regent street . do you want me to get you their phone number ?",
+                "their post code is cb21dq . it is located in regent street . phone number is 01223334860 .",
+                "where are you planning to go ?"
+            ],
+            "usr": [
+                "i am looking for a restaurant that is cheap and is in the centre . can you help me ?",
+                "yes i would like to eat italian food .",
+                "no , please give me their postcode instead",
+                "i am also interested in finding out information about local colleges . do you recommend any to visit ?",
+                "yes please . i would like their postcode , phone number , and address .",
+                "i would like to book a taxi now please . i need to leave the restaurant by 12:30 . are there any available ?",
+                "i'll be going back and forth between the hotel and the restaurant ."
+            ]
+        },
+        "slot_values": {
+            "taxi-leaveat": "12:30",
+            "taxi-departure": "ask",
+            "restaurant-food": "italian",
+            "restaurant-pricerange": "cheap",
+            "restaurant-area": "centre",
+            "attraction-type": "college",
+            "attraction-name": "downing college",
+            "attraction-area": "centre"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "taxi-leaveat": "12:30",
+            "taxi-departure": "ask",
+            "restaurant-food": "italian",
+            "restaurant-pricerange": "cheap",
+            "restaurant-area": "centre",
+            "attraction-type": "college",
+            "attraction-name": "downing college",
+            "attraction-area": "centre"
+        },
+        "original_sys": "sure , where will you be headed ?",
+        "original_usr": "between the restaurant and the hotel ."
+    },
+    {
+        "ID": "PMUL0130-para.json",
+        "turn_id": 10,
+        "domains": [
+            "hotel",
+            "taxi",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "i was unable to find any moderate -ly priced catalan restaurant -s . is there another type of cuisine you would like to try ?",
+                "i have more options of moderate british cuisine locales , any particular are you would prefer ?",
+                "okay . how bout trying the oak bistro ?",
+                "sure , how many people will be in your party ?",
+                "great , and what day and time ?",
+                "3 nights . . for the restaurant ? you can only book a single day , did you want to book a hotel instead ?",
+                "i have your booking , the reference number is u8011rcm , any further questions ?",
+                "okay , i have 34 star hotel -s available . 2 are located on the west side and 1 in the centre . do you have a preference for the area ?",
+                "ok ! i suggest the university arms hotel . would you like to book a room ?",
+                "the hotel offers free wifi and parking . how many people would you like to book for ?"
+            ],
+            "usr": [
+                "could you tell me whether there are any moderate -ly priced catalan restaurant -s ?",
+                "yes could we try 1 that serves british food ?",
+                "no the area does not matter . i would like to book a table for 7 on sunday .",
+                "ok , book that place .",
+                "we have 7 people .",
+                "it will on the same day for 3 nights .",
+                "i am sorry i did not mean to confuse . i was thinking of something else . can i book the oak bistro on sunday for 7 people at 12:45 ?",
+                "yes , i am also looking for a place to stay . i would like a 4 star hotel .",
+                "i do not have a preference .",
+                "does it have free parking and wifi ? if so yes book it for 3 nights the same day please .",
+                "please go ahead and make the booking . can you provide me with the reference number ?"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "7",
+            "restaurant-book time": "12:45",
+            "restaurant-food": "british",
+            "restaurant-pricerange": "moderate",
+            "restaurant-name": "the oak bistro",
+            "restaurant-area": "dontcare",
+            "hotel-book day": "sunday",
+            "hotel-book stay": "3",
+            "hotel-name": "university arms hotel",
+            "hotel-area": "dontcare",
+            "hotel-parking": "yes",
+            "hotel-stars": "4",
+            "hotel-internet": "yes",
+            "hotel-type": "hotel"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "7",
+            "restaurant-book time": "12:45",
+            "restaurant-food": "british",
+            "restaurant-pricerange": "moderate",
+            "restaurant-name": "the oak bistro",
+            "restaurant-area": "dontcare",
+            "hotel-book day": "sunday",
+            "hotel-book stay": "3",
+            "hotel-name": "university arms hotel",
+            "hotel-area": "dontcare",
+            "hotel-parking": "yes",
+            "hotel-stars": "4",
+            "hotel-internet": "yes",
+            "hotel-type": "hotel"
+        },
+        "original_sys": "yes , it has free wifi and parking . how many will i be booking for ?",
+        "original_usr": "go ahead and book and give me the referrence number"
+    },
+    {
+        "ID": "PMUL1866-para.json",
+        "turn_id": 0,
+        "domains": [
+            "train",
+            "hotel"
+        ],
+        "dialog": {
+            "sys": [
+                ""
+            ],
+            "usr": [
+                "can you suggest a hotel in cambridge with a moderate price range ?"
+            ]
+        },
+        "slot_values": {
+            "hotel-pricerange": "moderate",
+            "hotel-type": "hotel"
+        },
+        "turn_slot_values": {
+            "hotel-pricerange": "moderate",
+            "hotel-type": "hotel"
+        },
+        "last_slot_values": {},
+        "original_sys": "",
+        "original_usr": "i am looking for a place to stay in cambridge , moderate price for a hotel ."
+    },
+    {
+        "ID": "SNG0379-para.json",
+        "turn_id": 3,
+        "domains": [
+            "train"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "where is your departure from ?",
+                "i have train tr4638 from kings lynn to cambridge departing at 8:11 and arriving at 8:58 . would that work for you ?",
+                "your tickets have been booked successfully . the reference number for your booking is wgs360aq . you will need to pay 58.8 gbp at the station ."
+            ],
+            "usr": [
+                "i am looking for a train that leaves wednesday and arrives by 9:30 .",
+                "oh , sorry coming in from kings lynn",
+                "may i make a booking for 6 people ?",
+                "thank you ! that s great news ."
+            ]
+        },
+        "slot_values": {
+            "train-book people": "6",
+            "train-day": "wednesday",
+            "train-arriveby": "09:30",
+            "train-departure": "kings lynn"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "train-book people": "6",
+            "train-day": "wednesday",
+            "train-arriveby": "09:30",
+            "train-departure": "kings lynn"
+        },
+        "original_sys": "i have successfully booked your tickets . 58.8 gbp is payable at the station . the reference number is wgs360aq",
+        "original_usr": "great . thank you ."
+    },
+    {
+        "ID": "MUL1402-para.json",
+        "turn_id": 6,
+        "domains": [
+            "train",
+            "restaurant"
+        ],
+        "dialog": {
+            "sys": [
+                "",
+                "great ! i have found 5 different restaurant -s in the south that will suit your needs . do you like italian food ?",
+                "the taj tandoori serves indian food . is there anything else ?",
+                "okay you are all booked for a party of 1 at 16:30 on sunday at taj tandoori . is there anything else i can help you with ?",
+                "in case you need it , your reservation reference# is a3d8igz1 . now for a train . what day and time would you like to travel on , and will you be departing from cambridge ?",
+                "tr2292 departs at 20:01 and arrives at 21:01 . would that work ?",
+                "i have booked a seat for you on the tr2292 departing cambridge for broxbourne on monday at 19:01 . your reference is d9ik9lxa . is there anything else i can assist you with today ?"
+            ],
+            "usr": [
+                "yes , i need help finding a restaurant . preferably a nice , expensive 1 in the south .",
+                "no , i was actually looking for an indian restaurant . is there 1 ?",
+                "can you please book me a table for 1 at 16:30 on sunday ?",
+                "yes , please . i need a train to broxbourne .",
+                "yes , i will leave cambridge on monday sometime after 18:15 .",
+                "yes please book me a seat and i will need a reference number please .",
+                "no , that s all . thank you for your help . have a great day !"
+            ]
+        },
+        "slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "1",
+            "restaurant-book time": "16:30",
+            "restaurant-food": "indian",
+            "restaurant-pricerange": "expensive",
+            "restaurant-area": "south",
+            "train-book people": "1",
+            "train-leaveat": "18:15",
+            "train-destination": "broxbourne",
+            "train-day": "monday",
+            "train-departure": "cambridge"
+        },
+        "turn_slot_values": {},
+        "last_slot_values": {
+            "restaurant-book day": "sunday",
+            "restaurant-book people": "1",
+            "restaurant-book time": "16:30",
+            "restaurant-food": "indian",
+            "restaurant-pricerange": "expensive",
+            "restaurant-area": "south",
+            "train-book people": "1",
+            "train-leaveat": "18:15",
+            "train-destination": "broxbourne",
+            "train-day": "monday",
+            "train-departure": "cambridge"
+        },
+        "original_sys": "i have booked you a seat for 1 on the tr2292 depearting cambridge for broxbourne on monday at 19:01 . your reference is d9ik9lxa . is there anything more today ?",
+        "original_usr": "no , that will be all . thank you for your help . have a great day !"
+    }
+]

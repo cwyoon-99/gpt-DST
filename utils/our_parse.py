@@ -70,13 +70,10 @@ def pred_parse_with_bracket_matching(pred):
         pred_slot_values[i.split(value_assigner)[0].strip()] = i.split(value_assigner)[1].strip()
 
     return pred_slot_values
-    
-def slot_classify_parse(pred):
 
-    # # the output format is "(slot_name = value)"
-    # start_pos = pred.rfind("(") + 1
-    # end_pos = pred.rfind(")")
-    # pred = pred[start_pos:end_pos]
+def slot_parse_with_bracket_matching(pred):
+
+    # find all values where they are in the brackets
 
     # fix for no states
     if pred == "":
@@ -84,17 +81,18 @@ def slot_classify_parse(pred):
 
     pred_slot_values = {}
 
-    slot_value = pred.split(",")
+    # slot_value = pred.split(",")
+    slot_value = re.findall(r'\((.*?)\)', pred)
 
     value_assigner = "="
     for i in slot_value:
       i = i.replace("(","").replace(")","")
-      if value_assigner not in i:
-        continue
+      # for multiple slots in one bracket
+      if i.count(",") > 1:
+        for j in i.split(","):
+          pred_slot_values[j.split(value_assigner)[0].strip()] = ""
       else:
-        pred_slot = idx_to_slot(int(i.split(value_assigner)[0].strip()))
-        pred_value = i.split(value_assigner)[1].strip()
-        pred_slot_values[pred_slot] = pred_value
+        pred_slot_values[i.split(value_assigner)[0].strip()] = ""
 
     return pred_slot_values
 
