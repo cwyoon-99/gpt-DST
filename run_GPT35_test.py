@@ -14,9 +14,9 @@ from api_request.gpt35_completion import gpt35_completion
 from api_request.ada_completion import ada_completion
 from api_request.babbage_completion import babbage_completion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion
-from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket, slot_classify_parse, pred_parse_with_bracket_matching
+from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket, pred_parse_with_bracket_matching
 from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket,\
- get_slot_classify_prompt, slot_classify_prompt, slot_description_prompt
+ get_slot_classify_prompt, slot_description_prompt, get_prompt_for_ett
 from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
 from evaluate.evaluate_FGA import FGA
@@ -73,21 +73,21 @@ with open(ontology_path) as f:
 with open(test_set_path) as f:
     test_set = json.load(f)
 
-# read the augmented dialogue
-with open(args.aug_fn) as f:
-    aug_set = json.load(f)
-
-# # load the retriever
-# retriever = EmbeddingRetriever(datasets=[train_set],
-#                                model_path=args.retriever_dir,
-#                                search_index_filename=os.path.join(args.retriever_dir, "train_index.npy"), 
-#                                sampling_method="pre_assigned")
+# # read the augmented dialogue
+# with open(args.aug_fn) as f:
+#     aug_set = json.load(f)
 
 # load the retriever
-retriever = EmbeddingRetriever(datasets=[train_set + aug_set],
+retriever = EmbeddingRetriever(datasets=[train_set],
                                model_path=args.retriever_dir,
                                search_index_filename=os.path.join(args.retriever_dir, "train_index.npy"), 
                                sampling_method="pre_assigned")
+
+# # load the retriever
+# retriever = EmbeddingRetriever(datasets=[train_set + aug_set],
+#                                model_path=args.retriever_dir,
+#                                search_index_filename=os.path.join(args.retriever_dir, "train_index.npy"), 
+#                                sampling_method="pre_assigned")
 
 def run(test_set, turn=-1, use_gold=False):
     # turn and use_gold are for analysis purpose
@@ -121,6 +121,7 @@ def run(test_set, turn=-1, use_gold=False):
     if args.bracket:
         ontology_prompt = custom_prompt
         get_prompt = get_prompt_with_bracket
+        get_prompt = get_prompt_for_ett
         our_parse = pred_parse_with_bracket_matching
         mode = "with_bracket"
     elif args.slot_classify:
@@ -149,7 +150,6 @@ def run(test_set, turn=-1, use_gold=False):
 
             examples = retriever.item_to_nearest_examples(
                 modified_item, k=NUM_EXAMPLE)
-            # data_item['examples'] = examples
 
             prompt_text = get_prompt(
                 data_item, examples=examples, given_context=predicted_context)

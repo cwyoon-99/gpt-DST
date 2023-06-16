@@ -6,23 +6,11 @@ import random
 from sentence_transformers import SentenceTransformer
 import torch
 
-
 def state_to_NL(slot_value_dict):
     output = "[CONTEXT] "
     for k, v in slot_value_dict.items():
         output += f"{' '.join(k.split('-'))}: {v.split('|')[0]}, "
     return output
-
-def input_to_separate_string(context_dict, sys_utt, usr_utt):
-    history = state_to_NL(context_dict)
-    if sys_utt == 'none':
-        sys_utt = ''
-    if usr_utt == 'none':
-        usr_utt = ''
-    
-    sys_hist = f"{history} [system] {sys_utt}" if sys_utt != '' else ""
-    usr_hist = f"{history} [user] {usr_utt}" if usr_utt != '' else ""
-    return sys_hist, usr_hist
 
 def input_to_string(context_dict, sys_utt, usr_utt):
     history = state_to_NL(context_dict)

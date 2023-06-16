@@ -8,3 +8,6 @@ data/*
 __pycache__/
 retriever/expts/
 utils/__pycache__/
+ner_data/
+ett_metadata/
+ett_replace/
