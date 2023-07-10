@@ -1,6 +1,0 @@
-{
-    "train_fn": "data/mw21_5p_train_v2.json",
-    "output_file_name": "augment_element_2",
-    "output_dir": "augments/230517_2222-augment_element_2",
-    "mwz_ver": "2.4"
-}

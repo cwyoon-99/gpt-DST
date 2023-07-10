@@ -2,7 +2,6 @@ from utils.slot_idx import slot_to_idx, idx_to_slot
 
 custom_prompt = """Your task is to find the changed domain-slots based on the context and the dialogue between user and system, and find the corresponding value.
 The following lists are domain-slots and their possible values.
-you don't have to find other changed domain-slots if they are not in the list.
 
 hotel-name: a and b guest house, ashley hotel, el shaddia guest house, etc.
 hotel-pricerange: dontcare, cheap, moderate, expensive
@@ -85,6 +84,19 @@ def conversion(prompt, reverse=False):
         prompt = prompt.replace(k, v)
     return prompt
 
+def selective_context(last_slot_values, turn_slot_values):
+    select_context = {}
+
+    domain = [k.split("-", 1)[0] for k,v in turn_slot_values.items()]
+
+    value_list = [v for k,v in turn_slot_values.items()]
+
+    for k,v in last_slot_values.items():
+        if k.split("-", 1)[0] in domain or v in value_list:
+            select_context[k] = v
+
+    return select_context
+
 def get_our_prompt(data_item, examples, given_context=None, n_examples=None):
     
     question_item = data_item
@@ -156,6 +168,8 @@ def get_prompt_with_bracket(data_item, examples, given_context=None, n_examples=
                 '|')[0] for s, v in example['last_slot_values'].items()}
             
             prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in last_slot_values.items()}))}\n"
+            # prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in selective_context(last_slot_values, example['turn_slot_values']).items()}))}\n"
+
 
             last_sys_utt = example['dialog']['sys'][-1]
             if last_sys_utt == 'none':
@@ -266,53 +280,35 @@ def get_prompt_for_ett(data_item, examples, given_context=None, n_examples=None)
 
     return prompt_text
 
-def get_slot_classify_prompt(data_item, examples, given_context=None, n_examples=None):
-    
-    question_item = data_item
+def cluster_print(orig_examples, cluster_info):
 
-    prompt_text = f"{conversion(slot_description_prompt)}\n"
+    prompt_text = ""
 
-    max_n_examples = len(examples)
-    if n_examples is not None:
-        max_n_examples = n_examples
+    if len(cluster_info) == 1:
+        prompt_text += "----------------- Only 1 Cluster ---------------------\n"
+        return prompt_text
 
-    # in case for zero-shot learning
-    if max_n_examples > 0:
-        for example_id, example in enumerate(examples[-max_n_examples:]):
-            prompt_text += f"Example #{example_id + 1}\n"
-
-            # remove multiple choice in last slot values
-            last_slot_values = {s: v.split(
-                '|')[0] for s, v in example['last_slot_values'].items()}
-            
-            prompt_text += f"[context] {conversion(', '.join({f'({slot_to_idx(slot)} = {value})' for slot, value in last_slot_values.items()}))}\n"
-
-            last_sys_utt = example['dialog']['sys'][-1]
-            if last_sys_utt == 'none':
-                last_sys_utt = ''
-            prompt_text += f"[system] {last_sys_utt}\n"
-            prompt_text += f"[user] {example['dialog']['usr'][-1]}\n"
-            prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
-
-            prompt_text += f"A: {conversion(', '.join({f'({slot_to_idx(slot)} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
-            prompt_text += "\n\n"
-
-    prompt_text += f"Example #{max_n_examples + 1}\n"
-    if given_context is None:
-        # remove mulitple choice
-        last_slot_values = {s: v.split(
-            '|')[0] for s, v in question_item['last_slot_values'].items()}
     else:
-        last_slot_values = given_context
-    prompt_text += f"[context] {conversion(', '.join({f'({slot_to_idx(slot)} = {value})' for slot, value in last_slot_values.items()}))}\n"
+        for cluster_id, cluster in enumerate(cluster_info):
+            prompt_text += f"----------------- Cluster #{cluster_id} ---------------------\n"
 
-    last_sys_utt = question_item['dialog']['sys'][-1]
-    if last_sys_utt == 'none':
-        last_sys_utt = ''
-    prompt_text += f"[system] {last_sys_utt}\n"
-    prompt_text += f"[user] {question_item['dialog']['usr'][-1]}\n"
-    
-    prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
-    prompt_text += "A: "
+            for example_idx in cluster:
+                example = orig_examples[example_idx]
 
-    return prompt_text
+                prompt_text += f"Example #{example_idx}\n"
+                # remove multiple choice in last slot values
+                last_slot_values = {s: v.split(
+                    '|')[0] for s, v in example['last_slot_values'].items()}
+                
+                prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in last_slot_values.items()}))}\n"
+
+                last_sys_utt = example['dialog']['sys'][-1]
+                if last_sys_utt == 'none':
+                    last_sys_utt = ''
+                prompt_text += f"[system] {last_sys_utt}\n"
+                prompt_text += f"[user] {example['dialog']['usr'][-1]}\n"
+
+                prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
+                prompt_text += "\n\n"
+
+        return prompt_text
