@@ -13,10 +13,9 @@ from config import CONFIG
 from api_request.gpt35_completion import gpt35_completion
 from api_request.ada_completion import ada_completion
 from api_request.babbage_completion import babbage_completion
-from api_request.gpt35_turbo_completion import gpt35_turbo_completion
+from api_request.gpt35_turbo_completion import gpt35_turbo_completion, gpt35_turbo_completion_with_usage
 from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket, pred_parse_with_bracket_matching
-from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket,\
- get_slot_classify_prompt, slot_description_prompt, get_prompt_for_ett
+from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket
 from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
 from evaluate.evaluate_FGA import FGA
@@ -33,6 +32,7 @@ parser.add_argument('--save_interval', type=int, default=5, help="interval to sa
 parser.add_argument('--test_size', type=int, default=10, help="size of the test set")
 parser.add_argument('--bracket', action="store_true", help="whether brackets are used in each domain-slot")
 parser.add_argument('--slot_classify', action="store_true", help="whether slots are predicted through index number")
+parser.add_argument('--num_ex', type=int, default=10)
 
 # optional
 parser.add_argument('--aug_fn', type=str, help="directory of augmented dialogue")
@@ -48,7 +48,7 @@ os.makedirs(args.output_dir, exist_ok=True)
 with open(os.path.join(args.output_dir, "exp_config.json"), 'w') as f:
     json.dump(vars(args), f, indent=4)
 
-NUM_EXAMPLE=10
+NUM_EXAMPLE=args.num_ex
 
 # read the selection pool
 with open(args.train_fn) as f:
@@ -116,12 +116,16 @@ def run(test_set, turn=-1, use_gold=False):
     total_acc = 0
     total_f1 = 0
 
+    # usage measure
+    prompt_tokens = 0
+    completion_tokens = 0
+    total_tokens = 0
+
     # specify ontology_prompt, prompt_function
     mode = "default"
     if args.bracket:
         ontology_prompt = custom_prompt
         get_prompt = get_prompt_with_bracket
-        get_prompt = get_prompt_for_ett
         our_parse = pred_parse_with_bracket_matching
         mode = "with_bracket"
     elif args.slot_classify:
@@ -164,10 +168,7 @@ def run(test_set, turn=-1, use_gold=False):
         parse_error_count = 0
         while not complete_flag:
             try:
-                # completion = gpt35_completion(prompt_text)
-                # completion = ada_completion(prompt_text)
-                # completion = babbage_completion(prompt_text)
-                completion = gpt35_turbo_completion(prompt_text)
+                completion, usage = gpt35_turbo_completion_with_usage(prompt_text)
                 completion = conversion(completion, reverse=True)
             except Exception as e:
                 if e.user_message.startswith("This model's maximum context length"):
@@ -193,6 +194,10 @@ def run(test_set, turn=-1, use_gold=False):
                     complete_flag = True
             # limit query speed
             timer.step()
+
+        prompt_tokens += usage["prompt_tokens"]
+        completion_tokens += usage["completion_tokens"]
+        total_tokens += usage["total_tokens"]
 
         # aggregate the prediction and the history states
         predicted_slot_values = {}
@@ -283,14 +288,19 @@ def run(test_set, turn=-1, use_gold=False):
         for k, v in result_dict.items():
             f.write(f"accuracy of turn {k} is {sum(v)}/{len(v)} = {sum(v) / len(v)}\n")
 
+        f.write(f"\nprompt_tokens: {prompt_tokens}\n")
+        f.write(f"completion_tokens: {completion_tokens}\n")
+        f.write(f"total_tokens: {total_tokens}\n\n")
+
     return all_result
 
 
 if __name__ == "__main__":
 
     # api 사용량 위해 개수 제한
-    limited_set = test_set[:args.test_size]
-    all_results = run(limited_set)
+    if args.test_size != -1:
+        test_set = test_set[:args.test_size]
+    all_results = run(test_set)
 
     with open(os.path.join(args.output_dir, "running_log.json"), 'w') as f:
         json.dump(all_results, f, indent=4)

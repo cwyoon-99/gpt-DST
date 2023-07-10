@@ -65,9 +65,10 @@ def pred_parse_with_bracket_matching(pred):
       # for multiple slots in one bracket
       if i.count(value_assigner) > 1:
         for j in i.split(","):
-          pred_slot_values[j.split(value_assigner)[0].strip()] = j.split(value_assigner)[1].strip()  
+          # remove "-" in slot. ex) hotel-book_people -> hotel-book people
+          pred_slot_values[j.split(value_assigner)[0].replace("_"," ").strip()] = j.split(value_assigner)[1].strip()  
       else:
-        pred_slot_values[i.split(value_assigner)[0].strip()] = i.split(value_assigner)[1].strip()
+        pred_slot_values[i.split(value_assigner)[0].replace("_"," ").strip()] = i.split(value_assigner)[1].strip()
 
     return pred_slot_values
 
