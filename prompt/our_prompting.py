@@ -73,6 +73,50 @@ taxi-arriveby : arrival time of taxi
 -- answer the following multi-turn conversational questions for the ontology provided above.
 """
 
+hotel_slot = """hotel-name: a and b guest house, ashley hotel, el shaddia guest house, etc.
+hotel-pricerange: dontcare, cheap, moderate, expensive
+hotel-type: hotel, guest house
+hotel-parking: dontcare, yes, no
+hotel-book_stay: 1, 2, 3, etc.
+hotel-book_day: monday, tuesday, etc.
+hotel-book_people: 1, 2, 3, etc.
+hotel-area: dontcare, centre, east, north, south, west
+hotel-stars: dontcare, 0, 1, 2, 3, 4, 5
+hotel-internet: dontcare, yes, no
+
+"""
+
+train_slot = """train-destination: london kings cross, cambridge, peterborough, etc.
+train-departure: cambridge, stansted airport, etc.
+train-day: monday, saturday, etc.
+train-book_people: 1, 2, 3, etc.
+train-leaveat: 20:24, 12:06, etc.
+train-arriveby: 05:51, 20:52, etc.
+
+"""
+
+attraction_slot = """attraction-name: abbey pool and astroturf pitch, adc theatre, all saints church, castle galleries, etc.
+attraction-area: dontcare, centre, east, north, south, west
+attraction-type: architecture, boat, church, cinema, college, concert hall, entertainment, hotspot, multiple sports, museum, nightclub, park, special, swimming pool, theatre
+
+"""
+
+restaurant_slot = """restaurant-name: pizza hut city centre, the missing sock, golden wok, cambridge chop house, darrys cookhouse and wine shop, etc.
+restaurant-food: italian, international, chinese, dontcare, modern european, etc.
+restaurant-pricerange: dontcare, cheap, moderate, expensive
+restaurant-area: centre, east, north, south, west
+restaurant-book_time: 13:30, 17:11, etc.
+restaurant-book_day: wednesday, friday, etc.
+restaurant-book_people: 1, 2, 3, etc.
+
+"""
+
+taxi_slot = """taxi-destination: copper kettle, magdalene college, lovell lodge
+taxi-departure: royal spice, university arms hotel, da vinci pizzeria
+taxi-leaveat: 14:45, 11:15, etc.
+taxi-arriveby: 15:30, 12:45, etc.
+"""
+
 def conversion(prompt, reverse=False):
     conversion_dict = {"leaveat": "depart_time", "arriveby": "arrive_by_time",
                        "book_stay": "book_number_of_days",
@@ -83,19 +127,6 @@ def conversion(prompt, reverse=False):
     for k, v in used_dict.items():
         prompt = prompt.replace(k, v)
     return prompt
-
-def selective_context(last_slot_values, turn_slot_values):
-    select_context = {}
-
-    domain = [k.split("-", 1)[0] for k,v in turn_slot_values.items()]
-
-    value_list = [v for k,v in turn_slot_values.items()]
-
-    for k,v in last_slot_values.items():
-        if k.split("-", 1)[0] in domain or v in value_list:
-            select_context[k] = v
-
-    return select_context
 
 def get_our_prompt(data_item, examples, given_context=None, n_examples=None):
     
@@ -168,8 +199,6 @@ def get_prompt_with_bracket(data_item, examples, given_context=None, n_examples=
                 '|')[0] for s, v in example['last_slot_values'].items()}
             
             prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in last_slot_values.items()}))}\n"
-            # prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in selective_context(last_slot_values, example['turn_slot_values']).items()}))}\n"
-
 
             last_sys_utt = example['dialog']['sys'][-1]
             if last_sys_utt == 'none':
@@ -198,82 +227,6 @@ def get_prompt_with_bracket(data_item, examples, given_context=None, n_examples=
         last_sys_utt = ''
     prompt_text += f"[system] {last_sys_utt}\n"
     prompt_text += f"[user] {question_item['dialog']['usr'][-1]}\n"
-    
-    # prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
-    prompt_text += "A:"
-
-    return prompt_text
-
-def ett_conversion(prompt, reverse=False):
-    # booking time, booking-day, 
-    conversion_dict = {"leave": "leaveat", "arrive": "arriveby", "people": "book_people",
-                       "stay": "book_stay", "dest": "destination", "depart": "departure",
-                       "day": "book_day",
-                       "addr": "address",
-                       "ref": "reference", 
-                       "restaurant-time": "restaurant-book_time",
-                       "hotel-day" : "hotel-book_day",
-                       "restaurant-day": "restaurant_book_day",
-                       "restaurant-price": "restaurant-pricerange",
-                       "hotel-price":"hotel-pricerange" }
-    reverse_conversion_dict = {v: k for k, v in conversion_dict.items()}
-    used_dict = reverse_conversion_dict if reverse else conversion_dict
-
-    for k, v in used_dict.items():
-        prompt = prompt.replace(k, v)
-    return prompt
-
-def get_prompt_for_ett(data_item, examples, given_context=None, n_examples=None):
-    
-    question_item = data_item
-
-    prompt_text = f"{conversion(custom_prompt)}\n"
-
-    max_n_examples = len(examples)
-    if n_examples is not None:
-        max_n_examples = n_examples
-
-    # in case for zero-shot learning
-    if max_n_examples > 0:
-        for example_id, example in enumerate(examples[-max_n_examples:]):
-            prompt_text += f"Example #{example_id + 1}\n"
-
-            # remove multiple choice in last slot values
-            last_slot_values = {s: v.split(
-                '|')[0] for s, v in example['last_slot_values'].items()}
-            
-            prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in last_slot_values.items()}))}\n"
-
-            last_sys_utt = example['dialog']['sys'][-1]
-            if last_sys_utt == 'none':
-                last_sys_utt = ''
-            prompt_text += f"[system] {last_sys_utt}"
-            prompt_text += f" {', '.join({f'({conversion(ett_conversion(entity.lower()))})' for entity in example['sys_entity']})}\n"
-            prompt_text += f"[user] {example['dialog']['usr'][-1]}"
-            prompt_text += f" {', '.join({f'({conversion(ett_conversion(entity.lower()))})' for entity in example['usr_entity']})}\n"
-
-            # prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
-            
-            prompt_text += f"A: {conversion(', '.join({f'({slot} = {value})' for slot, value in example['turn_slot_values'].items()}))}\n"
-            prompt_text += "\n\n"
-
-    prompt_text += f"Example #{max_n_examples + 1}\n"
-    if given_context is None:
-        # remove mulitple choice
-        last_slot_values = {s: v.split(
-            '|')[0] for s, v in question_item['last_slot_values'].items()}
-    else:
-        last_slot_values = given_context
-    prompt_text += f"[context] {conversion(', '.join({f'({slot} = {value})' for slot, value in last_slot_values.items()}))}\n"
-
-    last_sys_utt = question_item['dialog']['sys'][-1]
-    if last_sys_utt == 'none':
-        last_sys_utt = ''
-    prompt_text += f"[system] {last_sys_utt}"
-    prompt_text += f" {', '.join({f'({conversion(ett_conversion(entity.lower()))})' for entity in question_item['sys_entity']})}\n"
-    prompt_text += f"[user] {question_item['dialog']['usr'][-1]}"
-    prompt_text += f" {', '.join({f'({conversion(ett_conversion(entity.lower()))})' for entity in question_item['usr_entity']})}\n"
-
     
     # prompt_text += f"Q: Based on current dialogue states ([context]), system utterance ([system]), and user utterance ([user]), what domain-slots have been changed and what are their values?\n"
     prompt_text += "A:"
@@ -312,3 +265,30 @@ def cluster_print(orig_examples, cluster_info):
                 prompt_text += "\n\n"
 
         return prompt_text
+    
+def select_active_domain(data_item):
+    prompt_text = "#dialogue\n"
+    last_slot_values = {s: v.split(
+        '|')[0] for s, v in data_item['last_slot_values'].items()}
+    
+    prompt_text += f"[context] {conversion(', '.join({f'{slot} = {value}' for slot, value in last_slot_values.items()}))}\n"
+
+    last_sys_utt = data_item['dialog']['sys'][-1]
+    if last_sys_utt == 'none':
+        last_sys_utt = ''
+    prompt_text += f"[system] {last_sys_utt}\n"
+    prompt_text += f"[user] {data_item['dialog']['usr'][-1]}\n\n"
+    
+    prompt_text += """Select the domains of the dialogue.\n1. hotel\n2. train\n3. attraction\n4. restaurant\n5. taxi\ndomains:"""    
+
+    return prompt_text
+
+def active_domain_ontology(ontology_prompt, active_domain):
+    domains = {"hotel": hotel_slot, "train": train_slot, "attraction": attraction_slot,
+               "restaurant": restaurant_slot, "taxi": taxi_slot}
+
+    for s,v in domains.items():
+        if s not in active_domain:
+            ontology_prompt = ontology_prompt.replace(v,"") # remove unrelated domains
+
+    return ontology_prompt

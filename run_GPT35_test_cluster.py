@@ -10,13 +10,10 @@ from utils.helper import SpeedLimitTimer, PreviousStateRecorder
 from utils.typo_fix import typo_fix
 from config import CONFIG
 
-from api_request.gpt35_completion import gpt35_completion
-from api_request.ada_completion import ada_completion
-from api_request.babbage_completion import babbage_completion
 from api_request.gpt35_turbo_completion import gpt35_turbo_completion, gpt35_turbo_completion_with_usage
-from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket, pred_parse_with_bracket_matching
+from utils.our_parse import sv_dict_to_string, our_pred_parse, our_pred_parse_with_bracket, pred_parse_with_bracket_matching, active_domain_parse
 from prompt.our_prompting import conversion, get_our_prompt, custom_prompt, get_prompt_with_bracket, \
-    cluster_print
+    cluster_print, select_active_domain, active_domain_ontology
 from retriever.code.embed_based_retriever import EmbeddingRetriever
 from evaluate.evaluate_metrics import evaluate
 from evaluate.evaluate_FGA import FGA
@@ -34,14 +31,14 @@ parser.add_argument('--test_size', type=int, default=10, help="size of the test 
 parser.add_argument('--bracket', action="store_true", help="whether brackets are used in each domain-slot")
 parser.add_argument('--slot_classify', action="store_true", help="whether slots are predicted through index number")
 
+# cluster
+parser.add_argument('--cluster', action="store_true", help="whether examples are clustered or not")
 parser.add_argument('--num_cand', type=int, default=10)
-parser.add_argument('--num_ex', type=int, default=5)
-
+parser.add_argument('--num_select', type=int, default=5)
 parser.add_argument('--num_max', type=int)
 parser.add_argument('--num_min', type=int)
+parser.add_argument('--domain_select', action="store_true", help="whether to select domain in ontology")
 
-# optional
-parser.add_argument('--aug_fn', type=str, help="directory of augmented dialogue")
 args = parser.parse_args()
 
 # current time
@@ -54,8 +51,8 @@ os.makedirs(args.output_dir, exist_ok=True)
 with open(os.path.join(args.output_dir, "exp_config.json"), 'w') as f:
     json.dump(vars(args), f, indent=4)
 
-NUM_EXAMPLE=args.num_cand
-N_CLUSTER_EXAMPLE=args.num_ex
+if args.num_cand: N_CAND=args.num_cand
+if args.num_select: N_SELECT=args.num_select
 
 # read the selection pool
 with open(args.train_fn) as f:
@@ -123,7 +120,6 @@ def run(test_set, turn=-1, use_gold=False):
     mode = "default"
     if args.bracket:
         ontology_prompt = custom_prompt
-        # get_prompt = get_prompt_with_cluster
         get_prompt = get_prompt_with_bracket
         our_parse = pred_parse_with_bracket_matching
 
@@ -139,26 +135,73 @@ def run(test_set, turn=-1, use_gold=False):
             modified_item = copy.deepcopy(data_item)
             modified_item['last_slot_values'] = predicted_context
 
-            # examples = retriever.item_to_nearest_examples(
-            #     modified_item, k=NUM_EXAMPLE)
-
+        if args.cluster:
             orig_examples = retriever.item_to_nearest_examples(
-                modified_item, k=NUM_EXAMPLE)
-
-            # examples, cluster_info = retriever.cluster_examples(
-            #     modified_item, k=NUM_EXAMPLE, n_example=N_CLUSTER_EXAMPLE
-            # )
+                modified_item, k=N_CAND)
 
             examples, cluster_info = retriever.dynamic_cluster_examples(
-                modified_item, k=NUM_EXAMPLE, max_ex = args.num_max, min_ex = args.num_min
+                modified_item, k=N_CAND, max_ex = args.num_max, min_ex = args.num_min
             )
 
-        data_item['cluster_info'] = cluster_print(orig_examples, cluster_info)
+            data_item['cluster_info'] = cluster_print(orig_examples, cluster_info)
+
+        else:
+            examples = retriever.item_to_nearest_examples(
+                modified_item, k=N_SELECT)
+
+
         data_item['n_example'] = len(examples)
         total_n_example += data_item['n_example']
 
         prompt_text = get_prompt(
                 data_item, examples=examples, given_context=predicted_context)
+
+        if args.domain_select:
+            # select active domain
+            select_domain_prompt = select_active_domain(data_item)
+            
+            complete_flag = False
+            while not complete_flag:
+                try:
+                    active_domain_completion, domain_usage = gpt35_turbo_completion_with_usage(select_domain_prompt)
+                except Exception as e:
+                    print(e)
+                    # throughput too high
+                    timer.sleep(10)
+                else:
+                    complete_flag = True
+                # limit query speed
+                timer.step()
+
+            data_item['domain_completion'] = active_domain_completion
+            prompt_tokens += domain_usage["prompt_tokens"]
+            completion_tokens += domain_usage["completion_tokens"]
+            total_tokens += domain_usage["total_tokens"]
+
+            pred_active_domain = active_domain_parse(active_domain_completion)
+            
+            # add extra domains from retreived examples
+            for example in examples:
+                for s,v in example['turn_slot_values'].items():
+                    pred_active_domain.add(s.split('-', 1)[0])
+            
+            # save
+            label_domain = set([s.split('-', 1)[0] for s,v in data_item['turn_slot_values'].items()])
+            if label_domain.issubset(pred_active_domain):
+                data_item['pred_domain_status'] = "correct"
+                print("pred domain correct\n")
+            else:
+                data_item['pred_domain_status'] = "wrong"
+                print("pred domain wrong\n")
+
+            data_item['predict_domain'] = list(pred_active_domain)
+            data_item['label_domain'] = list(label_domain)
+            print(f"predict_domain: {data_item['predict_domain']}")
+            print(f"  label domain:  {data_item['label_domain']}")
+            
+            
+            domain_selected_ontology = active_domain_ontology(ontology_prompt, pred_active_domain)
+            prompt_text = prompt_text.replace(conversion(ontology_prompt), conversion(domain_selected_ontology))
 
         print(prompt_text.replace(conversion(ontology_prompt), ""))
 

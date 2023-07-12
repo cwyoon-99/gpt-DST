@@ -102,3 +102,13 @@ def sv_dict_to_string(svs, sep=' ', sort=True):
     if sort:
         result_list = sorted(result_list)
     return ', '.join(result_list)
+
+def active_domain_parse(pred):
+    domains = ["hotel", "train", "attraction", "restaurant", "taxi"]
+    
+    predict_domain = set()
+    for domain_idx, i in enumerate(domains):
+        if i in pred or str(domain_idx + 1) in pred:
+            predict_domain.add(i)
+    
+    return predict_domain
